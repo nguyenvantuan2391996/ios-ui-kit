@@ -1,0 +1,225 @@
+// iOS UI Kit - Segmented Control Component
+// Defines iOS-style segmented control styles
+
+// ============================================
+// Segmented Control Base Styles
+// ============================================
+
+.segmented-control {
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  
+  // Spacing & Sizing
+  padding: $spacing-1;
+  border-radius: 8px;
+  
+  // Colors
+  background-color: $color-gray-100;
+  
+  // Effects
+  transition: all 0.2s ease;
+}
+
+// ============================================
+// Segmented Control Item
+// ============================================
+
+.segmented-control__item {
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-1;
+  
+  // Typography
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  text-align: center;
+  white-space: nowrap;
+  
+  // Spacing & Sizing
+  padding: $spacing-2 $spacing-4;
+  border: none;
+  border-radius: 6px;
+  
+  // Colors
+  background-color: transparent;
+  color: $color-text-secondary;
+  
+  // Effects
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  
+  // Hover state
+  &:hover:not(.segmented-control__item--active) {
+    color: $color-text-primary;
+  }
+  
+  // Active state
+  &--active {
+    background-color: $color-white;
+    color: $color-primary;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  // Disabled state
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    color: $color-text-disabled;
+  }
+}
+
+// ============================================
+// Segmented Control Sizes
+// ============================================
+
+.segmented-control--sm {
+  padding: $spacing-1;
+  border-radius: 6px;
+  
+  .segmented-control__item {
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    border-radius: 4px;
+  }
+}
+
+.segmented-control--md {
+  // Default size - no additional styles
+}
+
+.segmented-control--lg {
+  padding: $spacing-2;
+  border-radius: 10px;
+  
+  .segmented-control__item {
+    padding: $spacing-3 $spacing-5;
+    font-size: $font-size-base;
+    border-radius: 8px;
+  }
+}
+
+// ============================================
+// Segmented Control Colors
+// ============================================
+
+.segmented-control--primary {
+  background-color: $color-gray-100;
+  
+  .segmented-control__item--active {
+    background-color: $color-white;
+    color: $color-primary;
+  }
+}
+
+.segmented-control--secondary {
+  background-color: $color-gray-100;
+  
+  .segmented-control__item--active {
+    background-color: $color-white;
+    color: $color-secondary;
+  }
+}
+
+.segmented-control--outlined {
+  background-color: transparent;
+  border: 1px solid $color-border;
+  
+  .segmented-control__item {
+    border-right: 1px solid $color-border-light;
+    
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+// ============================================
+// Segmented Control Variants
+// ============================================
+
+// Default variant
+.segmented-control--default {
+  // Default styles
+}
+
+// Full width
+.segmented-control--block {
+  width: 100%;
+  
+  .segmented-control__item {
+    flex: 1;
+  }
+}
+
+// ============================================
+// Segmented Control with Icons
+// ============================================
+
+.segmented-control__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  
+  svg,
+  i {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Icon only segmented control
+.segmented-control__item--icon-only {
+  padding: $spacing-2;
+  min-width: auto;
+  border-radius: 6px;
+  
+  .segmented-control__icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// ============================================
+// Segmented Control Group (Multiple Selection)
+// ============================================
+
+.segmented-control--multiple .segmented-control__item {
+  // Allow multiple selections
+  &--active {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}
+
+// ============================================
+// Segmented Control Responsive
+// ============================================
+
+@media (max-width: 480px) {
+  .segmented-control--block {
+    .segmented-control__item {
+      padding: $spacing-2 $spacing-3;
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+// ============================================
+// Segmented Control States
+// ============================================
+
+.segmented-control__item {
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
