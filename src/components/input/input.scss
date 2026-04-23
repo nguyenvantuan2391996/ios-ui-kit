@@ -1,0 +1,256 @@
+// iOS UI Kit - Input Component
+// Defines input styles with variants and states
+
+// ============================================
+// Input Base Styles
+// ============================================
+
+.input {
+  // Layout
+  display: block;
+  width: 100%;
+  
+  // Typography
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  
+  // Spacing & Sizing
+  padding: $input-padding-y $input-padding-x;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  
+  // Colors
+  color: $color-text-primary;
+  background-color: $color-white;
+  caret-color: $color-primary;
+  
+  // Effects
+  transition: all 0.2s ease;
+  box-shadow: none;
+  
+  // User interaction
+  -webkit-tap-highlight-color: transparent;
+  
+  // Focus state
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    background-color: $color-white;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+  
+  // Placeholder
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+  
+  // Disabled state
+  &:disabled {
+    background-color: $color-gray-50;
+    border-color: $color-border-light;
+    color: $color-text-disabled;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+// ============================================
+// Input Variants
+// ============================================
+
+// Filled variant
+.input--filled {
+  background-color: $color-gray-50;
+  border-color: transparent;
+  
+  &:focus {
+    background-color: $color-white;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+}
+
+// Outlined variant (default)
+.input--outlined {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+}
+
+// Rounded variant
+.input--rounded {
+  border-radius: 24px;
+  padding-left: $spacing-4;
+  padding-right: $spacing-4;
+}
+
+// Underline variant
+.input--underline {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $color-border;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  
+  &:focus {
+    border-bottom-color: $color-primary;
+    box-shadow: 0 2px 0 0 $color-primary;
+  }
+}
+
+// ============================================
+// Input Sizes
+// ============================================
+
+.input--sm {
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-sm;
+  border-radius: 6px;
+}
+
+.input--md {
+  // Default size
+}
+
+.input--lg {
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-size-lg;
+  border-radius: 10px;
+}
+
+// ============================================
+// Input States
+// ============================================
+
+.input--error {
+  border-color: $color-danger;
+  
+  &:focus {
+    border-color: $color-danger;
+    box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
+  }
+}
+
+.input--warning {
+  border-color: $color-warning;
+  
+  &:focus {
+    border-color: $color-warning;
+    box-shadow: 0 0 0 3px rgba($color-warning, 0.1);
+  }
+}
+
+.input--success {
+  border-color: $color-success;
+  
+  &:focus {
+    border-color: $color-success;
+    box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+  }
+}
+
+// ============================================
+// Input with Icon Wrapper
+// ============================================
+
+.input-group {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.input-group--icon-left .input {
+  padding-left: $spacing-10;
+}
+
+.input-group--icon-right .input {
+  padding-right: $spacing-10;
+}
+
+.input-group__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $color-text-tertiary;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.input-group--icon-left .input-group__icon {
+  left: 0;
+}
+
+.input-group--icon-right .input-group__icon {
+  right: 0;
+}
+
+// ============================================
+// Input Label
+// ============================================
+
+.input-label {
+  display: block;
+  margin-bottom: $spacing-2;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.input-label--required::after {
+  content: ' *';
+  color: $color-danger;
+}
+
+// ============================================
+// Input Helper Text
+// ============================================
+
+.input-helper {
+  display: block;
+  margin-top: $spacing-1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.input-helper--error {
+  color: $color-danger;
+}
+
+.input-helper--warning {
+  color: $color-warning;
+}
+
+.input-helper--success {
+  color: $color-success;
+}
+
+// ============================================
+// Input Wrapper
+// ============================================
+
+.input-field {
+  margin-bottom: $spacing-4;
+}
+
+.input-field__label {
+  @extend .input-label;
+}
+
+.input-field__input {
+  width: 100%;
+}
+
+.input-field__helper {
+  @extend .input-helper;
+}

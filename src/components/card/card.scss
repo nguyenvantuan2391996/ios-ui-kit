@@ -1,0 +1,224 @@
+// iOS UI Kit - Card Component
+// Defines card styles with variants and layouts
+
+// ============================================
+// Card Base Styles
+// ============================================
+
+.card {
+  // Layout
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  // Spacing & Sizing
+  padding: $card-padding;
+  border-radius: 12px;
+  border: 1px solid $color-border;
+  
+  // Colors
+  background-color: $color-white;
+  color: $color-text-primary;
+  
+  // Effects
+  transition: all 0.2s ease;
+  box-shadow: $card-shadow;
+  
+  // States
+  &:hover {
+    box-shadow: $card-shadow-hover;
+  }
+}
+
+// ============================================
+// Card Sections
+// ============================================
+
+.card__header {
+  margin-bottom: $spacing-4;
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid $color-border-light;
+  
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.card__title {
+  margin: 0;
+  font-size: $typography-title-3-size;
+  font-weight: $typography-title-3-weight;
+  line-height: $typography-title-3-line-height;
+  color: $color-text-primary;
+}
+
+.card__subtitle {
+  margin: $spacing-1 0 0 0;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  color: $color-text-secondary;
+}
+
+.card__body {
+  flex: 1;
+  margin-bottom: $spacing-4;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card__content {
+  font-size: $font-size-base;
+  line-height: $line-height-relaxed;
+  color: $color-text-primary;
+}
+
+.card__footer {
+  margin-top: $spacing-4;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-border-light;
+  display: flex;
+  gap: $spacing-2;
+  justify-content: flex-end;
+  
+  &:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+// ============================================
+// Card Image
+// ============================================
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: -$card-padding -$card-padding $spacing-4 -$card-padding;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
+}
+
+.card__image--bottom {
+  margin: $spacing-4 -$card-padding -$card-padding -$card-padding;
+  border-radius: 0 0 12px 12px;
+}
+
+// ============================================
+// Card Variants
+// ============================================
+
+// Elevated variant (with shadow)
+.card--elevated {
+  border: none;
+  box-shadow: $card-shadow-elevated;
+  
+  &:hover {
+    box-shadow: $card-shadow-hover;
+  }
+}
+
+// Outlined variant (with border)
+.card--outlined {
+  border: 1px solid $color-border;
+  box-shadow: none;
+  
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+// Filled variant (background color)
+.card--filled {
+  background-color: $color-gray-50;
+  border: 1px solid $color-border-light;
+  box-shadow: none;
+}
+
+// ============================================
+// Card Sizes
+// ============================================
+
+.card--sm {
+  padding: $card-padding-sm;
+}
+
+.card--md {
+  // Default size
+}
+
+.card--lg {
+  padding: $card-padding-lg;
+}
+
+// ============================================
+// Card Colors
+// ============================================
+
+.card--primary {
+  background-color: rgba($color-primary, 0.05);
+  border-color: $color-primary;
+}
+
+.card--secondary {
+  background-color: rgba($color-secondary, 0.05);
+  border-color: $color-secondary;
+}
+
+.card--success {
+  background-color: rgba($color-success, 0.05);
+  border-color: $color-success;
+}
+
+.card--warning {
+  background-color: rgba($color-warning, 0.05);
+  border-color: $color-warning;
+}
+
+.card--danger {
+  background-color: rgba($color-danger, 0.05);
+  border-color: $color-danger;
+}
+
+// ============================================
+// Card Grid
+// ============================================
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-4;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-3;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: $spacing-3;
+  }
+}
+
+// ============================================
+// Interactive Card
+// ============================================
+
+.card--clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $card-shadow-elevated;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
