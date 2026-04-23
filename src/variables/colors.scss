@@ -1,0 +1,90 @@
+// iOS UI Kit - Colors Variables
+// Define all color tokens used throughout the design system
+
+// ============================================
+// Primary Colors
+// ============================================
+
+$color-primary: #007aff;
+$color-primary-dark: #0051d5;
+$color-secondary: #5ac8fa;
+$color-secondary-dark: #2fa9d7;
+
+// ============================================
+// Semantic Colors
+// ============================================
+
+$color-success: #34c759;
+$color-warning: #ff9500;
+$color-danger: #ff3b30;
+$color-info: #00c7be;
+
+// ============================================
+// Neutral Colors (Grayscale)
+// ============================================
+
+$color-white: #ffffff;
+$color-gray-50: #f9fafb;
+$color-gray-100: #f3f4f6;
+$color-gray-200: #e5e7eb;
+$color-gray-300: #d1d5db;
+$color-gray-400: #9ca3af;
+$color-gray-500: #6b7280;
+$color-gray-600: #4b5563;
+$color-gray-700: #374151;
+$color-gray-800: #1f2937;
+$color-gray-900: #111827;
+$color-black: #000000;
+
+// ============================================
+// Text Colors
+// ============================================
+
+$color-text-primary: #000000;
+$color-text-secondary: #6b7280;
+$color-text-tertiary: #9ca3af;
+$color-text-disabled: #d1d5db;
+$color-text-inverse: #ffffff;
+
+// ============================================
+// Border & Divider Colors
+// ============================================
+
+$color-border: #e5e7eb;
+$color-border-light: #f3f4f6;
+$color-divider: #e5e7eb;
+$color-divider: #e5e7eb;
+
+// ============================================
+// Background Colors
+// ============================================
+
+$color-bg-primary: #ffffff;
+$color-bg-secondary: #f9fafb;
+$color-bg-tertiary: #f3f4f6;
+
+// ============================================
+// Transparent Colors (Overlays)
+// ============================================
+
+$color-overlay-light: rgba(0, 0, 0, 0.1);
+$color-overlay-medium: rgba(0, 0, 0, 0.3);
+$color-overlay-dark: rgba(0, 0, 0, 0.5);
+$color-overlay-darker: rgba(0, 0, 0, 0.7);
+
+// ============================================
+// State Colors
+// ============================================
+
+// Focus
+$color-focus: #007aff;
+
+// Hover
+$color-hover: rgba(0, 122, 255, 0.1);
+
+// Active
+$color-active: rgba(0, 122, 255, 0.15);
+
+// Disabled
+$color-disabled: #e5e7eb;
+

@@ -1,0 +1,256 @@
+// iOS UI Kit - Color Utilities
+// Provides background, text, and border color utilities
+
+// ============================================
+// Background Color Utilities
+// ============================================
+
+// Semantic colors
+.bg-primary { background-color: $color-primary; }
+.bg-secondary { background-color: $color-secondary; }
+.bg-success { background-color: $color-success; }
+.bg-warning { background-color: $color-warning; }
+.bg-danger { background-color: $color-danger; }
+.bg-info { background-color: $color-info; }
+
+// Neutral colors
+.bg-white { background-color: $color-white; }
+.bg-black { background-color: $color-black; }
+.bg-gray-50 { background-color: $color-gray-50; }
+.bg-gray-100 { background-color: $color-gray-100; }
+.bg-gray-200 { background-color: $color-gray-200; }
+.bg-gray-300 { background-color: $color-gray-300; }
+.bg-gray-400 { background-color: $color-gray-400; }
+.bg-gray-500 { background-color: $color-gray-500; }
+.bg-gray-600 { background-color: $color-gray-600; }
+.bg-gray-700 { background-color: $color-gray-700; }
+.bg-gray-800 { background-color: $color-gray-800; }
+.bg-gray-900 { background-color: $color-gray-900; }
+
+// Light background variants (for text on colored backgrounds)
+.bg-primary-light { background-color: rgba($color-primary, 0.1); }
+.bg-success-light { background-color: rgba($color-success, 0.1); }
+.bg-warning-light { background-color: rgba($color-warning, 0.1); }
+.bg-danger-light { background-color: rgba($color-danger, 0.1); }
+.bg-info-light { background-color: rgba($color-info, 0.1); }
+
+// Special background utilities
+.bg-transparent { background-color: transparent; }
+.bg-current { background-color: currentColor; }
+
+// ============================================
+// Text Color Utilities (already in typography.scss but including here for completeness)
+// ============================================
+
+.text-primary { color: $color-primary; }
+.text-secondary { color: $color-secondary; }
+.text-success { color: $color-success; }
+.text-warning { color: $color-warning; }
+.text-danger { color: $color-danger; }
+.text-info { color: $color-info; }
+
+.text-white { color: $color-white; }
+.text-black { color: $color-black; }
+.text-gray-100 { color: $color-gray-100; }
+.text-gray-200 { color: $color-gray-200; }
+.text-gray-300 { color: $color-gray-300; }
+.text-gray-400 { color: $color-gray-400; }
+.text-gray-500 { color: $color-gray-500; }
+.text-gray-600 { color: $color-gray-600; }
+.text-gray-700 { color: $color-gray-700; }
+.text-gray-800 { color: $color-gray-800; }
+.text-gray-900 { color: $color-gray-900; }
+
+// ============================================
+// Border Color Utilities
+// ============================================
+
+// Semantic border colors
+.border-primary { border-color: $color-primary; }
+.border-secondary { border-color: $color-secondary; }
+.border-success { border-color: $color-success; }
+.border-warning { border-color: $color-warning; }
+.border-danger { border-color: $color-danger; }
+.border-info { border-color: $color-info; }
+
+// Neutral border colors
+.border-white { border-color: $color-white; }
+.border-black { border-color: $color-black; }
+.border-gray-100 { border-color: $color-gray-100; }
+.border-gray-200 { border-color: $color-gray-200; }
+.border-gray-300 { border-color: $color-gray-300; }
+.border-gray-400 { border-color: $color-gray-400; }
+.border-gray-500 { border-color: $color-gray-500; }
+.border-gray-600 { border-color: $color-gray-600; }
+.border-gray-700 { border-color: $color-gray-700; }
+.border-gray-800 { border-color: $color-gray-800; }
+.border-gray-900 { border-color: $color-gray-900; }
+
+// Special border utilities
+.border-transparent { border-color: transparent; }
+.border-current { border-color: currentColor; }
+
+// ============================================
+// Divide Color Utilities
+// ============================================
+
+// For element dividers
+.divide-primary > * {
+  border-color: $color-primary;
+}
+
+.divide-secondary > * {
+  border-color: $color-secondary;
+}
+
+.divide-gray-200 > * {
+  border-color: $color-gray-200;
+}
+
+.divide-gray-300 > * {
+  border-color: $color-gray-300;
+}
+
+// ============================================
+// Color Overlay Utilities
+// ============================================
+
+// For dark overlays on images
+.overlay-light {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.overlay-medium {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.overlay-dark {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.overlay-darker {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+// ============================================
+// Border Utilities with Colors
+// ============================================
+
+// Border width
+.border-0 { border-width: 0; }
+.border { border-width: 1px; }
+.border-2 { border-width: 2px; }
+.border-4 { border-width: 4px; }
+
+// Border top
+.border-t { border-top-width: 1px; }
+.border-r { border-right-width: 1px; }
+.border-b { border-bottom-width: 1px; }
+.border-l { border-left-width: 1px; }
+
+// Specific borders with color
+.border-t-primary { border-top: 1px solid $color-primary; }
+.border-b-primary { border-bottom: 1px solid $color-primary; }
+.border-l-primary { border-left: 1px solid $color-primary; }
+.border-r-primary { border-right: 1px solid $color-primary; }
+
+.border-t-gray-200 { border-top: 1px solid $color-gray-200; }
+.border-b-gray-200 { border-bottom: 1px solid $color-gray-200; }
+.border-l-gray-200 { border-left: 1px solid $color-gray-200; }
+.border-r-gray-200 { border-right: 1px solid $color-gray-200; }
+
+// ============================================
+// Opacity Utilities
+// ============================================
+
+.opacity-0 { opacity: 0; }
+.opacity-10 { opacity: 0.1; }
+.opacity-20 { opacity: 0.2; }
+.opacity-25 { opacity: 0.25; }
+.opacity-30 { opacity: 0.3; }
+.opacity-40 { opacity: 0.4; }
+.opacity-50 { opacity: 0.5; }
+.opacity-60 { opacity: 0.6; }
+.opacity-70 { opacity: 0.7; }
+.opacity-75 { opacity: 0.75; }
+.opacity-80 { opacity: 0.8; }
+.opacity-90 { opacity: 0.9; }
+.opacity-100 { opacity: 1; }
+
+// ============================================
+// Color Filter Utilities
+// ============================================
+
+// Grayscale
+.grayscale { filter: grayscale(100%); }
+.grayscale-0 { filter: grayscale(0%); }
+
+// Brightness
+.brightness-75 { filter: brightness(0.75); }
+.brightness-90 { filter: brightness(0.9); }
+.brightness-100 { filter: brightness(1); }
+.brightness-110 { filter: brightness(1.1); }
+.brightness-125 { filter: brightness(1.25); }
+
+// Contrast
+.contrast-75 { filter: contrast(0.75); }
+.contrast-100 { filter: contrast(1); }
+.contrast-125 { filter: contrast(1.25); }
+.contrast-150 { filter: contrast(1.5); }
+
+// ============================================
+// Responsive Color Utilities
+// ============================================
+
+@media (max-width: $breakpoint-sm) {
+  .sm\:bg-white { background-color: $color-white; }
+  .sm\:text-primary { color: $color-primary; }
+  .sm\:border-gray-200 { border-color: $color-gray-200; }
+}
+
+@media (min-width: $breakpoint-md) {
+  .md\:bg-gray-100 { background-color: $color-gray-100; }
+  .md\:text-gray-700 { color: $color-gray-700; }
+  .md\:border-gray-300 { border-color: $color-gray-300; }
+}
+

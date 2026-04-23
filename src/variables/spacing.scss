@@ -1,0 +1,111 @@
+// iOS UI Kit - Spacing & Sizing Variables
+// Define spacing scale and sizing utilities
+
+// ============================================
+// Spacing Scale
+// ============================================
+
+$spacing-1: 4px;
+$spacing-2: 8px;
+$spacing-3: 12px;
+$spacing-4: 16px;
+$spacing-5: 20px;
+$spacing-6: 24px;
+$spacing-7: 28px;
+$spacing-8: 32px;
+$spacing-9: 36px;
+$spacing-10: 40px;
+$spacing-11: 44px;
+$spacing-12: 48px;
+$spacing-14: 56px;
+$spacing-16: 64px;
+$spacing-20: 80px;
+$spacing-24: 96px;
+$spacing-28: 112px;
+$spacing-32: 128px;
+
+// ============================================
+// Border Radius
+// ============================================
+
+$border-radius-none: 0;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-2xl: 24px;
+$border-radius-full: 9999px;
+
+// ============================================
+// Component-Specific Spacing
+// ============================================
+
+// Button
+$button-padding-y: $spacing-2;
+$button-padding-x: $spacing-4;
+$button-padding-y-sm: $spacing-1;
+$button-padding-x-sm: $spacing-3;
+$button-padding-y-md: $spacing-2;
+$button-padding-x-md: $spacing-4;
+$button-padding-y-lg: $spacing-3;
+$button-padding-x-lg: $spacing-6;
+
+// Input
+$input-padding-y: $spacing-2;
+$input-padding-x: $spacing-3;
+$input-padding-y-lg: $spacing-3;
+$input-padding-x-lg: $spacing-4;
+$input-padding-y-sm: $spacing-1;
+$input-padding-x-sm: $spacing-2;
+
+// Navbar
+$navbar-padding-y: $spacing-3;
+$navbar-padding-x: $spacing-4;
+$navbar-padding-lg: $spacing-4;
+
+// Badge
+$badge-padding-y: $spacing-1;
+$badge-padding-x: $spacing-2;
+
+// Card
+$card-padding: $spacing-4;
+$card-padding-lg: $spacing-6;
+$card-padding-sm: $spacing-2;
+
+// ============================================
+// Breakpoints
+// ============================================
+
+$breakpoint-xs: 320px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// ============================================
+// Z-Index Scale
+// ============================================
+
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// ============================================
+// Sizing
+// ============================================
+
+$container-max-width: 1200px;
+$container-padding: $spacing-4;
+
+// Icon sizes
+$icon-size-xs: 16px;
+$icon-size-sm: 20px;
+$icon-size-md: 24px;
+$icon-size-lg: 32px;
+$icon-size-xl: 48px;
+

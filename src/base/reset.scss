@@ -1,0 +1,161 @@
+// iOS UI Kit - CSS Reset & Normalize
+// Provides a consistent baseline for all browsers
+
+// ============================================
+// Reset & Normalize
+// ============================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-primary;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: $font-weight-bold;
+}
+
+h1 {
+  font-size: $h1-font-size;
+  line-height: $h1-line-height;
+}
+
+h2 {
+  font-size: $h2-font-size;
+  line-height: $h2-line-height;
+}
+
+h3 {
+  font-size: $h3-font-size;
+  line-height: $h3-line-height;
+}
+
+h4 {
+  font-size: $h4-font-size;
+  line-height: $h4-line-height;
+}
+
+h5 {
+  font-size: $h5-font-size;
+  line-height: $h5-line-height;
+}
+
+h6 {
+  font-size: $h6-font-size;
+  line-height: $h6-line-height;
+}
+
+// Paragraphs
+p {
+  margin: 0;
+  padding: 0;
+}
+
+// Lists
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
+
+// Links
+a {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: darken($color-primary, 10%);
+  }
+
+  &:active {
+    color: darken($color-primary, 15%);
+  }
+}
+
+// Buttons
+button,
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: $font-family-base;
+}
+
+// Forms
+input,
+textarea,
+select {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  color: $color-text-primary;
+
+  &::placeholder {
+    color: $color-text-secondary;
+  }
+}
+
+// Images
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+td, th {
+  padding: 0;
+  text-align: left;
+}
+
+// Code
+code,
+pre {
+  font-family: $font-family-mono;
+}
+
+// Blockquote
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+// Horizontal Rule
+hr {
+  border: none;
+  border-top: 1px solid $color-border;
+  margin: 1rem 0;
+}
+

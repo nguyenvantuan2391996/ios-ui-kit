@@ -1,0 +1,288 @@
+// iOS UI Kit - Avatar Component
+// Defines avatar styles with sizes, variants, and grouping
+
+// ============================================
+// Avatar Base Styles
+// ============================================
+
+.avatar {
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  // Sizing (default medium)
+  width: 40px;
+  height: 40px;
+
+  // Styling
+  border-radius: 50%;
+  background-color: $color-gray-200;
+  color: $color-text-primary;
+
+  // Typography for initials
+  font-family: $font-family-base;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-align: center;
+
+  // Effects
+  box-shadow: $card-shadow-sm;
+  overflow: hidden;
+  border: 1px solid $color-border;
+
+  // User interaction
+  user-select: none;
+  flex-shrink: 0;
+}
+
+// ============================================
+// Avatar Image
+// ============================================
+
+.avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// ============================================
+// Avatar Initials
+// ============================================
+
+.avatar__initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+}
+
+// ============================================
+// Avatar Icon
+// ============================================
+
+.avatar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  font-size: 1.4em;
+}
+
+// ============================================
+// Avatar Sizes
+// ============================================
+
+.avatar--xs {
+  width: 24px;
+  height: 24px;
+  font-size: $font-size-xs;
+}
+
+.avatar--sm {
+  width: 32px;
+  height: 32px;
+  font-size: $font-size-xs;
+}
+
+.avatar--md {
+  width: 40px;
+  height: 40px;
+  font-size: $font-size-sm;
+}
+
+.avatar--lg {
+  width: 48px;
+  height: 48px;
+  font-size: $font-size-sm;
+}
+
+.avatar--xl {
+  width: 56px;
+  height: 56px;
+  font-size: $font-size-base;
+}
+
+.avatar--2xl {
+  width: 64px;
+  height: 64px;
+  font-size: $font-size-lg;
+}
+
+// ============================================
+// Avatar Colors
+// ============================================
+
+// Primary
+.avatar--primary {
+  background-color: rgba($color-primary, 0.2);
+  color: $color-primary;
+  border-color: $color-primary;
+}
+
+// Secondary
+.avatar--secondary {
+  background-color: rgba($color-secondary, 0.2);
+  color: $color-secondary;
+  border-color: $color-secondary;
+}
+
+// Success
+.avatar--success {
+  background-color: rgba($color-success, 0.2);
+  color: $color-success;
+  border-color: $color-success;
+}
+
+// Warning
+.avatar--warning {
+  background-color: rgba($color-warning, 0.2);
+  color: $color-warning;
+  border-color: $color-warning;
+}
+
+// Danger
+.avatar--danger {
+  background-color: rgba($color-danger, 0.2);
+  color: $color-danger;
+  border-color: $color-danger;
+}
+
+// Info
+.avatar--info {
+  background-color: rgba($color-info, 0.2);
+  color: $color-info;
+  border-color: $color-info;
+}
+
+// ============================================
+// Avatar Status Badge
+// ============================================
+
+.avatar__status {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: $color-success;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px $color-border;
+}
+
+.avatar__status--offline {
+  background-color: $color-gray-400;
+}
+
+.avatar__status--away {
+  background-color: $color-warning;
+}
+
+.avatar__status--busy {
+  background-color: $color-danger;
+}
+
+// Larger status badge for bigger avatars
+.avatar--lg .avatar__status,
+.avatar--xl .avatar__status,
+.avatar--2xl .avatar__status {
+  width: 14px;
+  height: 14px;
+  bottom: -4px;
+  right: -4px;
+}
+
+// ============================================
+// Avatar Group (Stacked)
+// ============================================
+
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+
+  // Stack avatars with overlap
+  .avatar {
+    margin-left: -8px;
+    box-shadow: 0 0 0 2px white, $card-shadow-sm;
+
+    &:first-child {
+      margin-left: 0;
+      z-index: 3;
+    }
+
+    &:nth-child(2) {
+      z-index: 2;
+    }
+
+    &:nth-child(3) {
+      z-index: 1;
+    }
+
+    &:nth-child(n+4) {
+      z-index: 0;
+    }
+  }
+}
+
+// Avatar group with different overlap for size variants
+.avatar-group--sm .avatar {
+  margin-left: -6px;
+}
+
+.avatar-group--md .avatar {
+  margin-left: -8px;
+}
+
+.avatar-group--lg .avatar {
+  margin-left: -12px;
+}
+
+// ============================================
+// Avatar Halo / Ring
+// ============================================
+
+.avatar--halo {
+  box-shadow: 0 0 0 2px rgba($color-primary, 0.3), $card-shadow-sm;
+}
+
+.avatar--halo-primary {
+  box-shadow: 0 0 0 2px rgba($color-primary, 0.3), $card-shadow-sm;
+}
+
+.avatar--halo-success {
+  box-shadow: 0 0 0 2px rgba($color-success, 0.3), $card-shadow-sm;
+}
+
+.avatar--halo-warning {
+  box-shadow: 0 0 0 2px rgba($color-warning, 0.3), $card-shadow-sm;
+}
+
+.avatar--halo-danger {
+  box-shadow: 0 0 0 2px rgba($color-danger, 0.3), $card-shadow-sm;
+}
+
+// ============================================
+// Avatar Interactive
+// ============================================
+
+.avatar--clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+

@@ -1,0 +1,64 @@
+{
+  "name": "ios-ui-kit",
+  "version": "1.0.0",
+  "description": "A CSS component library that mimics iOS interface design for building web applications with an iOS-like appearance.",
+  "main": "dist/ios-ui-kit.css",
+  "style": "dist/ios-ui-kit.css",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist/",
+    "src/",
+    "types/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "sass src/index.scss dist/ios-ui-kit.css",
+    "build:min": "sass --style=compressed src/index.scss dist/ios-ui-kit.min.css",
+    "build:all": "npm run build && npm run build:min",
+    "watch": "sass --watch src:dist",
+    "lint": "echo 'No linting configured yet'",
+    "test": "echo 'No tests configured yet'",
+    "serve": "npx serve examples",
+    "prepublishOnly": "npm run build:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenvantuan2391996/ios-ui-kit.git"
+  },
+  "keywords": [
+    "css",
+    "ui-kit",
+    "component-library",
+    "ios",
+    "design-system",
+    "components",
+    "utilities",
+    "responsive",
+    "scss",
+    "styling"
+  ],
+  "author": {
+    "name": "Nguyễn Văn Tuấn",
+    "email": "nguyenvantuan2391996@gmail.com",
+    "url": "https://github.com/nguyenvantuan2391996"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/nguyenvantuan2391996/ios-ui-kit",
+  "bugs": {
+    "url": "https://github.com/nguyenvantuan2391996/ios-ui-kit/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0"
+  },
+  "peerDependencies": {},
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  }
+}
+

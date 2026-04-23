@@ -1,0 +1,91 @@
+// iOS UI Kit - Shadow Variables
+// Define shadow effects for iOS-style design
+
+// ============================================
+// Card Shadows (iOS-style)
+// ============================================
+
+// Extra Small shadow
+$card-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+// Small shadow
+$card-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+
+// Medium shadow (default)
+$card-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+
+// Large shadow
+$card-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+
+// Extra Large shadow
+$card-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+
+// 2X Large shadow
+$card-shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+
+// Default card shadow (medium)
+$card-shadow: $card-shadow-md;
+
+// Card hover state shadow
+$card-shadow-hover: $card-shadow-lg;
+
+// Card elevated variant shadow
+$card-shadow-elevated: $card-shadow-lg;
+
+// ============================================
+// Button Shadows
+// ============================================
+
+$button-shadow: $card-shadow-sm;
+$button-shadow-hover: $card-shadow-md;
+$button-shadow-active: $card-shadow-xs;
+
+// ============================================
+// Input Shadows
+// ============================================
+
+$input-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+$input-shadow-focus: 0 0 0 3px rgba(0, 122, 255, 0.1);
+
+// ============================================
+// Badge Shadows
+// ============================================
+
+$badge-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+// ============================================
+// Modal/Dialog Shadows
+// ============================================
+
+$modal-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+// ============================================
+// Navbar Shadows
+// ============================================
+
+$navbar-shadow: $card-shadow-sm;
+
+// ============================================
+// Dropdown/Popover Shadows
+// ============================================
+
+$dropdown-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+// ============================================
+// Elevation System (Material Design inspired)
+// ============================================
+
+$elevation-0: none;
+$elevation-1: $card-shadow-xs;
+$elevation-2: $card-shadow-sm;
+$elevation-3: $card-shadow-md;
+$elevation-4: $card-shadow-lg;
+$elevation-5: $card-shadow-xl;
+
+// Short alias for elevation levels
+$shadow-1: $elevation-1;
+$shadow-2: $elevation-2;
+$shadow-3: $elevation-3;
+$shadow-4: $elevation-4;
+$shadow-5: $elevation-5;
+

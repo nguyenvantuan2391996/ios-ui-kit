@@ -1,0 +1,353 @@
+// iOS UI Kit - Global Styles
+// Common styles and utilities applied to the entire site
+
+// ============================================
+// Container
+// ============================================
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+  max-width: $container-max-width;
+}
+
+// ============================================
+// Utility Classes
+// ============================================
+
+// Display
+.d-none {
+  display: none !important;
+}
+
+.d-inline {
+  display: inline !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.d-grid {
+  display: grid !important;
+}
+
+// Visibility
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+// Text Alignment
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Text Color
+.text-primary {
+  color: $color-primary;
+}
+
+.text-secondary {
+  color: $color-secondary;
+}
+
+.text-success {
+  color: $color-success;
+}
+
+.text-warning {
+  color: $color-warning;
+}
+
+.text-danger {
+  color: $color-danger;
+}
+
+.text-info {
+  color: $color-info;
+}
+
+.text-muted {
+  color: $color-text-secondary;
+}
+
+// Text Utilities
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.font-weight-light {
+  font-weight: $font-weight-light;
+}
+
+.font-weight-normal {
+  font-weight: $font-weight-normal;
+}
+
+.font-weight-medium {
+  font-weight: $font-weight-medium;
+}
+
+.font-weight-semibold {
+  font-weight: $font-weight-semibold;
+}
+
+.font-weight-bold {
+  font-weight: $font-weight-bold;
+}
+
+// Cursor
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+// Opacity
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+// Overflow
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+// Rounded
+.rounded-none {
+  border-radius: $border-radius-none;
+}
+
+.rounded-sm {
+  border-radius: $border-radius-sm;
+}
+
+.rounded {
+  border-radius: $border-radius-md;
+}
+
+.rounded-lg {
+  border-radius: $border-radius-lg;
+}
+
+.rounded-xl {
+  border-radius: $border-radius-xl;
+}
+
+.rounded-2xl {
+  border-radius: $border-radius-2xl;
+}
+
+.rounded-full {
+  border-radius: $border-radius-full;
+}
+
+// Shadow
+.shadow-none {
+  box-shadow: none;
+}
+
+.shadow-xs {
+  box-shadow: $card-shadow-xs;
+}
+
+.shadow-sm {
+  box-shadow: $card-shadow-sm;
+}
+
+.shadow {
+  box-shadow: $card-shadow-md;
+}
+
+.shadow-md {
+  box-shadow: $card-shadow-md;
+}
+
+.shadow-lg {
+  box-shadow: $card-shadow-lg;
+}
+
+.shadow-xl {
+  box-shadow: $card-shadow-xl;
+}
+
+.shadow-2xl {
+  box-shadow: $card-shadow-2xl;
+}
+
+// Pointer Events
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+// User Select
+.user-select-none {
+  user-select: none;
+}
+
+.user-select-text {
+  user-select: text;
+}
+
+.user-select-all {
+  user-select: all;
+}
+
+// Positions
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.static {
+  position: static;
+}
+
+// Background Colors
+.bg-primary {
+  background-color: $color-primary;
+  color: white;
+}
+
+.bg-secondary {
+  background-color: $color-secondary;
+  color: white;
+}
+
+.bg-success {
+  background-color: $color-success;
+  color: white;
+}
+
+.bg-warning {
+  background-color: $color-warning;
+  color: white;
+}
+
+.bg-danger {
+  background-color: $color-danger;
+  color: white;
+}
+
+.bg-info {
+  background-color: $color-info;
+  color: white;
+}
+
+.bg-white {
+  background-color: $color-white;
+}
+
+.bg-gray-100 {
+  background-color: $color-gray-100;
+}
+
+.bg-gray-200 {
+  background-color: $color-gray-200;
+}
+
+// Focus Visible
+:focus-visible {
+  outline: 2px solid $color-focus;
+  outline-offset: 2px;
+}
+
+// Transitions
+.transition {
+  transition: all 0.2s ease;
+}
+
+.transition-colors {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.transition-transform {
+  transition: transform 0.2s ease;
+}
+

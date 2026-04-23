@@ -1,0 +1,110 @@
+// iOS UI Kit - Typography Variables
+// Define font families, sizes, weights, and line heights
+
+// ============================================
+// Font Families
+// ============================================
+
+$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+$font-family-heading: $font-family-base;
+
+// ============================================
+// Font Sizes
+// ============================================
+
+$font-size-xs: 12px;    // Extra Small
+$font-size-sm: 14px;    // Small
+$font-size-base: 16px;  // Base / Medium
+$font-size-lg: 18px;    // Large
+$font-size-xl: 20px;    // Extra Large
+$font-size-2xl: 24px;   // 2X Large
+$font-size-3xl: 30px;   // 3X Large
+$font-size-4xl: 36px;   // 4X Large
+
+// ============================================
+// Font Weights
+// ============================================
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// ============================================
+// Line Heights
+// ============================================
+
+$line-height-tight: 1.25;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// ============================================
+// Letter Spacing
+// ============================================
+
+$letter-spacing-tight: -0.5px;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.5px;
+$letter-spacing-wider: 1px;
+
+// ============================================
+// Heading Styles
+// ============================================
+
+$h1-font-size: $font-size-4xl;
+$h1-font-weight: $font-weight-bold;
+$h1-line-height: 1.2;
+
+$h2-font-size: $font-size-3xl;
+$h2-font-weight: $font-weight-bold;
+$h2-line-height: 1.2;
+
+$h3-font-size: $font-size-2xl;
+$h3-font-weight: $font-weight-bold;
+$h3-line-height: 1.25;
+
+$h4-font-size: $font-size-xl;
+$h4-font-weight: $font-weight-semibold;
+$h4-line-height: 1.25;
+
+$h5-font-size: $font-size-lg;
+$h5-font-weight: $font-weight-semibold;
+$h5-line-height: 1.5;
+
+$h6-font-size: $font-size-base;
+$h6-font-weight: $font-weight-semibold;
+$h6-line-height: 1.5;
+
+// ============================================
+// Typography Title Variables (for components)
+// ============================================
+
+$typography-title-3-size: $h3-font-size;
+$typography-title-3-weight: $h3-font-weight;
+$typography-title-3-line-height: $h3-line-height;
+
+$typography-headline-size: $h2-font-size;
+$typography-headline-weight: $h2-font-weight;
+$typography-headline-line-height: $h2-line-height;
+
+// ============================================
+// Body Text Styles
+// ============================================
+
+$body-font-size: $font-size-base;
+$body-font-weight: $font-weight-normal;
+$body-line-height: $line-height-normal;
+
+// ============================================
+// Small Text Styles
+// ============================================
+
+$small-font-size: $font-size-xs;
+$small-font-weight: $font-weight-normal;
+$small-line-height: $line-height-tight;
+

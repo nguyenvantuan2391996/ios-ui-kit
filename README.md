@@ -1,70 +1,71 @@
 # iOS UI Kit - CSS Components Library
 
-Một bộ CSS component library mô phỏng giao diện iOS, giúp bạn dễ dàng xây dựng các ứng dụng web có giao diện giống iOS.
+A comprehensive CSS component library that mimics iOS interface design, helping you easily build web applications with an iOS-like appearance.
 
-## 📋 Roadmap & Plan Chi Tiết
+## 📋 Roadmap & Detailed Plan
 
-### **Phase 1: Foundation & Setup** (Tuần 1-2)
-- [x] Tạo repository cơ bản
-- [ ] Tạo structure folder project
-- [ ] Setup file cấu hình (package.json, .gitignore, etc.)
-- [ ] Tạo file SCSS/CSS base
-- [ ] Tạo file variables & theme colors
-- [ ] Tạo file utilities & helpers
+### **Phase 1: Foundation & Setup** (Week 1-2) ✅
+
+- [x] Create basic repository
+- [x] Create project folder structure
+- [x] Setup configuration files (package.json, .gitignore, etc.)
+- [x] Create SCSS/CSS base files
+- [x] Create variable files & theme colors
+- [x] Create utility files & helpers
 
 **Deliverables:**
-- Folder structure hoàn chỉnh
-- Variables & theme system sẵn sàng
+- Complete folder structure
+- Variables & theme system ready
 - Base styles & reset
 
 ---
 
-### **Phase 2: Core Components** (Tuần 3-5)
+### **Phase 2: Core Components** (Week 3-5) ✅
 
 #### **2.1 Button Component**
-- [ ] Tạo button cơ bản (.btn)
-- [ ] Button variants: primary, secondary, danger, warning
-- [ ] Button sizes: small, medium, large
-- [ ] Button states: normal, hover, active, disabled
-- [ ] Button với icon support
-- [ ] Documentation & example
+- [x] Create basic button (.btn)
+- [x] Button variants: primary, secondary, danger, warning
+- [x] Button sizes: small, medium, large
+- [x] Button states: normal, hover, active, disabled
+- [x] Button with icon support
+- [x] Documentation & example
 
 **Files:**
 - `components/button/button.scss`
 - `components/button/button.html` (demo)
 
 #### **2.2 Input Component**
-- [ ] Input text cơ bản
-- [ ] Input variants: default, rounded, filled, outlined
-- [ ] Input sizes: small, medium, large
-- [ ] Input states: normal, focus, disabled, error
-- [ ] Input với label & placeholder
-- [ ] Input validation feedback
-- [ ] Documentation & example
+- [x] Create basic text input
+- [x] Input variants: default, rounded, filled, outlined
+- [x] Input sizes: small, medium, large
+- [x] Input states: normal, focus, disabled, error
+- [x] Input with label & placeholder
+- [x] Input validation feedback
+- [x] Documentation & example
 
 **Files:**
 - `components/input/input.scss`
 - `components/input/input.html` (demo)
 
 #### **2.3 Card Component**
-- [ ] Card cơ bản với shadow iOS-style
-- [ ] Card variants: elevated, outlined, filled
-- [ ] Card header, body, footer sections
-- [ ] Card image support
-- [ ] Card actions (button group)
-- [ ] Documentation & example
+- [x] Create basic card with iOS-style shadow
+- [x] Card variants: elevated, outlined, filled
+- [x] Card header, body, footer sections
+- [x] Card image support
+- [x] Card actions (button group)
+- [x] Documentation & example
 
 **Files:**
 - `components/card/card.scss`
 - `components/card/card.html` (demo)
 
 #### **2.4 Badge Component**
-- [ ] Badge cơ bản
-- [ ] Badge colors: primary, success, warning, danger, info
-- [ ] Badge sizes: small, medium, large
-- [ ] Badge shapes: rounded, pill
-- [ ] Badge với close button
-- [ ] Documentation & example
+- [x] Create basic badge
+- [x] Badge colors: primary, success, warning, danger, info
+- [x] Badge sizes: small, medium, large
+- [x] Badge shapes: rounded, pill
+- [x] Badge with close button
+- [x] Documentation & example
 
 **Files:**
 - `components/badge/badge.scss`
@@ -72,38 +73,38 @@ Một bộ CSS component library mô phỏng giao diện iOS, giúp bạn dễ d
 
 ---
 
-### **Phase 3: Navigation Components** (Tuần 6-7)
+### **Phase 3: Navigation Components** (Week 6-7) ✅
 
 #### **3.1 Navbar Component**
-- [ ] Navbar cơ bản (header iOS-style)
-- [ ] Navbar variants: light, dark, translucent
-- [ ] Navbar title & subtitle
-- [ ] Navbar left/right actions
-- [ ] Navbar sticky option
-- [ ] Documentation & example
+- [x] Create basic navbar (iOS-style header)
+- [x] Navbar variants: light, dark, translucent
+- [x] Navbar title & subtitle
+- [x] Navbar left/right actions
+- [x] Navbar sticky option
+- [x] Documentation & example
 
 **Files:**
 - `components/navbar/navbar.scss`
 - `components/navbar/navbar.html` (demo)
 
 #### **3.2 Tabs Component**
-- [ ] Tab cơ bản
-- [ ] Tab layout: horizontal, vertical
-- [ ] Tab active indicator
-- [ ] Tab with icons
-- [ ] Tab responsive
-- [ ] Documentation & example
+- [x] Create basic tabs
+- [x] Tab layout: horizontal, vertical
+- [x] Tab active indicator
+- [x] Tab with icons
+- [x] Tab responsive
+- [x] Documentation & example
 
 **Files:**
 - `components/tabs/tabs.scss`
 - `components/tabs/tabs.html` (demo)
 
 #### **3.3 Segmented Control**
-- [ ] Segmented control iOS-style
-- [ ] Multiple select support
-- [ ] Single select support
-- [ ] Icon support
-- [ ] Documentation & example
+- [x] Create iOS-style segmented control
+- [x] Multiple select support
+- [x] Single select support
+- [x] Icon support
+- [x] Documentation & example
 
 **Files:**
 - `components/segmented-control/segmented-control.scss`
@@ -111,35 +112,35 @@ Một bộ CSS component library mô phỏng giao diện iOS, giúp bạn dễ d
 
 ---
 
-### **Phase 4: Form Components** (Tuần 8-9)
+### **Phase 4: Form Components** (Week 8-9) ✅
 
 #### **4.1 Checkbox & Radio**
-- [ ] Checkbox cơ bản
-- [ ] Radio button cơ bản
-- [ ] Custom styling (iOS-style)
-- [ ] States: checked, unchecked, disabled, indeterminate
-- [ ] Documentation & example
+- [x] Create basic checkbox
+- [x] Create basic radio button
+- [x] Custom styling (iOS-style)
+- [x] States: checked, unchecked, disabled, indeterminate
+- [x] Documentation & example
 
 **Files:**
 - `components/checkbox/checkbox.scss`
 - `components/radio/radio.scss`
 
 #### **4.2 Toggle Switch**
-- [ ] Toggle switch iOS-style (on/off)
-- [ ] Toggle sizes
-- [ ] Toggle colors
-- [ ] Documentation & example
+- [x] Create iOS-style toggle switch (on/off)
+- [x] Toggle sizes
+- [x] Toggle colors
+- [x] Documentation & example
 
 **Files:**
 - `components/toggle/toggle.scss`
 - `components/toggle/toggle.html` (demo)
 
 #### **4.3 Select/Dropdown**
-- [ ] Select cơ bản
-- [ ] Select multiple option
-- [ ] Select searchable
-- [ ] Select grouped options
-- [ ] Documentation & example
+- [x] Create basic select
+- [x] Select multiple options
+- [x] Select searchable
+- [x] Select grouped options
+- [x] Documentation & example
 
 **Files:**
 - `components/select/select.scss`
@@ -147,35 +148,35 @@ Một bộ CSS component library mô phỏng giao diện iOS, giúp bạn dễ d
 
 ---
 
-### **Phase 5: Modal & Overlay Components** (Tuần 10)
+### **Phase 5: Modal & Overlay Components** (Week 10) ✅
 
 #### **5.1 Modal/Dialog**
-- [ ] Modal cơ bản
-- [ ] Modal sizes: small, medium, large
-- [ ] Modal header, body, footer
-- [ ] Modal close button
-- [ ] Modal backdrop
-- [ ] Documentation & example
+- [x] Create basic modal
+- [x] Modal sizes: small, medium, large
+- [x] Modal header, body, footer
+- [x] Modal close button
+- [x] Modal backdrop
+- [x] Documentation & example
 
 **Files:**
 - `components/modal/modal.scss`
 - `components/modal/modal.html` (demo)
 
 #### **5.2 Alert/Toast**
-- [ ] Alert/Toast types: success, warning, error, info
-- [ ] Alert positions & animations
-- [ ] Auto-dismiss option
-- [ ] Documentation & example
+- [x] Alert/Toast types: success, warning, error, info
+- [x] Alert positions & animations
+- [x] Auto-dismiss option
+- [x] Documentation & example
 
 **Files:**
 - `components/alert/alert.scss`
 - `components/alert/alert.html` (demo)
 
 #### **5.3 Spinner/Loading**
-- [ ] Loading spinner
-- [ ] Spinner sizes & colors
-- [ ] Pulse animation
-- [ ] Documentation & example
+- [x] Create loading spinner
+- [x] Spinner sizes & colors
+- [x] Pulse animation
+- [x] Documentation & example
 
 **Files:**
 - `components/spinner/spinner.scss`
@@ -183,68 +184,83 @@ Một bộ CSS component library mô phỏng giao diện iOS, giúp bạn dễ d
 
 ---
 
-### **Phase 6: List & Grid Components** (Tuần 11)
+### **Phase 6: List & Grid Components** (Week 11) ✅
 
 #### **6.1 List Component**
-- [ ] List item cơ bản
-- [ ] List item with avatar
-- [ ] List item with title & description
-- [ ] List divider
-- [ ] List group
-- [ ] Documentation & example
+- [x] Create basic list items
+- [x] List item with avatar
+- [x] List item with title & description
+- [x] List divider
+- [x] List group
+- [x] Documentation & example
 
 **Files:**
 - `components/list/list.scss`
-- `components/list/list.html` (demo)
+- `examples/index-phase6.html` (demo)
 
 #### **6.2 Avatar Component**
-- [ ] Avatar cơ bản
-- [ ] Avatar sizes
-- [ ] Avatar group (stacked)
-- [ ] Avatar with image/initials/icon
-- [ ] Documentation & example
+- [x] Create basic avatar
+- [x] Avatar sizes
+- [x] Avatar group (stacked)
+- [x] Avatar with image/initials/icon
+- [x] Documentation & example
 
 **Files:**
 - `components/avatar/avatar.scss`
-- `components/avatar/avatar.html` (demo)
+- `examples/index-phase6.html` (demo)
 
 ---
 
-### **Phase 7: Utility & Helper Components** (Tuần 12)
+### **Phase 7: Utility & Helper Components** (Week 12) ✅
 
 #### **7.1 Spacing & Sizing Utilities**
-- [ ] Margin utilities
-- [ ] Padding utilities
-- [ ] Width & height utilities
-- [ ] Display utilities
+- [x] Margin utilities (m-*, mt-*, mb-*, ml-*, mr-*, mx-*, my-*)
+- [x] Padding utilities (p-*, pt-*, pb-*, pl-*, pr-*, px-*, py-*)
+- [x] Width & height utilities (w-*, h-*, min-w-*, max-w-*, etc.)
+- [x] Display utilities (d-flex, d-grid, d-block, etc.)
+- [x] Gap and flex utilities for layouts
 
 #### **7.2 Typography Utilities**
-- [ ] Font size utilities
-- [ ] Font weight utilities
-- [ ] Text alignment utilities
-- [ ] Text color utilities
+- [x] Font size utilities (text-xs, text-sm, text-base, text-lg, etc.)
+- [x] Font weight utilities (font-light, font-normal, font-bold, etc.)
+- [x] Text alignment utilities (text-left, text-center, text-right)
+- [x] Text color utilities (text-primary, text-success, text-danger, etc.)
+- [x] Text transform utilities (uppercase, lowercase, capitalize)
+- [x] Line clamp utilities for text truncation
 
 #### **7.3 Color Utilities**
-- [ ] Background color utilities
-- [ ] Text color utilities
-- [ ] Border color utilities
+- [x] Background color utilities (bg-primary, bg-gray-*, etc.)
+- [x] Text color utilities (text-*, inherited from typography)
+- [x] Border color utilities (border-primary, border-gray-*, etc.)
+- [x] Opacity utilities (opacity-0 to opacity-100)
+- [x] Light color variants (bg-primary-light, etc.)
 
 **Files:**
-- `utils/spacing.scss`
-- `utils/typography.scss`
-- `utils/colors.scss`
+- `src/utils/spacing.scss`
+- `src/utils/typography.scss`
+- `src/utils/colors.scss`
+- `examples/index-phase7.html` (demo)
 
 ---
 
-### **Phase 8: Documentation & Publishing** (Tuần 13-14)
+### **Phase 8: Documentation & Publishing** (Week 13-14) ✅
 
-- [ ] Tạo comprehensive documentation
-- [ ] Tạo demo/example page tổng hợp
-- [ ] Tạo INSTALLATION.md
-- [ ] Tạo CONTRIBUTING.md
-- [ ] Setup npm publish
-- [ ] Create changelog
-- [ ] Release version 1.0.0
+- [x] Create comprehensive documentation
+- [x] Create demo/example showcase page
+- [x] Create INSTALLATION.md
+- [x] Create CONTRIBUTING.md
+- [x] Setup npm publish (package.json)
+- [x] Create changelog (CHANGELOG.md)
+- [x] Release version 1.0.0
+
+**Deliverables:**
+- `INSTALLATION.md` - Installation and quick start guide
+- `CONTRIBUTING.md` - Contribution guidelines and development setup
+- `CHANGELOG.md` - Version history and release notes
+- `package.json` - NPM package configuration
+- `.gitignore` - Git ignore rules
+- `LICENSE` - MIT License
+- `examples/index-complete.html` - Complete showcase demo
 
 ---
 
@@ -258,39 +274,55 @@ ios-ui-kit/
 │   │   ├── colors.scss         # Color variables
 │   │   ├── spacing.scss        # Spacing scale
 │   │   ├── typography.scss     # Font sizes, weights
-│   │   └── shadows.scss        # iOS-style shadows
+│   │   ├── shadows.scss        # iOS-style shadows
+│   │   └── index.scss          # Variables index
 │   ├── base/
 │   │   ├── reset.scss          # CSS reset
 │   │   ├── global.scss         # Global styles
-│   │   └── utilities.scss      # Utility classes
-│   ├── components/
+│   │   └── index.scss          # Base index
+│   ├── components/             # 16 UI components
 │   │   ├── button/
-│   │   │   ├── button.scss
-│   │   │   └── button.html
 │   │   ├── input/
-│   │   │   ├── input.scss
-│   │   │   └── input.html
 │   │   ├── card/
-│   │   │   ├── card.scss
-│   │   │   └── card.html
 │   │   ├── badge/
 │   │   ├── navbar/
 │   │   ├── tabs/
+│   │   ├── segmented-control/
+│   │   ├── checkbox/
+│   │   ├── radio/
+│   │   ├── toggle/
+│   │   ├── select/
 │   │   ├── modal/
-│   │   ├── ...
-│   └── dist/
-│       ├── ios-ui-kit.css      # Compiled CSS
-│       └── ios-ui-kit.min.css  # Minified CSS
-├── docs/
-│   ├── INSTALLATION.md
-│   ├── CONTRIBUTING.md
-│   ├── CHANGELOG.md
-│   └── components/
-│       └── [component docs]
+│   │   ├── alert/
+│   │   ├── spinner/
+│   │   ├── avatar/
+│   │   ├── list/
+│   │   └── _index.scss
+│   └── utils/
+│       ├── spacing.scss        # Spacing utilities (80+ classes)
+│       ├── typography.scss     # Typography utilities (100+ classes)
+│       ├── colors.scss         # Color utilities (120+ classes)
+│       └── index.scss          # Utilities index
+├── dist/
+│   ├── ios-ui-kit.css          # Compiled CSS (76 KB)
+│   ├── ios-ui-kit.min.css      # Minified CSS (61 KB)
+│   ├── ios-ui-kit.css.map      # Source map
+│   └── ios-ui-kit.min.css.map  # Minified source map
 ├── examples/
-│   └── index.html              # Demo page
-├── package.json
-├── .gitignore
+│   ├── index.html              # Phase 2 demo
+│   ├── index-phase6.html       # Phase 6 demo (Avatar & List)
+│   ├── index-phase7.html       # Phase 7 demo (Utilities)
+│   └── index-complete.html     # Complete showcase
+├── INSTALLATION.md             # Installation guide
+├── CONTRIBUTING.md             # Contribution guidelines
+├── CHANGELOG.md                # Version history
+├── PHASE6_SUMMARY.md           # Phase 6 documentation
+├── PHASE7_SUMMARY.md           # Phase 7 documentation
+├── PHASE8_SUMMARY.md           # Phase 8 documentation
+├── PROJECT_PROGRESS.md         # Project progress tracking
+├── package.json                # NPM package config
+├── .gitignore                  # Git ignore rules
+├── LICENSE                     # MIT License
 └── README.md                   # This file
 ```
 
@@ -343,10 +375,10 @@ npm install ios-ui-kit
 
 ## 📝 Next Steps
 
-1. **Phase 1**: Khởi tạo project structure & variables
-2. **Phase 2-6**: Xây dựng từng component theo roadmap
-3. **Phase 7**: Tối ưu utilities & helpers
-4. **Phase 8**: Hoàn thiện docs & release
+1. **Phase 1**: Initialize project structure & variables
+2. **Phase 2-6**: Build each component according to roadmap
+3. **Phase 7**: Optimize utilities & helpers
+4. **Phase 8**: Complete docs & release
 
 ---
 
@@ -361,4 +393,4 @@ Created by nguyenvantuan2391996
 ---
 
 **Last Updated**: 2026-04-23
-**Version**: 0.1.0 (Planning Phase)
+**Version**: 1.0.0 (Released)

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS UI Kit - Phase 6: List & Grid Components</title>
+    <link rel="stylesheet" href="../dist/ios-ui-kit.css">
+    <style>
+        body {
+            background-color: #f9fafb;
+            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section__title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #000;
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .component-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .component-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .avatar-showcase {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .list-demo {
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <h1 style="font-size: 36px; margin-bottom: 10px;">📱 iOS UI Kit</h1>
+        <p style="font-size: 16px; color: #6b7280; margin-bottom: 50px;">Phase 6: List & Grid Components Demo</p>
+
+        <!-- ============================================ -->
+        <!-- Avatar Component Section -->
+        <!-- ============================================ -->
+        <div class="section">
+            <h2 class="section__title">👤 Avatar Component</h2>
+
+            <!-- Avatar Sizes -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar Sizes</h3>
+            <div class="component-box">
+                <span class="component-label">All Sizes</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--xs avatar--primary">
+                        <span class="avatar__initials">A</span>
+                    </div>
+                    <div class="avatar avatar--sm avatar--primary">
+                        <span class="avatar__initials">AB</span>
+                    </div>
+                    <div class="avatar avatar--md avatar--primary">
+                        <span class="avatar__initials">AB</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--primary">
+                        <span class="avatar__initials">AB</span>
+                    </div>
+                    <div class="avatar avatar--xl avatar--primary">
+                        <span class="avatar__initials">AB</span>
+                    </div>
+                    <div class="avatar avatar--2xl avatar--primary">
+                        <span class="avatar__initials">AB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar Colors -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar Colors</h3>
+            <div class="component-box">
+                <span class="component-label">Color Variants</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--lg" style="background-color: #f3f4f6; color: #6b7280;">
+                        <span class="avatar__initials">JD</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--primary">
+                        <span class="avatar__initials">JD</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--secondary">
+                        <span class="avatar__initials">MS</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--success">
+                        <span class="avatar__initials">OK</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--warning">
+                        <span class="avatar__initials">JW</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--danger">
+                        <span class="avatar__initials">ER</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--info">
+                        <span class="avatar__initials">IN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar with Image -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar with Image</h3>
+            <div class="component-box">
+                <span class="component-label">Image Variant</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--md">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="John Doe">
+                    </div>
+                    <div class="avatar avatar--lg">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jane" alt="Jane Smith">
+                    </div>
+                    <div class="avatar avatar--xl">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" alt="Mike Johnson">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar with Icon -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar with Icon</h3>
+            <div class="component-box">
+                <span class="component-label">Icon Variant</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--lg avatar--primary">
+                        <span class="avatar__icon">⭐</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--success">
+                        <span class="avatar__icon">✓</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--warning">
+                        <span class="avatar__icon">⚠</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--danger">
+                        <span class="avatar__icon">✕</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar with Status -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar with Status Badge</h3>
+            <div class="component-box">
+                <span class="component-label">Status Indicators</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--lg" style="position: relative; margin-right: 10px;">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Online" alt="Online">
+                        <div class="avatar__status"></div>
+                    </div>
+                    <div class="avatar avatar--lg" style="position: relative; margin-right: 10px;">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Away" alt="Away">
+                        <div class="avatar__status avatar__status--away"></div>
+                    </div>
+                    <div class="avatar avatar--lg" style="position: relative; margin-right: 10px;">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Busy" alt="Busy">
+                        <div class="avatar__status avatar__status--busy"></div>
+                    </div>
+                    <div class="avatar avatar--lg" style="position: relative;">
+                        <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Offline" alt="Offline">
+                        <div class="avatar__status avatar__status--offline"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar Group -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar Group (Stacked)</h3>
+            <div class="component-box">
+                <span class="component-label">Group of Avatars</span>
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div>
+                        <p style="margin: 0 0 10px 0; font-size: 12px; color: #6b7280;">3 Members</p>
+                        <div class="avatar-group">
+                            <div class="avatar avatar--md avatar--primary">
+                                <span class="avatar__initials">JD</span>
+                            </div>
+                            <div class="avatar avatar--md avatar--secondary">
+                                <span class="avatar__initials">MS</span>
+                            </div>
+                            <div class="avatar avatar--md avatar--success">
+                                <span class="avatar__initials">OK</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="margin: 0 0 10px 0; font-size: 12px; color: #6b7280;">5 Members</p>
+                        <div class="avatar-group">
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=A" alt="">
+                            </div>
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=B" alt="">
+                            </div>
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=C" alt="">
+                            </div>
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=D" alt="">
+                            </div>
+                            <div class="avatar avatar--md avatar--info" style="font-size: 12px; font-weight: bold;">
+                                <span class="avatar__initials">+5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar with Halo -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Avatar with Halo Ring</h3>
+            <div class="component-box">
+                <span class="component-label">Halo Effects</span>
+                <div class="avatar-showcase">
+                    <div class="avatar avatar--lg avatar--halo-primary">
+                        <span class="avatar__initials">JD</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--halo-success">
+                        <span class="avatar__initials">MS</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--halo-warning">
+                        <span class="avatar__initials">JW</span>
+                    </div>
+                    <div class="avatar avatar--lg avatar--halo-danger">
+                        <span class="avatar__initials">ER</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- ============================================ -->
+        <!-- List Component Section -->
+        <!-- ============================================ -->
+        <div class="section">
+            <h2 class="section__title">📋 List Component</h2>
+
+            <!-- Basic List -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Basic List</h3>
+            <div class="list-demo">
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Apple</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Banana</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Orange</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- List with Avatar and Description -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">List with Avatar & Description</h3>
+            <div class="list-demo">
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item__leading">
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="John Doe">
+                            </div>
+                        </div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">John Doe</div>
+                            <div class="list-item__description">@johndoe • 2 hours ago</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span>→</span>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__leading">
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jane" alt="Jane Smith">
+                            </div>
+                        </div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Jane Smith</div>
+                            <div class="list-item__description">@janesmith • 4 hours ago</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span>→</span>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__leading">
+                            <div class="avatar avatar--md">
+                                <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" alt="Mike Johnson">
+                            </div>
+                        </div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Mike Johnson</div>
+                            <div class="list-item__description">@mikej • 1 day ago</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span>→</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- List with Icons and Badges -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">List with Icons & Badges</h3>
+            <div class="list-demo">
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item__leading">🔔</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Notifications</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span class="badge badge--primary badge--circle">5</span>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__leading">💬</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Messages</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span class="badge badge--danger badge--circle">3</span>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__leading">⭐</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Favorites</div>
+                        </div>
+                        <div class="list-item__trailing">
+                            <span>→</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- List with Different Sizes -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">List Item Sizes</h3>
+            <div class="list-demo">
+                <div style="margin-bottom: 20px;">
+                    <p style="margin: 0 0 10px 0; font-size: 12px; color: #6b7280; font-weight: 600;">Small</p>
+                    <ul class="list">
+                        <li class="list-item list-item--sm">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--sm avatar--primary">
+                                    <span class="avatar__initials">AS</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">Small Item</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <p style="margin: 0 0 10px 0; font-size: 12px; color: #6b7280; font-weight: 600;">Medium (Default)</p>
+                    <ul class="list">
+                        <li class="list-item list-item--md">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--md">
+                                    <img class="avatar__image" src="https://api.dicebear.com/7.x/avataaars/svg?seed=M" alt="">
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">Medium Item</div>
+                                <div class="list-item__description">This is the default size</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p style="margin: 0 0 10px 0; font-size: 12px; color: #6b7280; font-weight: 600;">Large</p>
+                    <ul class="list">
+                        <li class="list-item list-item--lg">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--lg avatar--success">
+                                    <span class="avatar__initials">LG</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">Large Item</div>
+                                <div class="list-item__description">This is a spacious large item with more padding</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- List with Active State -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">List Item States</h3>
+            <div class="list-demo">
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item__leading">📁</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Documents</div>
+                        </div>
+                    </li>
+                    <li class="list-item list-item--active">
+                        <div class="list-item__leading">📸</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Photos (Active)</div>
+                        </div>
+                    </li>
+                    <li class="list-item list-item--disabled">
+                        <div class="list-item__leading">🎵</div>
+                        <div class="list-item__content">
+                            <div class="list-item__title">Music (Disabled)</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- List with Groups -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Grouped List</h3>
+            <div style="max-width: 500px; display: flex; flex-direction: column; gap: 20px;">
+                <!-- Group 1 -->
+                <div class="list-group">
+                    <div class="list-group__header">
+                        <h4 class="list-group__title">Favorites</h4>
+                    </div>
+                    <ul class="list-group__items">
+                        <li class="list-item">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--md avatar--primary">
+                                    <span class="avatar__initials">JD</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">John Doe</div>
+                                <div class="list-item__description">Favorite contact</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--md avatar--secondary">
+                                    <span class="avatar__initials">MS</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">Mary Smith</div>
+                                <div class="list-item__description">Favorite contact</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Group 2 -->
+                <div class="list-group">
+                    <div class="list-group__header">
+                        <h4 class="list-group__title">Recent</h4>
+                    </div>
+                    <ul class="list-group__items">
+                        <li class="list-item">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--md avatar--success">
+                                    <span class="avatar__initials">OK</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">Oliver King</div>
+                                <div class="list-item__description">Last contacted 2 days ago</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__leading">
+                                <div class="avatar avatar--md avatar--warning">
+                                    <span class="avatar__initials">JW</span>
+                                </div>
+                            </div>
+                            <div class="list-item__content">
+                                <div class="list-item__title">James Wilson</div>
+                                <div class="list-item__description">Last contacted 1 week ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Striped List -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Striped List</h3>
+            <div style="max-width: 500px;">
+                <ul class="list list--striped">
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Item 1</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Item 2</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Item 3</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item__content">
+                            <div class="list-item__title">Item 4</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Empty State -->
+            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Empty State</h3>
+            <div style="max-width: 500px;">
+                <div class="list list--empty">
+                    <div class="list-empty">
+                        <div class="list-empty__icon">📭</div>
+                        <h4 class="list-empty__title">No Items Found</h4>
+                        <p class="list-empty__message">Start adding items to see them appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 80px; padding: 40px; background: white; border-radius: 12px; border: 1px solid #e5e7eb; text-align: center;">
+            <p style="color: #6b7280; margin: 0;">
+                <strong>Phase 6 Complete! ✅</strong><br>
+                Avatar • List components are ready to use.
+            </p>
+            <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 14px;">
+                Next: Phase 7 - Utility & Helper Components
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
