@@ -1,0 +1,230 @@
+// iOS UI Kit - Select/Dropdown Component
+// Defines select styles with variants
+
+// ============================================
+// Select Base Styles
+// ============================================
+
+.select {
+  // Layout
+  display: block;
+  width: 100%;
+  
+  // Typography
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  
+  // Spacing & Sizing
+  padding: $input-padding-y $input-padding-x;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  
+  // Colors
+  color: $color-text-primary;
+  background-color: $color-white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-2 center;
+  background-size: 20px;
+  padding-right: $spacing-10;
+  
+  // Effects
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  // Focus state
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+  
+  // Hover state
+  &:hover {
+    border-color: $color-primary;
+  }
+  
+  // Disabled state
+  &:disabled {
+    background-color: $color-gray-50;
+    border-color: $color-border-light;
+    color: $color-text-disabled;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// Remove default arrow on IE
+select::-ms-expand {
+  display: none;
+}
+
+// ============================================
+// Select Variants
+// ============================================
+
+// Filled variant
+.select--filled {
+  background-color: $color-gray-50;
+  border-color: transparent;
+  
+  &:focus {
+    background-color: $color-white;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+}
+
+// Outlined variant (default)
+.select--outlined {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+}
+
+// Rounded variant
+.select--rounded {
+  border-radius: 24px;
+  padding-left: $spacing-4;
+  padding-right: $spacing-10;
+}
+
+// ============================================
+// Select Sizes
+// ============================================
+
+.select--sm {
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-sm;
+  border-radius: 6px;
+  background-position: right $spacing-2 center;
+  padding-right: $spacing-8;
+}
+
+.select--md {
+  // Default size
+}
+
+.select--lg {
+  padding: $spacing-3 $spacing-4;
+  font-size: $font-size-lg;
+  border-radius: 10px;
+}
+
+// ============================================
+// Select States
+// ============================================
+
+.select--error {
+  border-color: $color-danger;
+  
+  &:focus {
+    border-color: $color-danger;
+    box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
+  }
+}
+
+.select--warning {
+  border-color: $color-warning;
+  
+  &:focus {
+    border-color: $color-warning;
+    box-shadow: 0 0 0 3px rgba($color-warning, 0.1);
+  }
+}
+
+.select--success {
+  border-color: $color-success;
+  
+  &:focus {
+    border-color: $color-success;
+    box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+  }
+}
+
+// ============================================
+// Select Group (Multiple)
+// ============================================
+
+.select[multiple] {
+  height: auto;
+  min-height: 120px;
+  padding: $spacing-2;
+  background-image: none;
+  
+  option {
+    padding: $spacing-2;
+    border-radius: 4px;
+    
+    &:checked {
+      background: linear-gradient($color-primary, $color-primary);
+      background-color: $color-primary;
+    }
+  }
+}
+
+// ============================================
+// Select Wrapper
+// ============================================
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper__icon {
+  position: absolute;
+  right: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: $color-text-tertiary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+// ============================================
+// Select with Label
+// ============================================
+
+.select-field {
+  margin-bottom: $spacing-4;
+}
+
+.select-field__label {
+  display: block;
+  margin-bottom: $spacing-2;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.select-field__select {
+  width: 100%;
+}
+
+.select-field__helper {
+  display: block;
+  margin-top: $spacing-1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.select-field__helper--error {
+  color: $color-danger;
+}
+
+.select-field__helper--success {
+  color: $color-success;
+}
+
+.select-field__helper--warning {
+  color: $color-warning;
+}

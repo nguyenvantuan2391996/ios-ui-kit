@@ -1,0 +1,173 @@
+// iOS UI Kit - Radio Button Component
+// Defines radio button styles with states and variants
+
+// ============================================
+// Radio Base Styles
+// ============================================
+
+.radio {
+  // Hide default radio
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  margin: 0;
+  
+  // Checked state
+  &:checked ~ .radio-label::before {
+    background-color: $color-white;
+    border-color: $color-primary;
+  }
+  
+  &:checked ~ .radio-label::after {
+    content: '';
+    position: absolute;
+    left: $spacing-2;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: $color-primary;
+    border-radius: 50%;
+  }
+  
+  // Focus state
+  &:focus-visible ~ .radio-label {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+  
+  // Disabled state
+  &:disabled ~ .radio-label {
+    opacity: 0.6;
+    cursor: not-allowed;
+    
+    &::before {
+      background-color: $color-gray-100;
+      border-color: $color-gray-300;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ============================================
+// Radio Label
+// ============================================
+
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  font-size: $font-size-base;
+  color: $color-text-primary;
+  user-select: none;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  // Create space for radio button
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $color-border;
+    border-radius: 50%;
+    background-color: $color-white;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  // Hover state
+  &:hover::before {
+    border-color: $color-primary;
+  }
+}
+
+// ============================================
+// Radio Sizes
+// ============================================
+
+.radio--sm ~ .radio-label::before {
+  width: 16px;
+  height: 16px;
+}
+
+.radio--sm:checked ~ .radio-label::after {
+  width: 9px;
+  height: 9px;
+  left: $spacing-1;
+}
+
+.radio--lg ~ .radio-label::before {
+  width: 24px;
+  height: 24px;
+}
+
+.radio--lg:checked ~ .radio-label::after {
+  width: 14px;
+  height: 14px;
+  left: $spacing-2;
+}
+
+// ============================================
+// Radio Colors
+// ============================================
+
+.radio--primary:checked ~ .radio-label::before,
+.radio--primary:checked ~ .radio-label::after {
+  border-color: $color-primary;
+}
+
+.radio--primary:checked ~ .radio-label::after {
+  background-color: $color-primary;
+}
+
+.radio--secondary:checked ~ .radio-label::before {
+  border-color: $color-secondary;
+}
+
+.radio--secondary:checked ~ .radio-label::after {
+  background-color: $color-secondary;
+}
+
+.radio--success:checked ~ .radio-label::before {
+  border-color: $color-success;
+}
+
+.radio--success:checked ~ .radio-label::after {
+  background-color: $color-success;
+}
+
+.radio--danger:checked ~ .radio-label::before {
+  border-color: $color-danger;
+}
+
+.radio--danger:checked ~ .radio-label::after {
+  background-color: $color-danger;
+}
+
+// ============================================
+// Radio Group
+// ============================================
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.radio-group--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.radio-group__label {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-2;
+}

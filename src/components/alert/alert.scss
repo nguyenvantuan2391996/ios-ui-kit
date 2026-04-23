@@ -1,0 +1,232 @@
+// iOS UI Kit - Alert/Toast Component
+// Defines alert and toast notification styles
+
+// ============================================
+// Alert Base Styles
+// ============================================
+
+.alert {
+  // Layout
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  
+  // Spacing & Sizing
+  padding: $spacing-4;
+  border-radius: 8px;
+  border-left: 4px solid $color-primary;
+  
+  // Colors
+  background-color: rgba($color-primary, 0.05);
+  color: $color-text-primary;
+  
+  // Effects
+  box-shadow: $shadow-1;
+  animation: slideIn 0.3s ease;
+  
+  // Close functionality
+  position: relative;
+  
+  // Dismissible
+  &.alert--dismissible {
+    padding-right: $spacing-12;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// ============================================
+// Alert Types
+// ============================================
+
+.alert--success {
+  background-color: rgba($color-success, 0.05);
+  border-left-color: $color-success;
+  color: $color-success;
+  
+  .alert__icon {
+    color: $color-success;
+  }
+}
+
+.alert--warning {
+  background-color: rgba($color-warning, 0.05);
+  border-left-color: $color-warning;
+  color: $color-warning;
+  
+  .alert__icon {
+    color: $color-warning;
+  }
+}
+
+.alert--error,
+.alert--danger {
+  background-color: rgba($color-danger, 0.05);
+  border-left-color: $color-danger;
+  color: $color-danger;
+  
+  .alert__icon {
+    color: $color-danger;
+  }
+}
+
+.alert--info {
+  background-color: rgba($color-info, 0.05);
+  border-left-color: $color-info;
+  color: $color-info;
+  
+  .alert__icon {
+    color: $color-info;
+  }
+}
+
+// ============================================
+// Alert Parts
+// ============================================
+
+.alert__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: $color-primary;
+  font-size: 18px;
+}
+
+.alert__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.alert__title {
+  margin: 0;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+}
+
+.alert__message {
+  margin: 0;
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  opacity: 0.9;
+}
+
+.alert__close {
+  position: absolute;
+  right: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: $spacing-1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ============================================
+// Toast Positioning
+// ============================================
+
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  
+  // Top positions
+  &--top {
+    top: $spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  &--top-left {
+    top: $spacing-4;
+    left: $spacing-4;
+  }
+  
+  &--top-right {
+    top: $spacing-4;
+    right: $spacing-4;
+  }
+  
+  // Bottom positions
+  &--bottom {
+    bottom: $spacing-4;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  &--bottom-left {
+    bottom: $spacing-4;
+    left: $spacing-4;
+  }
+  
+  &--bottom-right {
+    bottom: $spacing-4;
+    right: $spacing-4;
+  }
+}
+
+.toast-container .alert {
+  pointer-events: auto;
+  margin-bottom: $spacing-2;
+  width: 100%;
+  max-width: 400px;
+}
+
+// ============================================
+// Alert Sizes
+// ============================================
+
+.alert--sm {
+  padding: $spacing-2 $spacing-3;
+  border-radius: 6px;
+  font-size: $font-size-sm;
+}
+
+.alert--lg {
+  padding: $spacing-5 $spacing-6;
+  border-radius: 10px;
+  font-size: $font-size-lg;
+}
+
+// ============================================
+// Alert Animation (Auto-dismiss)
+// ============================================
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.alert--dismissing {
+  animation: slideOut 0.3s ease;
+}
