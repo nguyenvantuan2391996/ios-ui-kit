@@ -1,0 +1,155 @@
+// iOS UI Kit – Space Component
+// Layout utility for consistent spacing between child elements
+// https://www.figma.com/design-system/component/space
+
+// ============================================
+// Base Space Container
+// ============================================
+
+.space {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row;
+
+  // Ensure children don't overflow
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+// ============================================
+// Directional Variants
+// ============================================
+
+.space--horizontal {
+  flex-direction: row;
+}
+
+.space--vertical {
+  flex-direction: column;
+}
+
+// ============================================
+// Gap Sizes
+// ============================================
+
+.space--xs {
+  gap: $spacing-1;
+}
+
+.space--sm {
+  gap: $spacing-2;
+}
+
+.space--md {
+  gap: $spacing-4;
+}
+
+.space--lg {
+  gap: $spacing-6;
+}
+
+.space--xl {
+  gap: $spacing-8;
+}
+
+// ============================================
+// Wrap & Block Variants
+// ============================================
+
+.space--wrap {
+  flex-wrap: wrap;
+}
+
+.space--block {
+  display: flex;
+  width: 100%;
+}
+
+// ============================================
+// Alignment Options
+// ============================================
+
+.space--align-start {
+  align-items: flex-start;
+}
+
+.space--align-center {
+  align-items: center;
+}
+
+.space--align-end {
+  align-items: flex-end;
+}
+
+.space--align-baseline {
+  align-items: baseline;
+}
+
+// ============================================
+// Justify Options (for block variant)
+// ============================================
+
+.space--justify-start {
+  justify-content: flex-start;
+}
+
+.space--justify-center {
+  justify-content: center;
+}
+
+.space--justify-end {
+  justify-content: flex-end;
+}
+
+.space--justify-space-between {
+  justify-content: space-between;
+}
+
+.space--justify-space-around {
+  justify-content: space-around;
+}
+
+.space--justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+// ============================================
+// Space Item
+// ============================================
+
+.space__item {
+  display: flex;
+  align-items: center;
+}
+
+// ============================================
+// Divider
+// ============================================
+
+.space-divider {
+  display: flex;
+  align-items: center;
+  color: $color-border;
+  margin: 0;
+
+  &::before {
+    content: '';
+  }
+}
+
+// Used with .space--horizontal
+.space--horizontal .space-divider {
+  border-left: 1px solid $color-border;
+  margin: 0 $spacing-2;
+  height: 1em;
+}
+
+// Used with .space--vertical
+.space--vertical .space-divider {
+  border-top: 1px solid $color-border;
+  margin: $spacing-2 0;
+  width: 100%;
+  height: 0;
+}
+

@@ -1,0 +1,407 @@
+// iOS UI Kit – App Component
+// Root application wrapper with global context styles
+
+// ============================================
+// App Root Container
+// ============================================
+
+.app {
+  color: $color-text-primary;
+  background: $color-bg-primary;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+
+  // Global box-sizing
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+// ============================================
+// Theme Variants
+// ============================================
+
+.app--light {
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-success: #{$color-success};
+  --color-warning: #{$color-warning};
+  --color-danger: #{$color-danger};
+  --color-info: #{$color-info};
+  --color-text-primary: #{$color-text-primary};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-text-disabled: #{$color-text-disabled};
+  --color-bg-primary: #{$color-bg-primary};
+  --color-border: #{$color-border};
+}
+
+.app--dark {
+  --color-primary: #0084ff;
+  --color-secondary: #666666;
+  --color-success: #52c41a;
+  --color-warning: #faad14;
+  --color-danger: #ff4d4f;
+  --color-info: #1890ff;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cccccc;
+  --color-text-disabled: #999999;
+  --color-bg-base: #141414;
+  --color-border: #434343;
+
+  background: #141414;
+  color: #ffffff;
+}
+
+// ============================================
+// App Typography
+// ============================================
+
+.app {
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+  }
+
+  h1 {
+    font-size: $font-size-4xl;
+  }
+
+  h2 {
+    font-size: $font-size-3xl;
+  }
+
+  h3 {
+    font-size: $font-size-2xl;
+  }
+
+  h4 {
+    font-size: $font-size-xl;
+  }
+
+  h5 {
+    font-size: $font-size-lg;
+  }
+
+  h6 {
+    font-size: $font-size-base;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  strong, b {
+    font-weight: $font-weight-bold;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  code {
+    background: $color-gray-100;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: $font-family-mono;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: $color-gray-50;
+    padding: $spacing-3;
+    border-radius: $border-radius-md;
+    overflow-x: auto;
+    font-family: $font-family-mono;
+    font-size: $font-size-sm;
+  }
+}
+
+// ============================================
+// App Forms & Inputs
+// ============================================
+
+.app {
+  input,
+  textarea,
+  select {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+  }
+
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  input[type='search'],
+  input[type='url'],
+  input[type='date'],
+  input[type='time'],
+  textarea,
+  select {
+    padding: $spacing-2 $spacing-3;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-md;
+    background: white;
+    color: $color-text-primary;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+
+    &:disabled {
+      background: $color-gray-50;
+      color: $color-text-disabled;
+      cursor: not-allowed;
+    }
+
+    &::placeholder {
+      color: $color-text-disabled;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    font-family: $font-family-base;
+  }
+}
+
+// ============================================
+// App Tables
+// ============================================
+
+.app {
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: $spacing-2 $spacing-3;
+    text-align: left;
+    border-bottom: 1px solid $color-border;
+  }
+
+  th {
+    background: $color-gray-50;
+    font-weight: $font-weight-semibold;
+  }
+
+  tr:hover {
+    background: $color-gray-50;
+  }
+}
+
+// ============================================
+// App Lists
+// ============================================
+
+.app {
+  ul,
+  ol {
+    margin: 0;
+    padding-left: $spacing-6;
+  }
+
+  li {
+    line-height: $line-height-normal;
+    margin-bottom: $spacing-1;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dt {
+    font-weight: $font-weight-semibold;
+    margin-top: $spacing-2;
+  }
+
+  dd {
+    margin-left: 0;
+    margin-bottom: $spacing-2;
+  }
+}
+
+// ============================================
+// App Loading State
+// ============================================
+
+.app__loading {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  pointer-events: all;
+}
+
+.app__loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba($color-primary, 0.2);
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================
+// App Scrollbars (Custom for iOS feel)
+// ============================================
+
+.app {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba($color-text-primary, 0.2);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba($color-text-primary, 0.4);
+    }
+  }
+
+  // Firefox
+  scrollbar-color: rgba($color-text-primary, 0.2) transparent;
+  scrollbar-width: thin;
+}
+
+// ============================================
+// App Utility Classes
+// ============================================
+
+.app--blur {
+  filter: blur(3px);
+}
+
+.app--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.app--hidden {
+  display: none !important;
+}
+
+.app--visible {
+  visibility: visible;
+}
+
+// ============================================
+// App Accessibility
+// ============================================
+
+.app {
+  // Focus visible ring for keyboard navigation
+  *:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  // Skip link for accessibility
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+
+    &:focus {
+      left: 0;
+      top: 0;
+      background: $color-primary;
+      color: white;
+      padding: $spacing-2 $spacing-4;
+      z-index: 10000;
+    }
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+// ============================================
+// Responsive App Adjustments
+// ============================================
+
+@media (max-width: 768px) {
+  .app {
+    font-size: $font-size-base;
+
+    h1 {
+      font-size: $font-size-3xl;
+    }
+
+    h2 {
+      font-size: $font-size-2xl;
+    }
+
+    h3 {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .app {
+    font-size: $font-size-sm;
+
+    h1 {
+      font-size: $font-size-2xl;
+    }
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+
+    h3 {
+      font-size: $font-size-lg;
+    }
+  }
+}
+

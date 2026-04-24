@@ -1,17 +1,24 @@
 // iOS UI Kit - Components Index
 // Import all component files here
 
+// Phase 2: Core Components
 @import 'button/button';
 @import 'input/input';
 @import 'card/card';
 @import 'badge/badge';
+
+// Phase 3: Navigation Components
 @import 'navbar/navbar';
 @import 'tabs/tabs';
 @import 'segmented-control/segmented-control';
+
+// Phase 4: Form Components
 @import 'checkbox/checkbox';
 @import 'radio/radio';
 @import 'toggle/toggle';
 @import 'select/select';
+
+// Phase 5: Modal & Overlay Components
 @import 'modal/modal';
 @import 'alert/alert';
 @import 'spinner/spinner';
@@ -19,3 +26,26 @@
 // Phase 6: List & Grid Components
 @import 'avatar/avatar';
 @import 'list/list';
+
+// Phase 9+: Additional Components
+// Group 1: Foundation (6 components)
+@import 'space/space';
+@import 'row/row';
+@import 'col/col';
+@import 'icon/icon';
+@import 'layout/layout';
+@import 'app/app';
+
+// Group 2: Simple UI (4 components)
+@import 'tag/tag';
+@import 'empty/empty';
+@import 'skeleton/skeleton';
+@import 'breadcrumb/breadcrumb';
+
+// Group 3: Overlays & Feedback (5 components)
+@import 'tooltip/tooltip';
+@import 'popover/popover';
+@import 'drawer/drawer';
+@import 'result/result';
+@import 'notification/notification';
+

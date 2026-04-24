@@ -1,0 +1,188 @@
+// iOS UI Kit – Tooltip Component
+// Small text label that appears on hover/focus
+
+// ============================================
+// Tooltip Base
+// ============================================
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip__content {
+  position: absolute;
+  z-index: 1070;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
+  transform: translate(-50%, 0);
+  left: 50%;
+  bottom: 100%;
+  margin-bottom: $spacing-2;
+  line-height: 1.4;
+}
+
+.tooltip__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(0, 0, 0, 0.85);
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// ============================================
+// Tooltip Visibility
+// ============================================
+
+.tooltip--visible .tooltip__content,
+.tooltip:hover .tooltip__content,
+.tooltip:focus-within .tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
+// ============================================
+// Tooltip Placement
+// ============================================
+
+// Top (default)
+.tooltip--top .tooltip__content {
+  bottom: 100%;
+  margin-bottom: $spacing-2;
+}
+
+.tooltip--top .tooltip__arrow {
+  bottom: -5px;
+  border-top-color: rgba(0, 0, 0, 0.85);
+  border-bottom: none;
+  display: block;
+}
+
+// Bottom
+.tooltip--bottom .tooltip__content {
+  top: 100%;
+  bottom: auto;
+  margin-top: $spacing-2;
+  margin-bottom: 0;
+}
+
+.tooltip--bottom .tooltip__arrow {
+  bottom: auto;
+  top: -5px;
+  border-top: none;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.85);
+}
+
+// Left
+.tooltip--left .tooltip__content {
+  bottom: auto;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  left: auto;
+  right: 100%;
+  white-space: nowrap;
+  margin-right: $spacing-2;
+  margin-bottom: 0;
+}
+
+.tooltip--left .tooltip__arrow {
+  bottom: auto;
+  top: 50%;
+  left: auto;
+  right: -5px;
+  border-left: 5px solid rgba(0, 0, 0, 0.85);
+  border-right: none;
+  transform: translateY(-50%);
+}
+
+// Right
+.tooltip--right .tooltip__content {
+  bottom: auto;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 100%;
+  white-space: nowrap;
+  margin-left: $spacing-2;
+  margin-bottom: 0;
+}
+
+.tooltip--right .tooltip__arrow {
+  bottom: auto;
+  top: 50%;
+  left: -5px;
+  border-left: none;
+  border-right: 5px solid rgba(0, 0, 0, 0.85);
+  transform: translateY(-50%);
+}
+
+// ============================================
+// Tooltip Light Variant
+// ============================================
+
+.tooltip--light .tooltip__content {
+  background: white;
+  color: $color-text-primary;
+  box-shadow: $shadow-md;
+  border: 1px solid $color-border;
+}
+
+.tooltip--light.tooltip--top .tooltip__arrow {
+  border-top-color: white;
+}
+
+.tooltip--light.tooltip--bottom .tooltip__arrow {
+  border-bottom-color: white;
+}
+
+.tooltip--light.tooltip--left .tooltip__arrow {
+  border-left-color: white;
+}
+
+.tooltip--light.tooltip--right .tooltip__arrow {
+  border-right-color: white;
+}
+
+// ============================================
+// Tooltip Color Variants
+// ============================================
+
+.tooltip--primary .tooltip__content {
+  background: $color-primary;
+}
+
+.tooltip--success .tooltip__content {
+  background: $color-success;
+}
+
+.tooltip--warning .tooltip__content {
+  background: $color-warning;
+}
+
+.tooltip--danger .tooltip__content {
+  background: $color-danger;
+}
+
+.tooltip--info .tooltip__content {
+  background: $color-info;
+}
+
+// ============================================
+// Tooltip Disabled
+// ============================================
+
+.tooltip--disabled .tooltip__content {
+  display: none !important;
+}
+

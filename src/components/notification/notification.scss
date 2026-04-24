@@ -1,0 +1,330 @@
+// iOS UI Kit – Notification Component
+// Toast-style message that appears at corner and auto-dismisses
+
+// ============================================
+// Notification Container
+// ============================================
+
+.notification-container {
+  position: fixed;
+  z-index: 1080;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  padding: $spacing-6;
+}
+
+// ============================================
+// Container Placement
+// ============================================
+
+.notification-container--top-right {
+  top: $spacing-6;
+  right: $spacing-6;
+  left: auto;
+  bottom: auto;
+}
+
+.notification-container--top-left {
+  top: $spacing-6;
+  left: $spacing-6;
+  right: auto;
+  bottom: auto;
+}
+
+.notification-container--bottom-right {
+  bottom: $spacing-6;
+  right: $spacing-6;
+  top: auto;
+  left: auto;
+}
+
+.notification-container--bottom-left {
+  bottom: $spacing-6;
+  left: $spacing-6;
+  top: auto;
+  right: auto;
+}
+
+.notification-container--top-center {
+  top: $spacing-6;
+  left: 50%;
+  transform: translateX(-50%);
+  right: auto;
+  bottom: auto;
+}
+
+.notification-container--bottom-center {
+  bottom: $spacing-6;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+}
+
+// ============================================
+// Notification Card
+// ============================================
+
+.notification {
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-lg;
+  padding: $spacing-4;
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  min-width: 280px;
+  max-width: 400px;
+  pointer-events: all;
+  position: relative;
+  overflow: hidden;
+  animation: notification-enter 0.3s ease;
+}
+
+.notification--leaving {
+  animation: notification-leave 0.3s ease;
+}
+
+// ============================================
+// Notification Icons
+// ============================================
+
+.notification__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  font-size: 16px;
+
+  svg,
+  i {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ============================================
+// Notification Content
+// ============================================
+
+.notification__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.notification__title {
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-1;
+  font-size: $font-size-sm;
+}
+
+.notification__description {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  word-wrap: break-word;
+}
+
+// ============================================
+// Notification Close Button
+// ============================================
+
+.notification__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: $color-text-secondary;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+  padding: 0;
+  margin: -$spacing-2 -$spacing-2 -$spacing-2 0;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+
+  svg,
+  i {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// ============================================
+// Notification Progress Bar
+// ============================================
+
+.notification__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: currentColor;
+  animation: notification-progress 4.5s linear;
+}
+
+@keyframes notification-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+// ============================================
+// Notification Status Variants
+// ============================================
+
+.notification--success {
+  border-left: 4px solid $color-success;
+
+  .notification__icon {
+    color: $color-success;
+  }
+
+  .notification__progress {
+    background: $color-success;
+  }
+}
+
+.notification--warning {
+  border-left: 4px solid $color-warning;
+
+  .notification__icon {
+    color: $color-warning;
+  }
+
+  .notification__progress {
+    background: $color-warning;
+  }
+}
+
+.notification--error {
+  border-left: 4px solid $color-danger;
+
+  .notification__icon {
+    color: $color-danger;
+  }
+
+  .notification__progress {
+    background: $color-danger;
+  }
+}
+
+.notification--info {
+  border-left: 4px solid $color-info;
+
+  .notification__icon {
+    color: $color-info;
+  }
+
+  .notification__progress {
+    background: $color-info;
+  }
+}
+
+// ============================================
+// Notification Animations
+// ============================================
+
+@keyframes notification-enter {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes notification-leave {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+// Left side enter/leave animations
+.notification-container--top-left .notification,
+.notification-container--bottom-left .notification {
+  animation: notification-enter-left 0.3s ease;
+}
+
+.notification-container--top-left .notification--leaving,
+.notification-container--bottom-left .notification--leaving {
+  animation: notification-leave-left 0.3s ease;
+}
+
+@keyframes notification-enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes notification-leave-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+}
+
+// ============================================
+// Notification Responsive
+// ============================================
+
+@media (max-width: 576px) {
+  .notification-container {
+    padding: $spacing-2;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .notification-container--bottom-left,
+  .notification-container--bottom-right,
+  .notification-container--top-left,
+  .notification-container--top-right,
+  .notification-container--bottom-center,
+  .notification-container--top-center {
+    left: $spacing-2;
+    right: $spacing-2;
+    bottom: auto;
+    top: $spacing-2;
+  }
+
+  .notification {
+    min-width: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+

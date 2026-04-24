@@ -1,0 +1,269 @@
+// iOS UI Kit – Breadcrumb Component
+// Navigation trail showing the user's current location in a hierarchy
+
+// ============================================
+// Base Breadcrumb
+// ============================================
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: $font-size-sm;
+}
+
+// ============================================
+// Breadcrumb Item
+// ============================================
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+// ============================================
+// Breadcrumb Link
+// ============================================
+
+.breadcrumb__link {
+  color: $color-primary;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: darken($color-primary, 10%);
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: darken($color-primary, 15%);
+  }
+
+  &:disabled {
+    color: $color-text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// Breadcrumb Separator
+// ============================================
+
+.breadcrumb__separator {
+  display: inline-flex;
+  align-items: center;
+  color: $color-text-disabled;
+  margin: 0 $spacing-1;
+  user-select: none;
+  font-size: $font-size-sm;
+}
+
+// ============================================
+// Breadcrumb Active Item
+// ============================================
+
+.breadcrumb__item--active {
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  cursor: default;
+}
+
+// ============================================
+// Breadcrumb Separator Styles
+// ============================================
+
+.breadcrumb--slash .breadcrumb__separator::before {
+  content: '/';
+}
+
+.breadcrumb--arrow .breadcrumb__separator::before {
+  content: '›';
+  font-size: 1.2em;
+}
+
+.breadcrumb--dot .breadcrumb__separator::before {
+  content: '·';
+}
+
+.breadcrumb--backslash .breadcrumb__separator::before {
+  content: '\\';
+}
+
+// Default separator
+.breadcrumb:not([class*='breadcrumb--']) .breadcrumb__separator::before {
+  content: '/';
+}
+
+// ============================================
+// Breadcrumb Size Variants
+// ============================================
+
+.breadcrumb--sm {
+  font-size: $font-size-xs;
+
+  .breadcrumb__separator {
+    font-size: $font-size-xs;
+  }
+}
+
+.breadcrumb--md {
+  font-size: $font-size-sm;
+
+  .breadcrumb__separator {
+    font-size: $font-size-sm;
+  }
+}
+
+.breadcrumb--lg {
+  font-size: $font-size-base;
+
+  .breadcrumb__separator {
+    font-size: $font-size-base;
+  }
+}
+
+// ============================================
+// Breadcrumb with Icon
+// ============================================
+
+.breadcrumb__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  margin-right: $spacing-0-5;
+  flex-shrink: 0;
+}
+
+// ============================================
+// Breadcrumb Dropdown Extension
+// ============================================
+
+.breadcrumb__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb__dropdown-toggle {
+  color: $color-primary;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.breadcrumb__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-lg;
+  min-width: 160px;
+  padding: $spacing-1 0;
+  margin-top: $spacing-1;
+  list-style: none;
+  z-index: 1000;
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
+.breadcrumb__dropdown-item {
+  padding: $spacing-2 $spacing-3;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: $color-gray-50;
+  }
+
+  a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.breadcrumb__dropdown-item--active {
+  background: $color-gray-100;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.breadcrumb__dropdown-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+// ============================================
+// Breadcrumb Overflow Handling
+// ============================================
+
+.breadcrumb--overflow {
+  .breadcrumb__item:nth-child(n + 3):not(:last-child) {
+    display: none;
+  }
+
+  .breadcrumb__overflow-indicator {
+    display: inline-flex;
+    color: $color-text-disabled;
+    padding: 0 $spacing-1;
+  }
+}
+
+// ============================================
+// Breadcrumb Responsive
+// ============================================
+
+@media (max-width: 768px) {
+  .breadcrumb {
+    font-size: $font-size-xs;
+    gap: 4px;
+  }
+
+  .breadcrumb__separator {
+    margin: 0 4px;
+  }
+
+  .breadcrumb__item:nth-child(n + 3):not(:last-child) {
+    display: none;
+  }
+
+  .breadcrumb__overflow-indicator {
+    display: inline-flex;
+  }
+}
+
+// ============================================
+// Breadcrumb Loading State
+// ============================================
+
+.breadcrumb--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+

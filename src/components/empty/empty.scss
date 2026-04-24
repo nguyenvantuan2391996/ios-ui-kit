@@ -1,0 +1,205 @@
+// iOS UI Kit – Empty Component
+// Placeholder shown when there is no data to display
+
+// ============================================
+// Base Empty State
+// ============================================
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-12;
+  color: $color-text-secondary;
+  text-align: center;
+  background: $color-bg-primary;
+  border-radius: $border-radius-lg;
+}
+
+// ============================================
+// Empty Image/Icon
+// ============================================
+
+.empty__image {
+  margin-bottom: $spacing-4;
+  font-size: 64px;
+  color: $color-text-disabled;
+
+  img,
+  svg,
+  i {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  svg,
+  i {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+// ============================================
+// Empty Description
+// ============================================
+
+.empty__description {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-4;
+  max-width: 300px;
+}
+
+// ============================================
+// Empty Extra (Action Buttons)
+// ============================================
+
+.empty__extra {
+  display: flex;
+  gap: $spacing-2;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+// ============================================
+// Empty Title
+// ============================================
+
+.empty__title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-2;
+}
+
+// ============================================
+// Empty Content (Additional Details)
+// ============================================
+
+.empty__content {
+  margin-top: $spacing-6;
+  padding: $spacing-4;
+  background: white;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-relaxed;
+}
+
+// ============================================
+// Empty Size Variants
+// ============================================
+
+.empty--sm {
+  padding: $spacing-6;
+
+  .empty__image {
+    font-size: 32px;
+    margin-bottom: $spacing-2;
+
+    svg,
+    i {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .empty__description {
+    font-size: 12px;
+    margin-bottom: $spacing-2;
+  }
+}
+
+.empty--md {
+  padding: $spacing-8;
+
+  .empty__image {
+    font-size: 48px;
+    margin-bottom: $spacing-3;
+
+    svg,
+    i {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .empty__description {
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-3;
+  }
+}
+
+.empty--lg {
+  padding: $spacing-12;
+
+  .empty__image {
+    font-size: 96px;
+    margin-bottom: $spacing-6;
+
+    svg,
+    i {
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  .empty__description {
+    font-size: $font-size-base;
+    margin-bottom: $spacing-6;
+  }
+}
+
+// ============================================
+// Empty Simple Variant
+// ============================================
+
+.empty--simple {
+  .empty__image {
+    display: none;
+  }
+
+  .empty__description {
+    margin-bottom: $spacing-2;
+  }
+}
+
+// ============================================
+// Empty Text Variants
+// ============================================
+
+.empty--no-data {
+  .empty__description::before {
+    content: 'No data';
+  }
+}
+
+.empty--no-results {
+  .empty__description::before {
+    content: 'No results found';
+  }
+}
+
+.empty--no-search-results {
+  .empty__description::before {
+    content: 'No search results';
+  }
+}
+
+// ============================================
+// Empty with Styled Content
+// ============================================
+
+.empty--bordered {
+  border: 2px dashed $color-border;
+  background: $color-gray-50;
+}
+
+.empty--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+

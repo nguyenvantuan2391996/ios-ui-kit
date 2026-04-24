@@ -1,0 +1,193 @@
+// iOS UI Kit – Row Component
+// Horizontal grid row container (used with Col for grid layout)
+// Based on 24-column grid system
+
+// ============================================
+// Base Row Container
+// ============================================
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  margin: calc(var(--row-gutter-y, 0) / -2) calc(var(--row-gutter-x, 0) / -2);
+}
+
+// ============================================
+// Gutter Size Presets (horizontal & vertical gap)
+// ============================================
+
+.row--gutter-0 {
+  --row-gutter-x: 0;
+  --row-gutter-y: 0;
+}
+
+.row--gutter-8 {
+  --row-gutter-x: 8px;
+  --row-gutter-y: 8px;
+}
+
+.row--gutter-16 {
+  --row-gutter-x: 16px;
+  --row-gutter-y: 16px;
+}
+
+.row--gutter-24 {
+  --row-gutter-x: 24px;
+  --row-gutter-y: 24px;
+}
+
+.row--gutter-32 {
+  --row-gutter-x: 32px;
+  --row-gutter-y: 32px;
+}
+
+// Default gutter (if not specified)
+.row {
+  --row-gutter-x: #{$spacing-4};
+  --row-gutter-y: #{$spacing-4};
+}
+
+// ============================================
+// Wrap Control
+// ============================================
+
+.row--no-wrap {
+  flex-wrap: nowrap;
+}
+
+// ============================================
+// Justify Content (horizontal alignment)
+// ============================================
+
+.row--justify-start {
+  justify-content: flex-start;
+}
+
+.row--justify-center {
+  justify-content: center;
+}
+
+.row--justify-end {
+  justify-content: flex-end;
+}
+
+.row--justify-space-between {
+  justify-content: space-between;
+}
+
+.row--justify-space-around {
+  justify-content: space-around;
+}
+
+.row--justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+// ============================================
+// Align Items (vertical alignment)
+// ============================================
+
+.row--align-top {
+  align-items: flex-start;
+}
+
+.row--align-middle {
+  align-items: center;
+}
+
+.row--align-bottom {
+  align-items: flex-end;
+}
+
+.row--align-stretch {
+  align-items: stretch;
+}
+
+// ============================================
+// Responsive Gutter
+// ============================================
+
+// xs - extra small (< 576px)
+@media (max-width: 575px) {
+  .row--gutter-xs\:0 {
+    --row-gutter-x: 0;
+    --row-gutter-y: 0;
+  }
+
+  .row--gutter-xs\:8 {
+    --row-gutter-x: 8px;
+    --row-gutter-y: 8px;
+  }
+
+  .row--gutter-xs\:16 {
+    --row-gutter-x: 16px;
+    --row-gutter-y: 16px;
+  }
+}
+
+// sm - small (≥ 576px)
+@media (min-width: 576px) {
+  .row--gutter-sm\:0 {
+    --row-gutter-x: 0;
+    --row-gutter-y: 0;
+  }
+
+  .row--gutter-sm\:8 {
+    --row-gutter-x: 8px;
+    --row-gutter-y: 8px;
+  }
+
+  .row--gutter-sm\:16 {
+    --row-gutter-x: 16px;
+    --row-gutter-y: 16px;
+  }
+}
+
+// md - medium (≥ 768px)
+@media (min-width: 768px) {
+  .row--gutter-md\:0 {
+    --row-gutter-x: 0;
+    --row-gutter-y: 0;
+  }
+
+  .row--gutter-md\:8 {
+    --row-gutter-x: 8px;
+    --row-gutter-y: 8px;
+  }
+
+  .row--gutter-md\:24 {
+    --row-gutter-x: 24px;
+    --row-gutter-y: 24px;
+  }
+}
+
+// lg - large (≥ 992px)
+@media (min-width: 992px) {
+  .row--gutter-lg\:24 {
+    --row-gutter-x: 24px;
+    --row-gutter-y: 24px;
+  }
+
+  .row--gutter-lg\:32 {
+    --row-gutter-x: 32px;
+    --row-gutter-y: 32px;
+  }
+}
+
+// xl - extra large (≥ 1200px)
+@media (min-width: 1200px) {
+  .row--gutter-xl\:32 {
+    --row-gutter-x: 32px;
+    --row-gutter-y: 32px;
+  }
+}
+
+// xxl - 2x extra large (≥ 1600px)
+@media (min-width: 1600px) {
+  .row--gutter-xxl\:32 {
+    --row-gutter-x: 32px;
+    --row-gutter-y: 32px;
+  }
+}
+

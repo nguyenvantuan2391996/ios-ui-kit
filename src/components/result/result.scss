@@ -1,0 +1,283 @@
+// iOS UI Kit – Result Component
+// Feedback page shown after an operation completes
+
+// ============================================
+// Result Container
+// ============================================
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-8;
+  background: $color-bg-primary;
+  border-radius: $border-radius-lg;
+  min-height: 400px;
+  justify-content: center;
+}
+
+// ============================================
+// Result Icon
+// ============================================
+
+.result__icon {
+  font-size: 64px;
+  margin-bottom: $spacing-4;
+  color: $color-text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+
+  svg,
+  i {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ============================================
+// Result Title
+// ============================================
+
+.result__title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-2;
+  line-height: $line-height-tight;
+}
+
+// ============================================
+// Result Subtitle
+// ============================================
+
+.result__subtitle {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-4;
+  line-height: $line-height-normal;
+  max-width: 400px;
+}
+
+// ============================================
+// Result Extra (Buttons)
+// ============================================
+
+.result__extra {
+  display: flex;
+  gap: $spacing-3;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-6;
+}
+
+// ============================================
+// Result Content
+// ============================================
+
+.result__content {
+  margin-top: $spacing-6;
+  padding: $spacing-4;
+  background: white;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  text-align: left;
+  max-width: 100%;
+
+  p {
+    margin: 0;
+    line-height: $line-height-normal;
+
+    &:not(:last-child) {
+      margin-bottom: $spacing-2;
+    }
+  }
+}
+
+// ============================================
+// Result Status Variants
+// ============================================
+
+// Success
+.result--success {
+  .result__icon {
+    color: $color-success;
+  }
+
+  .result__title {
+    color: $color-success;
+  }
+}
+
+// Error
+.result--error {
+  .result__icon {
+    color: $color-danger;
+  }
+
+  .result__title {
+    color: $color-danger;
+  }
+}
+
+// Warning
+.result--warning {
+  .result__icon {
+    color: $color-warning;
+  }
+
+  .result__title {
+    color: $color-warning;
+  }
+}
+
+// Info
+.result--info {
+  .result__icon {
+    color: $color-info;
+  }
+
+  .result__title {
+    color: $color-info;
+  }
+}
+
+// ============================================
+// Result HTTP Status Codes
+// ============================================
+
+.result--404 {
+  .result__icon {
+    font-size: 72px;
+    color: $color-warning;
+  }
+
+  .result__title {
+    color: $color-warning;
+  }
+
+  .result__subtitle {
+    font-size: $font-size-lg;
+  }
+}
+
+.result--403 {
+  .result__icon {
+    font-size: 72px;
+    color: $color-danger;
+  }
+
+  .result__title {
+    color: $color-danger;
+  }
+
+  .result__subtitle {
+    font-size: $font-size-base;
+  }
+}
+
+.result--500 {
+  .result__icon {
+    font-size: 72px;
+    color: $color-danger;
+  }
+
+  .result__title {
+    color: $color-danger;
+  }
+
+  .result__subtitle {
+    font-size: $font-size-base;
+  }
+}
+
+// ============================================
+// Result Size Variants
+// ============================================
+
+.result--sm {
+  padding: $spacing-4;
+  min-height: 240px;
+
+  .result__icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: $spacing-2;
+  }
+
+  .result__title {
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-1;
+  }
+
+  .result__subtitle {
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-2;
+  }
+
+  .result__extra {
+    margin-bottom: $spacing-3;
+  }
+}
+
+.result--md {
+  padding: $spacing-8;
+  min-height: 400px;
+}
+
+.result--lg {
+  padding: $spacing-12;
+  min-height: 600px;
+
+  .result__icon {
+    font-size: 96px;
+    width: 96px;
+    height: 96px;
+  }
+
+  .result__title {
+    font-size: $font-size-3xl;
+  }
+
+  .result__subtitle {
+    font-size: $font-size-lg;
+  }
+}
+
+// ============================================
+// Result Responsive
+// ============================================
+
+@media (max-width: 768px) {
+  .result {
+    padding: $spacing-4;
+
+    .result__icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
+
+    .result__title {
+      font-size: $font-size-lg;
+    }
+
+    .result__subtitle {
+      font-size: $font-size-sm;
+    }
+
+    .result__extra {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .result__extra button {
+      width: 100%;
+    }
+  }
+}
+

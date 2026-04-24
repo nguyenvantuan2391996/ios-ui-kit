@@ -1,0 +1,301 @@
+// iOS UI Kit – Drawer Component
+// Panel that slides in from the edge of the screen
+
+// ============================================
+// Drawer Overlay/Backdrop
+// ============================================
+
+.drawer__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer--open .drawer__overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+// ============================================
+// Drawer Base Container
+// ============================================
+
+.drawer {
+  position: fixed;
+  z-index: 1001;
+  background: white;
+  box-shadow: $shadow-lg;
+  overflow-y: auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ============================================
+// Drawer Placement
+// ============================================
+
+.drawer--left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  transform: translateX(-100%);
+}
+
+.drawer--right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  transform: translateX(100%);
+}
+
+.drawer--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  transform: translateY(-100%);
+}
+
+.drawer--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 280px;
+  transform: translateY(100%);
+}
+
+// ============================================
+// Drawer Open State
+// ============================================
+
+.drawer--open {
+  &.drawer--left {
+    transform: translateX(0);
+  }
+
+  &.drawer--right {
+    transform: translateX(0);
+  }
+
+  &.drawer--top {
+    transform: translateY(0);
+  }
+
+  &.drawer--bottom {
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// Drawer Sizes
+// ============================================
+
+.drawer--sm {
+  &.drawer--left,
+  &.drawer--right {
+    width: 200px;
+  }
+
+  &.drawer--top,
+  &.drawer--bottom {
+    height: 200px;
+  }
+}
+
+.drawer--md {
+  &.drawer--left,
+  &.drawer--right {
+    width: 280px;
+  }
+
+  &.drawer--top,
+  &.drawer--bottom {
+    height: 280px;
+  }
+}
+
+.drawer--lg {
+  &.drawer--left,
+  &.drawer--right {
+    width: 400px;
+  }
+
+  &.drawer--top,
+  &.drawer--bottom {
+    height: 400px;
+  }
+}
+
+.drawer--full {
+  &.drawer--left,
+  &.drawer--right {
+    width: 100%;
+  }
+
+  &.drawer--top,
+  &.drawer--bottom {
+    height: 100%;
+  }
+}
+
+// ============================================
+// Drawer Header
+// ============================================
+
+.drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-4;
+  border-bottom: 1px solid $color-border;
+  flex-shrink: 0;
+}
+
+.drawer__title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+.drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: $border-radius-md;
+  border: none;
+  background: transparent;
+  color: $color-text-primary;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: $color-gray-100;
+    color: $color-text-primary;
+  }
+
+  &:active {
+    background: $color-gray-200;
+  }
+
+  svg,
+  i {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// ============================================
+// Drawer Body
+// ============================================
+
+.drawer__body {
+  overflow-y: auto;
+  flex: 1;
+  padding: $spacing-4;
+}
+
+// ============================================
+// Drawer Footer
+// ============================================
+
+.drawer__footer {
+  border-top: 1px solid $color-border;
+  padding: $spacing-4;
+  display: flex;
+  gap: $spacing-2;
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+// ============================================
+// Drawer Content
+// ============================================
+
+.drawer__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// ============================================
+// Drawer No Header
+// ============================================
+
+.drawer--no-header {
+  .drawer__header {
+    display: none;
+  }
+}
+
+// ============================================
+// Drawer No Footer
+// ============================================
+
+.drawer--no-footer {
+  .drawer__footer {
+    display: none;
+  }
+}
+
+// ============================================
+// Drawer Responsive
+// ============================================
+
+@media (max-width: 768px) {
+  .drawer--left,
+  .drawer--right {
+    width: 70vw;
+    min-width: 200px;
+  }
+
+  .drawer--top,
+  .drawer--bottom {
+    height: 60vh;
+    max-height: 400px;
+  }
+
+  .drawer--full {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .drawer--left,
+  .drawer--right {
+    width: 100vw;
+  }
+
+  .drawer--top,
+  .drawer--bottom {
+    height: 100vh;
+  }
+
+  .drawer__header {
+    padding: $spacing-3;
+  }
+
+  .drawer__body {
+    padding: $spacing-3;
+  }
+
+  .drawer__footer {
+    padding: $spacing-3;
+    flex-direction: column;
+    justify-content: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+

@@ -1,0 +1,182 @@
+// iOS UI Kit – Tag Component
+// Small label used to mark or categorize content
+
+// ============================================
+// Base Tag
+// ============================================
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: $spacing-0-5 $spacing-2;
+  border-radius: $border-radius-md;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  line-height: 1;
+  background: $color-gray-100;
+  color: $color-text-primary;
+}
+
+// ============================================
+// Tag Colors
+// ============================================
+
+.tag--default {
+  background: $color-gray-100;
+  color: $color-text-primary;
+}
+
+.tag--primary {
+  background: rgba($color-primary, 0.15);
+  color: $color-primary;
+}
+
+.tag--success {
+  background: rgba($color-success, 0.15);
+  color: $color-success;
+}
+
+.tag--warning {
+  background: rgba($color-warning, 0.15);
+  color: $color-warning;
+}
+
+.tag--danger {
+  background: rgba($color-danger, 0.15);
+  color: $color-danger;
+}
+
+.tag--info {
+  background: rgba($color-info, 0.15);
+  color: $color-info;
+}
+
+// ============================================
+// Tag Outlined Variant
+// ============================================
+
+.tag--outlined {
+  background: transparent;
+  border: 1px solid $color-border;
+  color: $color-text-primary;
+
+  &.tag--primary {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &.tag--success {
+    border-color: $color-success;
+    color: $color-success;
+  }
+
+  &.tag--warning {
+    border-color: $color-warning;
+    color: $color-warning;
+  }
+
+  &.tag--danger {
+    border-color: $color-danger;
+    color: $color-danger;
+  }
+
+  &.tag--info {
+    border-color: $color-info;
+    color: $color-info;
+  }
+}
+
+// ============================================
+// Tag Sizes
+// ============================================
+
+.tag--sm {
+  padding: $spacing-0-5 $spacing-1;
+  font-size: 10px;
+}
+
+.tag--md {
+  padding: $spacing-0-5 $spacing-2;
+  font-size: $font-size-xs;
+}
+
+.tag--lg {
+  padding: $spacing-1 $spacing-3;
+  font-size: $font-size-sm;
+}
+
+// ============================================
+// Tag Shapes
+// ============================================
+
+.tag--rounded {
+  border-radius: $border-radius-md;
+}
+
+.tag--pill {
+  border-radius: 999px;
+}
+
+// ============================================
+// Closable Tag
+// ============================================
+
+.tag--closable {
+  padding-right: $spacing-1;
+}
+
+.tag__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  border-radius: $border-radius-sm;
+  margin-left: $spacing-0-5;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  svg,
+  i {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+}
+
+// ============================================
+// Tag Icon
+// ============================================
+
+.tag__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+// ============================================
+// Tag Group
+// ============================================
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+  align-items: center;
+}
+

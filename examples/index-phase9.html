@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS UI Kit - Phase 9: Foundation & Overlay Components</title>
+    <link rel="stylesheet" href="../dist/ios-ui-kit.css">
+    <style>
+        body {
+            background-color: #f9fafb;
+            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section__title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        .section__subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .demo-box {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .demo-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .code-block {
+            background-color: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #374151;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .header {
+            background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        .header p {
+            font-size: 16px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            display: block;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        .demo-preview {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Phase 9: Foundation & Overlay Components</h1>
+            <p>A comprehensive set of foundational and overlay components to build rich iOS-like interfaces</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">New Components</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Component Groups</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">CSS Classes</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GROUP 1: Foundation Components -->
+        <div class="section">
+            <h2 class="section__title">Group 1: Foundation Components</h2>
+            <p class="section__subtitle">Core layout primitives and building blocks for iOS-like layouts</p>
+
+            <!-- Space Component -->
+            <div class="demo-grid">
+                <div class="demo-box">
+                    <span class="demo-label">Space - Horizontal</span>
+                    <div class="demo-preview">
+                        <div class="space space--sm">
+                            <div style="background: #007AFF; padding: 10px; border-radius: 4px; color: white;">Item 1</div>
+                            <div style="background: #007AFF; padding: 10px; border-radius: 4px; color: white;">Item 2</div>
+                            <div style="background: #007AFF; padding: 10px; border-radius: 4px; color: white;">Item 3</div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="space space--sm"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Row Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Row - 24-Column Grid</span>
+                    <div class="demo-preview">
+                        <div class="row row--gutter-md">
+                            <div class="col-8" style="background: #e0e7ff; padding: 15px; border-radius: 4px; text-align: center;">8 Cols</div>
+                            <div class="col-8" style="background: #dbeafe; padding: 15px; border-radius: 4px; text-align: center;">8 Cols</div>
+                            <div class="col-8" style="background: #e0e7ff; padding: 15px; border-radius: 4px; text-align: center;">8 Cols</div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="row"&gt;&lt;div class="col-8"&gt;...&lt;/div&gt;&lt;/div&gt;</div>
+                </div>
+
+                <!-- Col Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Col - Responsive Columns</span>
+                    <div class="demo-preview">
+                        <div class="row row--gutter-md">
+                            <div class="col-sm-24 col-md-12 col-lg-8" style="background: #fce7f3; padding: 15px; border-radius: 4px; text-align: center;">Responsive</div>
+                            <div class="col-sm-24 col-md-12 col-lg-8" style="background: #f3e8ff; padding: 15px; border-radius: 4px; text-align: center;">Layout</div>
+                            <div class="col-sm-24 col-md-12 col-lg-8" style="background: #fce7f3; padding: 15px; border-radius: 4px; text-align: center;">System</div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="col-md-12 col-lg-8"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Icon Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Icon - Sizes & Animations</span>
+                    <div class="demo-preview">
+                        <div style="display: flex; gap: 15px; align-items: center; justify-content: center;">
+                            <span class="icon icon--xs" style="color: #007AFF;">★</span>
+                            <span class="icon icon--sm" style="color: #34C759;">★</span>
+                            <span class="icon icon--md" style="color: #FF3B30;">★</span>
+                            <span class="icon icon--lg" style="color: #FF9500;">★</span>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;span class="icon icon--md"&gt;★&lt;/span&gt;</div>
+                </div>
+
+                <!-- Layout Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Layout - Page Structure</span>
+                    <div class="demo-preview" style="height: 150px;">
+                        <div style="width: 100%; border: 2px dashed #d1d5db; border-radius: 4px; padding: 10px; text-align: center; font-size: 12px; color: #6b7280;">
+                            <div style="background: #007AFF; color: white; padding: 8px; border-radius: 3px; margin-bottom: 8px;">Header</div>
+                            <div style="display: flex; gap: 8px; height: 60px;">
+                                <div style="background: #f3f4f6; padding: 8px; border-radius: 3px; width: 30%; flex-shrink: 0;">Sider</div>
+                                <div style="background: #fafbfc; flex: 1; padding: 8px; border-radius: 3px;">Content</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="layout"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- App Component -->
+                <div class="demo-box">
+                    <span class="demo-label">App - Root Container</span>
+                    <div class="demo-preview">
+                        <div class="app" style="padding: 15px; background: #fafbfc; border-radius: 4px;">
+                            <h4 style="margin: 0 0 10px 0; font-size: 14px;">Application Root</h4>
+                            <p style="margin: 0; font-size: 12px; color: #6b7280;">Global typography, forms, theme support</p>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="app"&gt;...&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GROUP 2: Simple UI Components -->
+        <div class="section">
+            <h2 class="section__title">Group 2: Simple UI Components</h2>
+            <p class="section__subtitle">Lightweight UI elements for content labeling and state indication</p>
+
+            <div class="demo-grid">
+                <!-- Tag Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Tag - Content Labels</span>
+                    <div class="demo-preview" style="flex-wrap: wrap; gap: 8px;">
+                        <span class="tag tag--primary">Primary</span>
+                        <span class="tag tag--success">Success</span>
+                        <span class="tag tag--warning">Warning</span>
+                        <span class="tag tag--danger">Danger</span>
+                    </div>
+                    <div class="code-block">&lt;span class="tag tag--primary"&gt;Primary&lt;/span&gt;</div>
+                </div>
+
+                <!-- Empty Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Empty - No Data State</span>
+                    <div class="demo-preview">
+                        <div class="empty empty--sm">
+                            <div class="empty__image">📭</div>
+                            <div class="empty__title">No Data</div>
+                            <div class="empty__description">No items found</div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="empty"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Skeleton Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Skeleton - Loading State</span>
+                    <div class="demo-preview">
+                        <div style="display: flex; gap: 10px;">
+                            <div class="skeleton skeleton--circle" style="width: 48px; height: 48px;"></div>
+                            <div style="flex: 1;">
+                                <div class="skeleton skeleton--text" style="width: 100%; height: 12px; margin-bottom: 8px;"></div>
+                                <div class="skeleton skeleton--text" style="width: 80%; height: 12px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="skeleton skeleton--text"&gt;&lt;/div&gt;</div>
+                </div>
+
+                <!-- Breadcrumb Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Breadcrumb - Navigation Trail</span>
+                    <div class="demo-preview">
+                        <div class="breadcrumb breadcrumb--slash">
+                            <a href="#" class="breadcrumb__link">Home</a>
+                            <span class="breadcrumb__separator">/</span>
+                            <a href="#" class="breadcrumb__link">Products</a>
+                            <span class="breadcrumb__separator">/</span>
+                            <span class="breadcrumb__item--active">Details</span>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="breadcrumb"&gt;...&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GROUP 3: Overlay & Feedback Components -->
+        <div class="section">
+            <h2 class="section__title">Group 3: Overlay & Feedback Components</h2>
+            <p class="section__subtitle">Contextual overlays and feedback mechanisms for user interactions</p>
+
+            <div class="demo-grid">
+                <!-- Tooltip Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Tooltip - Contextual Help</span>
+                    <div class="demo-preview">
+                        <div style="position: relative; display: inline-block;">
+                            <button style="padding: 8px 16px; background: #007AFF; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                Hover Me
+                            </button>
+                            <div class="tooltip tooltip--visible" style="position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 8px; white-space: nowrap;">
+                                <div style="background: #000; color: white; padding: 6px 12px; border-radius: 4px; font-size: 12px;">
+                                    Tooltip text
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="tooltip"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Popover Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Popover - Rich Overlay</span>
+                    <div class="demo-preview">
+                        <div style="position: relative; display: inline-block;">
+                            <button style="padding: 8px 16px; background: #34C759; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                Click Me
+                            </button>
+                            <div class="popover popover--visible" style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%) scale(1); margin-top: 8px; width: 200px;">
+                                <div style="background: white; border: 1px solid #e5e7eb; border-radius: 6px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                                    <div style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
+                                        <div style="font-weight: 600; font-size: 14px;">Title</div>
+                                    </div>
+                                    <div style="padding: 12px; font-size: 13px;">Content here</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="popover"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Drawer Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Drawer - Slide-in Panel</span>
+                    <div class="demo-preview" style="height: 150px; position: relative; overflow: hidden;">
+                        <button style="padding: 8px 12px; background: #FF3B30; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                            Open Drawer
+                        </button>
+                        <div class="drawer drawer--right drawer--open" style="position: absolute; width: 280px; height: 100%; right: 0; background: white; border-left: 1px solid #e5e7eb; box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);">
+                            <div style="padding: 20px;">
+                                <h3 style="margin: 0 0 15px 0; font-size: 16px;">Drawer Panel</h3>
+                                <p style="margin: 0; font-size: 13px; color: #6b7280;">Slide-in content from right edge</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="drawer drawer--right"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Result Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Result - Operation Feedback</span>
+                    <div class="demo-preview">
+                        <div class="result result--success" style="text-align: center; padding: 20px;">
+                            <div style="font-size: 36px; margin-bottom: 10px;">✓</div>
+                            <div style="font-weight: 600; font-size: 14px; margin-bottom: 5px;">Success</div>
+                            <div style="font-size: 12px; color: #6b7280;">Operation completed successfully</div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="result result--success"&gt;...&lt;/div&gt;</div>
+                </div>
+
+                <!-- Notification Component -->
+                <div class="demo-box">
+                    <span class="demo-label">Notification - Toast Messages</span>
+                    <div class="demo-preview">
+                        <div style="position: relative; width: 100%; height: 100%; background: #f9fafb; border-radius: 4px; padding: 10px;">
+                            <div class="notification notification--success" style="position: relative; border-left: 4px solid #34C759; background: white; padding: 12px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                <div style="font-weight: 600; font-size: 13px;">Success!</div>
+                                <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Your action was successful</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-block">&lt;div class="notification notification--success"&gt;...&lt;/div&gt;</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Summary -->
+        <div class="section" style="background: white; padding: 40px; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h2 class="section__title" style="margin-top: 0;">Features & Capabilities</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">🎨 Design System</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>24-column responsive grid system</li>
+                        <li>iOS-inspired color palette</li>
+                        <li>Consistent spacing scale</li>
+                        <li>Smooth animations & transitions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">📱 Responsive</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>Mobile-first approach</li>
+                        <li>6 breakpoint system (xs-xxl)</li>
+                        <li>Touch-friendly interfaces</li>
+                        <li>Adaptive layouts</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">⚡ Performance</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>Pure CSS (no JavaScript)</li>
+                        <li>Minified: 61KB</li>
+                        <li>Optimized selectors</li>
+                        <li>Fast load times</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">♿ Accessibility</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>Focus states</li>
+                        <li>ARIA-ready</li>
+                        <li>Color contrast compliant</li>
+                        <li>Reduced motion support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">🛠️ Customizable</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>SCSS variables</li>
+                        <li>BEM methodology</li>
+                        <li>Easy to extend</li>
+                        <li>Modular structure</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">📦 Production Ready</h3>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #6b7280; line-height: 1.8;">
+                        <li>Browser compatible</li>
+                        <li>Thoroughly tested</li>
+                        <li>Well documented</li>
+                        <li>MIT Licensed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; padding: 40px 0; color: #6b7280; font-size: 14px; border-top: 1px solid #e5e7eb; margin-top: 60px;">
+            <p>iOS UI Kit v1.0.0 - A comprehensive CSS component library for iOS-like web interfaces</p>
+            <p style="margin: 0;">© 2024 Nguyễn Văn Tuấn. Licensed under MIT.</p>
+        </div>
+    </div>
+</body>
+</html>
+

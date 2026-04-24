@@ -1,0 +1,221 @@
+// iOS UI Kit – Icon Component
+// Wrapper styles for inline SVG or icon-font icons
+
+// ============================================
+// Base Icon
+// ============================================
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: $font-size-base;
+  flex-shrink: 0;
+
+  // SVG styling
+  svg {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+  // Icon font styling
+  i {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+// ============================================
+// Icon Sizes
+// ============================================
+
+.icon--xs {
+  font-size: 12px;
+}
+
+.icon--sm {
+  font-size: 16px;
+}
+
+.icon--md {
+  font-size: 20px;
+}
+
+.icon--lg {
+  font-size: 24px;
+}
+
+.icon--xl {
+  font-size: 32px;
+}
+
+.icon--2xl {
+  font-size: 48px;
+}
+
+// ============================================
+// Icon Colors
+// ============================================
+
+.icon--primary {
+  color: $color-primary;
+}
+
+.icon--secondary {
+  color: $color-secondary;
+}
+
+.icon--success {
+  color: $color-success;
+}
+
+.icon--warning {
+  color: $color-warning;
+}
+
+.icon--danger {
+  color: $color-danger;
+}
+
+.icon--info {
+  color: $color-info;
+}
+
+.icon--muted {
+  color: $color-text-disabled;
+}
+
+// ============================================
+// Icon Animations
+// ============================================
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon--spin {
+  animation: icon-spin 1s linear infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.icon--pulse {
+  animation: icon-pulse 1s ease-in-out infinite;
+}
+
+// ============================================
+// Block Icon (full width)
+// ============================================
+
+.icon--block {
+  display: flex;
+  width: 100%;
+}
+
+// ============================================
+// Icon Button Wrapper
+// ============================================
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: $border-radius-md;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($color-primary, 0.08);
+  }
+
+  &:active {
+    background: rgba($color-primary, 0.12);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Icon button sizes
+.icon-button--sm {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.icon-button--md {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.icon-button--lg {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+// Icon button colors
+.icon-button--primary {
+  color: $color-primary;
+
+  &:hover {
+    background: rgba($color-primary, 0.12);
+  }
+}
+
+.icon-button--danger {
+  color: $color-danger;
+
+  &:hover {
+    background: rgba($color-danger, 0.12);
+  }
+}
+
+.icon-button--success {
+  color: $color-success;
+
+  &:hover {
+    background: rgba($color-success, 0.12);
+  }
+}
+
+// ============================================
+// Icon with Text
+// ============================================
+
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  font-size: $font-size-sm;
+}
+
+.icon-text--sm {
+  gap: $spacing-1 / 2;
+}
+
+.icon-text--lg {
+  gap: $spacing-2;
+}
+

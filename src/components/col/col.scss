@@ -1,0 +1,414 @@
+// iOS UI Kit – Col Component
+// Grid column, child of Row
+// Based on 24-column grid system
+
+// ============================================
+// Base Column
+// ============================================
+
+.col {
+  box-sizing: border-box;
+  padding: calc(var(--row-gutter-y, 0) / 2) calc(var(--row-gutter-x, 0) / 2);
+  min-width: 0;
+}
+
+// ============================================
+// Column Span Classes (24-column grid)
+// ============================================
+
+.col-0 {
+  display: none;
+}
+
+.col-1 {
+  flex: 0 0 calc(1 / 24 * 100%);
+  max-width: calc(1 / 24 * 100%);
+}
+
+.col-2 {
+  flex: 0 0 calc(2 / 24 * 100%);
+  max-width: calc(2 / 24 * 100%);
+}
+
+.col-3 {
+  flex: 0 0 calc(3 / 24 * 100%);
+  max-width: calc(3 / 24 * 100%);
+}
+
+.col-4 {
+  flex: 0 0 calc(4 / 24 * 100%);
+  max-width: calc(4 / 24 * 100%);
+}
+
+.col-5 {
+  flex: 0 0 calc(5 / 24 * 100%);
+  max-width: calc(5 / 24 * 100%);
+}
+
+.col-6 {
+  flex: 0 0 calc(6 / 24 * 100%);
+  max-width: calc(6 / 24 * 100%);
+}
+
+.col-7 {
+  flex: 0 0 calc(7 / 24 * 100%);
+  max-width: calc(7 / 24 * 100%);
+}
+
+.col-8 {
+  flex: 0 0 calc(8 / 24 * 100%);
+  max-width: calc(8 / 24 * 100%);
+}
+
+.col-9 {
+  flex: 0 0 calc(9 / 24 * 100%);
+  max-width: calc(9 / 24 * 100%);
+}
+
+.col-10 {
+  flex: 0 0 calc(10 / 24 * 100%);
+  max-width: calc(10 / 24 * 100%);
+}
+
+.col-11 {
+  flex: 0 0 calc(11 / 24 * 100%);
+  max-width: calc(11 / 24 * 100%);
+}
+
+.col-12 {
+  flex: 0 0 calc(12 / 24 * 100%);
+  max-width: calc(12 / 24 * 100%);
+}
+
+.col-13 {
+  flex: 0 0 calc(13 / 24 * 100%);
+  max-width: calc(13 / 24 * 100%);
+}
+
+.col-14 {
+  flex: 0 0 calc(14 / 24 * 100%);
+  max-width: calc(14 / 24 * 100%);
+}
+
+.col-15 {
+  flex: 0 0 calc(15 / 24 * 100%);
+  max-width: calc(15 / 24 * 100%);
+}
+
+.col-16 {
+  flex: 0 0 calc(16 / 24 * 100%);
+  max-width: calc(16 / 24 * 100%);
+}
+
+.col-17 {
+  flex: 0 0 calc(17 / 24 * 100%);
+  max-width: calc(17 / 24 * 100%);
+}
+
+.col-18 {
+  flex: 0 0 calc(18 / 24 * 100%);
+  max-width: calc(18 / 24 * 100%);
+}
+
+.col-19 {
+  flex: 0 0 calc(19 / 24 * 100%);
+  max-width: calc(19 / 24 * 100%);
+}
+
+.col-20 {
+  flex: 0 0 calc(20 / 24 * 100%);
+  max-width: calc(20 / 24 * 100%);
+}
+
+.col-21 {
+  flex: 0 0 calc(21 / 24 * 100%);
+  max-width: calc(21 / 24 * 100%);
+}
+
+.col-22 {
+  flex: 0 0 calc(22 / 24 * 100%);
+  max-width: calc(22 / 24 * 100%);
+}
+
+.col-23 {
+  flex: 0 0 calc(23 / 24 * 100%);
+  max-width: calc(23 / 24 * 100%);
+}
+
+.col-24 {
+  flex: 0 0 calc(24 / 24 * 100%);
+  max-width: calc(24 / 24 * 100%);
+}
+
+// ============================================
+// Column Offset Classes
+// ============================================
+
+.col-offset-1 {
+  margin-left: calc(1 / 24 * 100%);
+}
+
+.col-offset-2 {
+  margin-left: calc(2 / 24 * 100%);
+}
+
+.col-offset-3 {
+  margin-left: calc(3 / 24 * 100%);
+}
+
+.col-offset-4 {
+  margin-left: calc(4 / 24 * 100%);
+}
+
+.col-offset-5 {
+  margin-left: calc(5 / 24 * 100%);
+}
+
+.col-offset-6 {
+  margin-left: calc(6 / 24 * 100%);
+}
+
+.col-offset-8 {
+  margin-left: calc(8 / 24 * 100%);
+}
+
+.col-offset-12 {
+  margin-left: calc(12 / 24 * 100%);
+}
+
+// ============================================
+// Column Order Classes
+// ============================================
+
+.col-order-first {
+  order: -1;
+}
+
+.col-order-last {
+  order: 9999;
+}
+
+@for $i from 1 through 24 {
+  .col-order-#{$i} {
+    order: $i;
+  }
+}
+
+// ============================================
+// Flex Filling
+// ============================================
+
+.col--flex {
+  flex: 1;
+}
+
+// ============================================
+// Responsive Column Spans (xs - < 576px)
+// ============================================
+
+@media (max-width: 575px) {
+  @for $i from 0 through 24 {
+    .col-xs-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-xs-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-xs-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-xs-order-first {
+    order: -1;
+  }
+
+  .col-xs-order-last {
+    order: 9999;
+  }
+}
+
+// ============================================
+// Responsive Column Spans (sm - ≥ 576px)
+// ============================================
+
+@media (min-width: 576px) {
+  @for $i from 0 through 24 {
+    .col-sm-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-sm-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-sm-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-sm-order-first {
+    order: -1;
+  }
+
+  .col-sm-order-last {
+    order: 9999;
+  }
+}
+
+// ============================================
+// Responsive Column Spans (md - ≥ 768px)
+// ============================================
+
+@media (min-width: 768px) {
+  @for $i from 0 through 24 {
+    .col-md-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-md-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-md-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-md-order-first {
+    order: -1;
+  }
+
+  .col-md-order-last {
+    order: 9999;
+  }
+}
+
+// ============================================
+// Responsive Column Spans (lg - ≥ 992px)
+// ============================================
+
+@media (min-width: 992px) {
+  @for $i from 0 through 24 {
+    .col-lg-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-lg-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-lg-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-lg-order-first {
+    order: -1;
+  }
+
+  .col-lg-order-last {
+    order: 9999;
+  }
+}
+
+// ============================================
+// Responsive Column Spans (xl - ≥ 1200px)
+// ============================================
+
+@media (min-width: 1200px) {
+  @for $i from 0 through 24 {
+    .col-xl-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-xl-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-xl-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-xl-order-first {
+    order: -1;
+  }
+
+  .col-xl-order-last {
+    order: 9999;
+  }
+}
+
+// ============================================
+// Responsive Column Spans (xxl - ≥ 1600px)
+// ============================================
+
+@media (min-width: 1600px) {
+  @for $i from 0 through 24 {
+    .col-xxl-#{$i} {
+      @if $i == 0 {
+        display: none;
+      } @else {
+        flex: 0 0 calc($i / 24 * 100%);
+        max-width: calc($i / 24 * 100%);
+      }
+    }
+
+    @if $i > 0 {
+      .col-xxl-offset-#{$i} {
+        margin-left: calc($i / 24 * 100%);
+      }
+
+      .col-xxl-order-#{$i} {
+        order: $i;
+      }
+    }
+  }
+
+  .col-xxl-order-first {
+    order: -1;
+  }
+
+  .col-xxl-order-last {
+    order: 9999;
+  }
+}
+
