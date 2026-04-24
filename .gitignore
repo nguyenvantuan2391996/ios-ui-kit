@@ -37,6 +37,8 @@ temp/
 Thumbs.db
 .DS_Store
 
+.idea
+
 # Distribution
 build/
 coverage/
