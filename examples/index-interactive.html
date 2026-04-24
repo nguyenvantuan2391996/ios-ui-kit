@@ -520,7 +520,7 @@
                     <div class="demo-box">
                         <span class="demo-label">Tag Colors</span>
                         <div class="demo-content" style="gap: 8px;">
-                            <span class="tag tag--default">Default</span>
+                            <span class="tag">Default</span>
                             <span class="tag tag--primary">Primary</span>
                             <span class="tag tag--success">Success</span>
                             <span class="tag tag--warning">Warning</span>
@@ -541,13 +541,13 @@
                     </div>
 
                     <div class="demo-box">
-                        <span class="demo-label">Tag Styles</span>
+                        <span class="demo-label">Tag Shapes</span>
                         <div class="demo-content" style="gap: 8px;">
                             <span class="tag tag--primary">Default</span>
-                            <span class="tag tag--outlined">Outlined</span>
-                            <span class="tag tag--pill tag--primary">Pill</span>
+                            <span class="tag tag--primary tag--rounded">Rounded</span>
+                            <span class="tag tag--primary tag--pill">Pill</span>
                         </div>
-                        <div class="description">Filled, outlined, and pill variants</div>
+                        <div class="description">Default, rounded, and pill shapes</div>
                     </div>
                 </div>
 
@@ -754,6 +754,7 @@
                             <button class="btn btn--warning">Warning</button>
                             <button class="btn btn--danger">Danger</button>
                         </div>
+                        <div class="description">6 color variants with filled style</div>
                     </div>
 
                     <div class="demo-box">
@@ -763,15 +764,26 @@
                             <button class="btn btn--md btn--primary">Medium</button>
                             <button class="btn btn--lg btn--primary">Large</button>
                         </div>
+                        <div class="description">sm, md (default), lg sizes</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Button Outlined</span>
+                        <div class="demo-content">
+                            <button class="btn btn--outlined">Outlined</button>
+                            <button class="btn btn--outlined-secondary">Alt Outlined</button>
+                            <button class="btn btn--ghost">Ghost</button>
+                        </div>
+                        <div class="description">Outlined and ghost button variants</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Button States</span>
-                        <div class="demo-content">
+                        <div class="demo-content" style="align-items: center;">
                             <button class="btn btn--primary">Normal</button>
                             <button class="btn btn--primary" disabled>Disabled</button>
-                            <button class="btn btn--primary btn--block">Block Button</button>
                         </div>
+                        <div class="description">Normal and disabled states</div>
                     </div>
                 </div>
 
@@ -779,57 +791,86 @@
                 <div class="component-section" id="input">
                     <div class="demo-box">
                         <span class="demo-label">Input Field</span>
-                        <input type="text" class="input" placeholder="Enter text..." style="max-width: 300px;">
-                        <div class="description">Standard text input</div>
+                        <input type="text" class="input" placeholder="Enter text..." style="max-width: 100%;">
+                        <div class="description">Standard text input with focus state</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Input Variants</span>
-                        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 300px;">
-                            <input type="text" class="input input--outlined" placeholder="Outlined input">
-                            <input type="text" class="input input--filled" placeholder="Filled input">
-                            <input type="text" class="input input--rounded" placeholder="Rounded input">
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <input type="text" class="input input--outlined" placeholder="Outlined input" style="width: 100%;">
+                            <input type="text" class="input input--filled" placeholder="Filled input" style="width: 100%;">
+                            <input type="text" class="input input--rounded" placeholder="Rounded input" style="width: 100%;">
                         </div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Input States</span>
-                        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 300px;">
-                            <input type="text" class="input" placeholder="Normal">
-                            <input type="text" class="input input--success" placeholder="Success">
-                            <input type="text" class="input input--error" placeholder="Error">
-                            <input type="text" class="input" placeholder="Disabled" disabled>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <input type="text" class="input" placeholder="Normal" style="width: 100%;">
+                            <input type="text" class="input input--success" placeholder="Success" style="width: 100%;">
+                            <input type="text" class="input input--error" placeholder="Error" style="width: 100%;">
+                            <input type="text" class="input" placeholder="Disabled" disabled style="width: 100%;">
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Input Sizes</span>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <input type="text" class="input input--sm" placeholder="Small input" style="width: 100%;">
+                            <input type="text" class="input input--md" placeholder="Medium input" style="width: 100%;">
+                            <input type="text" class="input input--lg" placeholder="Large input" style="width: 100%;">
                         </div>
                     </div>
                 </div>
 
                 <!-- CARD -->
                 <div class="component-section" id="card">
-                    <div class="demo-box" style="display: flex; flex-wrap: wrap; gap: 16px;">
-                        <div class="card card--outlined" style="flex: 1; min-width: 200px;">
-                            <div class="card__header">
-                                <h3 class="card__title">Card Title</h3>
+                    <div class="demo-box">
+                        <span class="demo-label">Card Variants</span>
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                            <div class="card card--outlined" style="flex: 1; min-width: 200px;">
+                                <div class="card__header">
+                                    <h4 class="card__title">Outlined Card</h4>
+                                </div>
+                                <div class="card__body">
+                                    <p style="margin: 0;">Card with border style</p>
+                                </div>
                             </div>
-                            <div class="card__body">
-                                <p class="card__content">Card with outlined style</p>
+
+                            <div class="card card--elevated" style="flex: 1; min-width: 200px;">
+                                <div class="card__header">
+                                    <h4 class="card__title">Elevated Card</h4>
+                                </div>
+                                <div class="card__body">
+                                    <p style="margin: 0;">Card with shadow</p>
+                                </div>
+                            </div>
+
+                            <div class="card card--filled" style="flex: 1; min-width: 200px;">
+                                <div class="card__header">
+                                    <h4 class="card__title">Filled Card</h4>
+                                </div>
+                                <div class="card__body">
+                                    <p style="margin: 0;">Card with background</p>
+                                </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card card--elevated" style="flex: 1; min-width: 200px;">
+                    <div class="demo-box">
+                        <span class="demo-label">Card with Footer & Actions</span>
+                        <div class="card card--outlined">
                             <div class="card__header">
-                                <h3 class="card__title">Card Title</h3>
+                                <h4 class="card__title">Card Title</h4>
+                                <p class="card__subtitle">Card subtitle</p>
                             </div>
                             <div class="card__body">
-                                <p class="card__content">Card with elevated shadow</p>
+                                <p style="margin: 0;">This card has header, body, and footer sections.</p>
                             </div>
-                        </div>
-
-                        <div class="card card--filled" style="flex: 1; min-width: 200px;">
-                            <div class="card__header">
-                                <h3 class="card__title">Card Title</h3>
-                            </div>
-                            <div class="card__body">
-                                <p class="card__content">Card with filled background</p>
+                            <div class="card__footer">
+                                <button class="btn btn--sm btn--ghost">Cancel</button>
+                                <button class="btn btn--sm btn--primary">Confirm</button>
                             </div>
                         </div>
                     </div>
@@ -846,6 +887,7 @@
                             <span class="badge badge--danger">Danger</span>
                             <span class="badge badge--info">Info</span>
                         </div>
+                        <div class="description">5 color variants</div>
                     </div>
 
                     <div class="demo-box">
@@ -856,6 +898,18 @@
                             <span class="badge badge--md badge--primary">Medium</span>
                             <span class="badge badge--lg badge--primary">Large</span>
                         </div>
+                        <div class="description">xs, sm, md, lg sizes</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Badge Shapes & Styles</span>
+                        <div class="demo-content" style="gap: 8px; flex-wrap: wrap;">
+                            <span class="badge badge--primary">Filled</span>
+                            <span class="badge badge--primary badge--outlined">Outlined</span>
+                            <span class="badge badge--primary badge--pill">Pill</span>
+                            <span class="badge badge--primary badge--rounded">Rounded</span>
+                        </div>
+                        <div class="description">Different shapes and styles</div>
                     </div>
                 </div>
 
@@ -863,16 +917,21 @@
                 <div class="component-section" id="modal">
                     <div class="demo-box">
                         <span class="demo-label">Modal Dialog</span>
-                        <div style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 8px; text-align: center;">
-                            <div style="background: white; padding: 28px; border-radius: 8px; max-width: 400px; margin: 0 auto;">
-                                <h3 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 600;">Modal Dialog</h3>
-                                <p style="margin: 0 0 20px 0; font-size: 14px; color: #6b7280;">This is a modal dialog for important user interactions</p>
-                                <div style="display: flex; gap: 12px; justify-content: center;">
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 8px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <div class="modal" style="position: static;">
+                                <div class="modal__header">
+                                    <h3 class="modal__title">Modal Dialog</h3>
+                                </div>
+                                <div class="modal__body">
+                                    <p>This is a modal dialog for important user interactions and confirmations.</p>
+                                </div>
+                                <div class="modal__footer">
                                     <button class="btn btn--sm btn--ghost">Cancel</button>
                                     <button class="btn btn--sm btn--primary">Confirm</button>
                                 </div>
                             </div>
                         </div>
+                        <div class="description">Modal with header, body, and footer with action buttons</div>
                     </div>
                 </div>
 
@@ -881,29 +940,33 @@
                     <div class="demo-box">
                         <span class="demo-label">Alert - Info</span>
                         <div class="alert alert--info">
-                            <div style="font-size: 12px;">ℹ️ This is an informational alert message</div>
+                            <strong>Info:</strong> This is an informational alert message
                         </div>
+                        <div class="description">Info variant with icon</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Alert - Success</span>
                         <div class="alert alert--success">
-                            <div style="font-size: 12px;">✓ This is a success alert message</div>
+                            <strong>Success:</strong> This is a success alert message
                         </div>
+                        <div class="description">Success variant</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Alert - Warning</span>
                         <div class="alert alert--warning">
-                            <div style="font-size: 12px;">⚠️ This is a warning alert message</div>
+                            <strong>Warning:</strong> This is a warning alert message
                         </div>
+                        <div class="description">Warning variant</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Alert - Danger</span>
                         <div class="alert alert--danger">
-                            <div style="font-size: 12px;">✕ This is an error alert message</div>
+                            <strong>Error:</strong> This is an error alert message
                         </div>
+                        <div class="description">Danger/error variant</div>
                     </div>
                 </div>
 
@@ -914,9 +977,25 @@
                         <div class="navbar">
                             <div style="color: white; padding: 8px 16px; font-weight: 600;">iOS UI Kit</div>
                             <div style="flex: 1;"></div>
-                            <div style="color: white; padding: 8px 16px; font-size: 12px;">Menu Item</div>
+                            <div style="color: white; padding: 8px 16px; font-size: 12px;">
+                                <span style="margin-right: 16px; cursor: pointer;">Menu 1</span>
+                                <span style="margin-right: 16px; cursor: pointer;">Menu 2</span>
+                                <span style="cursor: pointer;">Menu 3</span>
+                            </div>
                         </div>
-                        <div class="description">Header navigation component</div>
+                        <div class="description">Header navigation component with multiple styles</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Navbar with Actions</span>
+                        <div class="navbar" style="gap: 12px;">
+                            <span class="icon icon--md" style="color: white;">☰</span>
+                            <div style="color: white; font-weight: 600;">Dashboard</div>
+                            <div style="flex: 1;"></div>
+                            <span class="icon icon--md" style="color: white;">🔔</span>
+                            <span class="icon icon--md" style="color: white;">👤</span>
+                        </div>
+                        <div class="description">Navbar with icons and actions</div>
                     </div>
                 </div>
 
@@ -924,12 +1003,50 @@
                 <div class="component-section" id="tabs">
                     <div class="demo-box">
                         <span class="demo-label">Tabs Navigation</span>
-                        <div style="display: flex; gap: 0; border-bottom: 1px solid #e5e7eb;">
-                            <div style="padding: 12px 20px; border-bottom: 2px solid #007AFF; color: #007AFF; font-weight: 600; cursor: pointer; font-size: 14px;">Tab 1</div>
-                            <div style="padding: 12px 20px; border-bottom: 2px solid transparent; color: #6b7280; cursor: pointer; font-size: 14px;">Tab 2</div>
-                            <div style="padding: 12px 20px; border-bottom: 2px solid transparent; color: #6b7280; cursor: pointer; font-size: 14px;">Tab 3</div>
+                        <div class="tabs">
+                            <div class="tabs__header">
+                                <div class="tabs__item tabs__item--active">
+                                    <span class="tabs__label">Tab 1</span>
+                                </div>
+                                <div class="tabs__item">
+                                    <span class="tabs__label">Tab 2</span>
+                                </div>
+                                <div class="tabs__item">
+                                    <span class="tabs__label">Tab 3</span>
+                                </div>
+                            </div>
+                            <div class="tabs__content">
+                                <div class="tabs__panel" style="padding: 20px;">
+                                    Tab 1 content goes here
+                                </div>
+                            </div>
                         </div>
-                        <div style="padding: 20px; background: #f9fafb;">Tab 1 content goes here</div>
+                        <div class="description">Tabbed interface with multiple panels</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Tabs with Icons</span>
+                        <div class="tabs">
+                            <div class="tabs__header">
+                                <div class="tabs__item tabs__item--active">
+                                    <span class="icon icon--sm" style="margin-right: 4px;">⌂</span>
+                                    <span class="tabs__label">Home</span>
+                                </div>
+                                <div class="tabs__item">
+                                    <span class="icon icon--sm" style="margin-right: 4px;">⚙️</span>
+                                    <span class="tabs__label">Settings</span>
+                                </div>
+                                <div class="tabs__item">
+                                    <span class="icon icon--sm" style="margin-right: 4px;">👤</span>
+                                    <span class="tabs__label">Profile</span>
+                                </div>
+                            </div>
+                            <div class="tabs__content">
+                                <div class="tabs__panel" style="padding: 20px;">
+                                    Content with icon support
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -937,10 +1054,27 @@
                 <div class="component-section" id="segmented">
                     <div class="demo-box">
                         <span class="demo-label">Segmented Control</span>
-                        <div style="display: flex; background: #e5e7eb; border-radius: 6px; padding: 4px; width: fit-content;">
-                            <button style="padding: 8px 16px; background: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: 600; color: #007AFF;">Option 1</button>
-                            <button style="padding: 8px 16px; background: transparent; border: none; font-size: 12px; cursor: pointer; color: #6b7280;">Option 2</button>
-                            <button style="padding: 8px 16px; background: transparent; border: none; font-size: 12px; cursor: pointer; color: #6b7280;">Option 3</button>
+                        <div class="segmented-control">
+                            <button class="segmented-control__item segmented-control__item--active">Option 1</button>
+                            <button class="segmented-control__item">Option 2</button>
+                            <button class="segmented-control__item">Option 3</button>
+                        </div>
+                        <div class="description">For choosing between related options</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Segmented Control - Small</span>
+                        <div class="segmented-control segmented-control--sm">
+                            <button class="segmented-control__item segmented-control__item--active">Small</button>
+                            <button class="segmented-control__item">Options</button>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Segmented Control - Large</span>
+                        <div class="segmented-control segmented-control--lg">
+                            <button class="segmented-control__item segmented-control__item--active">Large</button>
+                            <button class="segmented-control__item">Options</button>
                         </div>
                     </div>
                 </div>
@@ -949,11 +1083,31 @@
                 <div class="component-section" id="select">
                     <div class="demo-box">
                         <span class="demo-label">Select Dropdown</span>
-                        <select class="input" style="max-width: 300px;">
+                        <select class="input" style="width: 100%;">
                             <option>Choose an option</option>
                             <option>Option 1</option>
                             <option>Option 2</option>
                             <option>Option 3</option>
+                            <option>Option 4</option>
+                        </select>
+                        <div class="description">Standard dropdown select</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Select with Disabled Option</span>
+                        <select class="input" style="width: 100%;">
+                            <option>Select something...</option>
+                            <option>Enabled Option</option>
+                            <option disabled>Disabled Option</option>
+                            <option>Another Option</option>
+                        </select>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Disabled Select Field</span>
+                        <select class="input" disabled style="width: 100%;">
+                            <option>Disabled Select</option>
+                            <option>Can't Choose</option>
                         </select>
                     </div>
                 </div>
@@ -962,20 +1116,24 @@
                 <div class="component-section" id="checkbox">
                     <div class="demo-box">
                         <span class="demo-label">Checkbox Options</span>
-                        <div style="display: flex; gap: 12px;">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                                <input type="checkbox" checked style="cursor: pointer;">
-                                Checked
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <label class="checkbox checkbox--checked">
+                                <input type="checkbox" checked class="checkbox__input">
+                                <span class="checkbox__mark"></span>
+                                <span class="checkbox__label">Checked</span>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                                <input type="checkbox" style="cursor: pointer;">
-                                Unchecked
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox__input">
+                                <span class="checkbox__mark"></span>
+                                <span class="checkbox__label">Unchecked</span>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                                <input type="checkbox" disabled style="cursor: not-allowed;">
-                                Disabled
+                            <label class="checkbox" style="opacity: 0.5; cursor: not-allowed;">
+                                <input type="checkbox" disabled class="checkbox__input">
+                                <span class="checkbox__mark"></span>
+                                <span class="checkbox__label">Disabled</span>
                             </label>
                         </div>
+                        <div class="description">Multiple selection checkboxes</div>
                     </div>
                 </div>
 
@@ -983,16 +1141,24 @@
                 <div class="component-section" id="radio">
                     <div class="demo-box">
                         <span class="demo-label">Radio Button Options</span>
-                        <div style="display: flex; gap: 12px;">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                                <input type="radio" name="radio-demo" checked style="cursor: pointer;">
-                                Option 1
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <label class="radio radio--checked">
+                                <input type="radio" name="radio-demo" checked class="radio__input">
+                                <span class="radio__mark"></span>
+                                <span class="radio__label">Option 1</span>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px;">
-                                <input type="radio" name="radio-demo" style="cursor: pointer;">
-                                Option 2
+                            <label class="radio">
+                                <input type="radio" name="radio-demo" class="radio__input">
+                                <span class="radio__mark"></span>
+                                <span class="radio__label">Option 2</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="radio-demo" class="radio__input">
+                                <span class="radio__mark"></span>
+                                <span class="radio__label">Option 3</span>
                             </label>
                         </div>
+                        <div class="description">Single selection radio buttons</div>
                     </div>
                 </div>
 
@@ -1000,12 +1166,19 @@
                 <div class="component-section" id="toggle">
                     <div class="demo-box">
                         <span class="demo-label">Toggle Switch</span>
-                        <div style="display: flex; align-items: center; gap: 16px;">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                                <input type="checkbox" style="width: 40px; height: 24px; cursor: pointer;">
-                                <span style="font-size: 14px;">Toggle On/Off</span>
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <label class="toggle toggle--on">
+                                <input type="checkbox" checked class="toggle__input">
+                                <span class="toggle__slider"></span>
+                                <span class="toggle__label">Enabled</span>
+                            </label>
+                            <label class="toggle">
+                                <input type="checkbox" class="toggle__input">
+                                <span class="toggle__slider"></span>
+                                <span class="toggle__label">Disabled</span>
                             </label>
                         </div>
+                        <div class="description">On/off toggle switch component</div>
                     </div>
                 </div>
 
@@ -1013,34 +1186,84 @@
                 <div class="component-section" id="spinner">
                     <div class="demo-box">
                         <span class="demo-label">Loading Spinner</span>
-                        <div class="demo-content">
-                            <div class="spinner" style="display: inline-block; width: 24px; height: 24px; border: 3px solid #f0f0f0; border-top: 3px solid #007AFF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <div class="demo-content" style="gap: 24px;">
+                            <div class="spinner spinner--sm"></div>
+                            <div class="spinner spinner--md"></div>
+                            <div class="spinner spinner--lg"></div>
                         </div>
-                        <div class="description">Loading indicator component</div>
+                        <div class="description">3 size variants: sm, md, lg</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Spinner with Text</span>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="spinner spinner--md"></div>
+                            <span>Loading...</span>
+                        </div>
+                        <div class="description">Spinner with accompanying text</div>
                     </div>
                 </div>
 
                 <!-- AVATAR -->
                 <div class="component-section" id="avatar">
                     <div class="demo-box">
-                        <span class="demo-label">Avatar Images</span>
+                        <span class="demo-label">Avatar Initials</span>
                         <div class="demo-content" style="gap: 16px;">
-                            <div class="avatar" style="width: 40px; height: 40px; background: #007AFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">A</div>
-                            <div class="avatar" style="width: 40px; height: 40px; background: #34C759; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">B</div>
-                            <div class="avatar" style="width: 40px; height: 40px; background: #FF3B30; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">C</div>
-                            <div class="avatar" style="width: 40px; height: 40px; background: #FF9500; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">D</div>
+                            <div class="avatar avatar--md" style="background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%);">
+                                <span class="avatar__text">AB</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: linear-gradient(135deg, #34C759 0%, #30B14E 100%);">
+                                <span class="avatar__text">CD</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: linear-gradient(135deg, #FF3B30 0%, #E63529 100%);">
+                                <span class="avatar__text">EF</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: linear-gradient(135deg, #FF9500 0%, #E68400 100%);">
+                                <span class="avatar__text">GH</span>
+                            </div>
                         </div>
-                        <div class="description">User avatar with initials</div>
+                        <div class="description">Avatar with user initials</div>
                     </div>
 
                     <div class="demo-box">
                         <span class="demo-label">Avatar Sizes</span>
-                        <div class="demo-content" style="gap: 12px;">
-                            <div style="width: 24px; height: 24px; background: #007AFF; border-radius: 50%;"></div>
-                            <div style="width: 32px; height: 32px; background: #007AFF; border-radius: 50%;"></div>
-                            <div style="width: 48px; height: 48px; background: #007AFF; border-radius: 50%;"></div>
-                            <div style="width: 64px; height: 64px; background: #007AFF; border-radius: 50%;"></div>
+                        <div class="demo-content" style="gap: 12px; align-items: center;">
+                            <div class="avatar avatar--xs" style="background: #007AFF;">
+                                <span class="avatar__text">A</span>
+                            </div>
+                            <div class="avatar avatar--sm" style="background: #007AFF;">
+                                <span class="avatar__text">A</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: #007AFF;">
+                                <span class="avatar__text">A</span>
+                            </div>
+                            <div class="avatar avatar--lg" style="background: #007AFF;">
+                                <span class="avatar__text">A</span>
+                            </div>
+                            <div class="avatar avatar--xl" style="background: #007AFF;">
+                                <span class="avatar__text">A</span>
+                            </div>
                         </div>
+                        <div class="description">xs, sm, md, lg, xl sizes</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">Avatar Group</span>
+                        <div class="demo-content" style="gap: -12px;">
+                            <div class="avatar avatar--md" style="background: #007AFF; margin-right: -8px;">
+                                <span class="avatar__text">A</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: #34C759; margin-right: -8px;">
+                                <span class="avatar__text">B</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: #FF3B30; margin-right: -8px;">
+                                <span class="avatar__text">C</span>
+                            </div>
+                            <div class="avatar avatar--md" style="background: #FF9500;">
+                                <span class="avatar__text">+2</span>
+                            </div>
+                        </div>
+                        <div class="description">Avatar group with overlap effect</div>
                     </div>
                 </div>
 
@@ -1048,13 +1271,39 @@
                 <div class="component-section" id="list">
                     <div class="demo-box">
                         <span class="demo-label">List Component</span>
-                        <div style="border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden;">
-                            <div style="padding: 12px 16px; border-bottom: 1px solid #e5e7eb; font-size: 14px; background: #f9fafb;">List Item 1</div>
-                            <div style="padding: 12px 16px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">List Item 2</div>
-                            <div style="padding: 12px 16px; border-bottom: 1px solid #e5e7eb; font-size: 14px; background: #f9fafb;">List Item 3</div>
-                            <div style="padding: 12px 16px; font-size: 14px;">List Item 4</div>
+                        <div class="list">
+                            <div class="list__item">
+                                <span class="list__text">List Item 1</span>
+                            </div>
+                            <div class="list__item list__item--active">
+                                <span class="list__text">List Item 2 (Active)</span>
+                            </div>
+                            <div class="list__item">
+                                <span class="list__text">List Item 3</span>
+                            </div>
+                            <div class="list__item">
+                                <span class="list__text">List Item 4</span>
+                            </div>
                         </div>
-                        <div class="description">Data list display component</div>
+                        <div class="description">Vertical data list display</div>
+                    </div>
+
+                    <div class="demo-box">
+                        <span class="demo-label">List with Descriptions</span>
+                        <div class="list">
+                            <div class="list__item">
+                                <div class="list__text-primary">Item Title 1</div>
+                                <div class="list__text-secondary">Secondary text description</div>
+                            </div>
+                            <div class="list__item">
+                                <div class="list__text-primary">Item Title 2</div>
+                                <div class="list__text-secondary">Another description</div>
+                            </div>
+                            <div class="list__item">
+                                <div class="list__text-primary">Item Title 3</div>
+                                <div class="list__text-secondary">More items in the list</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
