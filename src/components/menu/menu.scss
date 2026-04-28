@@ -1,0 +1,216 @@
+// iOS UI Kit - Menu Component
+// Navigation/action menu for sidebars, top-nav, context menus
+
+.menu {
+  list-style: none;
+  padding: $spacing-1;
+  margin: 0;
+  font-family: $font-family-base;
+  background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+  border-radius: $border-radius-lg;
+}
+
+.menu--vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu--horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+// =============================================
+// Menu Item
+// =============================================
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-2 $spacing-3;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  font-size: $ios-subhead-size;
+  font-weight: $font-weight-regular;
+  color: var(--ios-label, $color-text-primary);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  }
+
+  &:active {
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+  }
+}
+
+.menu__item--selected {
+  color: var(--ios-blue, $color-primary);
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.1));
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    background-color: var(--ios-blue-tint, rgba(0,122,255,0.14));
+  }
+}
+
+.menu__item--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.menu__item-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+}
+
+.menu__item-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.menu__item-extra {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+// =============================================
+// Submenu
+// =============================================
+
+.menu__submenu {
+  list-style: none;
+  padding: 0 0 0 ($spacing-3 + 20px + $spacing-3);
+  margin: 0;
+}
+
+.menu__submenu-list {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu__submenu--open .menu__submenu-list {
+  display: block;
+}
+
+.menu__submenu-title {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-2 $spacing-3;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  font-size: $ios-subhead-size;
+  font-weight: $font-weight-medium;
+  color: var(--ios-label, $color-text-primary);
+  user-select: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  }
+
+  .menu__submenu-arrow {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+    color: var(--ios-gray, $color-gray-600);
+  }
+}
+
+.menu__submenu--open .menu__submenu-title .menu__submenu-arrow {
+  transform: rotate(90deg);
+}
+
+// =============================================
+// Divider & Group Title
+// =============================================
+
+.menu__divider {
+  border: none;
+  border-top: 1px solid $color-border-light;
+  margin: $spacing-1 $spacing-2;
+}
+
+.menu__group-title {
+  font-size: $ios-caption1-size;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wider;
+  color: var(--ios-gray, $color-gray-600);
+  padding: $spacing-2 $spacing-3 $spacing-1;
+  cursor: default;
+}
+
+// =============================================
+// Dark variant
+// =============================================
+
+.menu--dark {
+  background-color: $color-gray-900;
+
+  .menu__item {
+    color: rgba(255,255,255,0.85);
+
+    &:hover {
+      background-color: rgba(255,255,255,0.08);
+    }
+  }
+
+  .menu__item--selected {
+    background-color: var(--ios-blue, $color-primary);
+    color: $color-white;
+  }
+
+  .menu__group-title {
+    color: rgba(255,255,255,0.45);
+  }
+
+  .menu__divider {
+    border-top-color: rgba(255,255,255,0.1);
+  }
+}
+
+// =============================================
+// Collapsed (icon-only) sidebar
+// =============================================
+
+.menu--collapsed {
+  .menu__item-title,
+  .menu__item-extra,
+  .menu__group-title,
+  .menu__submenu-arrow {
+    display: none;
+  }
+
+  .menu__item {
+    justify-content: center;
+    padding: $spacing-3;
+  }
+}
+

@@ -1,0 +1,196 @@
+// iOS UI Kit - Slider Component
+// Range input control for numeric value or range selection
+
+.slider {
+  position: relative;
+  width: 100%;
+  padding: $spacing-3 0;
+  font-family: $font-family-base;
+  cursor: pointer;
+}
+
+// =============================================
+// Track
+// =============================================
+
+.slider__rail {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: var(--ios-gray5, $color-gray-200);
+  border-radius: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider__track {
+  position: absolute;
+  height: 4px;
+  background-color: var(--ios-blue, $color-primary);
+  border-radius: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.15s ease;
+}
+
+// =============================================
+// Handle (thumb)
+// =============================================
+
+.slider__handle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background-color: $color-white;
+  border: 2px solid var(--ios-blue, $color-primary);
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+  z-index: 1;
+
+  &:hover {
+    box-shadow: 0 0 0 6px rgba(0,122,255,0.16), 0 2px 6px rgba(0,0,0,0.18);
+  }
+
+  &:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(0,122,255,0.35);
+    outline-offset: 2px;
+  }
+}
+
+// =============================================
+// Marks
+// =============================================
+
+.slider__marks {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  margin-top: $spacing-1;
+}
+
+.slider__mark {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 8px;
+  background-color: var(--ios-gray4, $color-gray-300);
+  transform: translateX(-50%);
+}
+
+.slider__mark-label {
+  position: absolute;
+  top: 12px;
+  font-size: $ios-caption2-size;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+// =============================================
+// Tooltip
+// =============================================
+
+.slider__tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,0.72);
+  color: $color-white;
+  font-size: $ios-caption1-size;
+  font-weight: $font-weight-medium;
+  padding: 3px $spacing-2;
+  border-radius: $border-radius-xs;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(0,0,0,0.72);
+  }
+}
+
+.slider__handle:hover .slider__tooltip,
+.slider__handle:active .slider__tooltip {
+  opacity: 1;
+}
+
+// =============================================
+// Color Variants
+// =============================================
+
+.slider--success {
+  .slider__track { background-color: var(--ios-green, $color-success); }
+  .slider__handle { border-color: var(--ios-green, $color-success); }
+}
+
+.slider--warning {
+  .slider__track { background-color: var(--ios-orange, $color-warning); }
+  .slider__handle { border-color: var(--ios-orange, $color-warning); }
+}
+
+.slider--danger {
+  .slider__track { background-color: var(--ios-red, $color-danger); }
+  .slider__handle { border-color: var(--ios-red, $color-danger); }
+}
+
+// =============================================
+// Vertical
+// =============================================
+
+.slider--vertical {
+  width: 20px;
+  height: 200px;
+  padding: 0 $spacing-3;
+
+  .slider__rail {
+    width: 4px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .slider__track {
+    width: 4px;
+    height: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+  }
+
+  .slider__handle {
+    left: 50%;
+    top: auto;
+    transform: translate(-50%, 50%);
+  }
+}
+
+// =============================================
+// Disabled
+// =============================================
+
+.slider--disabled {
+  opacity: 0.45;
+  pointer-events: none;
+
+  .slider__handle { cursor: not-allowed; }
+}
+

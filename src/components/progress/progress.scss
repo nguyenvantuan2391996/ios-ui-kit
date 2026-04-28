@@ -1,0 +1,102 @@
+// iOS UI Kit - Progress Component
+// Visual indicator of completion percentage
+
+.progress {
+  width: 100%;
+  font-family: $font-family-base;
+}
+
+.progress__bar-wrap {
+  position: relative;
+  width: 100%;
+  background-color: var(--ios-gray5, $color-gray-200);
+  border-radius: $border-radius-full;
+  overflow: hidden;
+  height: 8px;
+}
+
+.progress__bar {
+  height: 100%;
+  background-color: var(--ios-blue, $color-primary);
+  border-radius: $border-radius-full;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0;
+}
+
+// Heights
+.progress--xs .progress__bar-wrap { height: 4px; }
+.progress--sm .progress__bar-wrap { height: 6px; }
+.progress--md .progress__bar-wrap { height: 8px; }
+.progress--lg .progress__bar-wrap { height: 12px; }
+
+// Color variants
+.progress--primary .progress__bar { background-color: var(--ios-blue, $color-primary); }
+.progress--success .progress__bar { background-color: var(--ios-green, $color-success); }
+.progress--warning .progress__bar { background-color: var(--ios-orange, $color-warning); }
+.progress--danger  .progress__bar { background-color: var(--ios-red, $color-danger); }
+.progress--info    .progress__bar { background-color: var(--ios-teal, $color-info); }
+
+// Striped
+.progress--striped .progress__bar {
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+  background-size: 20px 20px;
+}
+
+.progress--animated .progress__bar {
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+  background-size: 30px 30px;
+  animation: progress-stripe 1s linear infinite;
+}
+
+@keyframes progress-stripe {
+  0%   { background-position: 30px 0; }
+  100% { background-position: 0 0; }
+}
+
+// Label
+.progress__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-1;
+  font-size: $ios-footnote-size;
+  color: var(--ios-secondary-label, $color-text-secondary);
+}
+
+.progress__label-text { font-weight: $font-weight-medium; }
+
+// Circle progress (SVG-based)
+.progress-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  svg { transform: rotate(-90deg); }
+
+  .progress-circle__track {
+    fill: none;
+    stroke: var(--ios-gray5, $color-gray-200);
+  }
+
+  .progress-circle__fill {
+    fill: none;
+    stroke: var(--ios-blue, $color-primary);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-circle__text {
+    position: absolute;
+    font-size: $ios-caption1-size;
+    font-weight: $font-weight-semibold;
+    color: var(--ios-label, $color-text-primary);
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.progress-circle--success .progress-circle__fill { stroke: var(--ios-green, $color-success); }
+.progress-circle--warning .progress-circle__fill { stroke: var(--ios-orange, $color-warning); }
+.progress-circle--danger  .progress-circle__fill { stroke: var(--ios-red, $color-danger); }
+

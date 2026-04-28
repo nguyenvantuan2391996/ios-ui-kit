@@ -1,0 +1,182 @@
+// iOS UI Kit - Tree Component
+// Hierarchical data display with expand/collapse nodes
+
+.tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: $font-family-base;
+  font-size: $ios-subhead-size;
+}
+
+.tree__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  padding-left: 22px;
+}
+
+.tree__list--open {
+  display: block;
+}
+
+// =============================================
+// Node
+// =============================================
+
+.tree__node {
+  display: flex;
+  align-items: center;
+  padding: 5px $spacing-2;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  color: var(--ios-label, $color-text-primary);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.1s ease;
+  gap: $spacing-1;
+  min-height: 32px;
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.1));
+  }
+}
+
+.tree__node--selected {
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.1));
+  color: var(--ios-blue, $color-primary);
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    background-color: var(--ios-blue-tint, rgba(0,122,255,0.14));
+  }
+}
+
+.tree__node--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tree__node--loading {
+  .tree__switcher {
+    animation: ios-spin 0.75s linear infinite;
+    opacity: 0.6;
+  }
+}
+
+// =============================================
+// Switcher (expand/collapse icon)
+// =============================================
+
+.tree__switcher {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: $border-radius-xs;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  transition: transform 0.2s ease, background-color 0.1s ease;
+  font-size: 10px;
+
+  &:hover {
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.14));
+  }
+
+  svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    transition: transform 0.2s ease;
+  }
+}
+
+.tree__switcher--open svg {
+  transform: rotate(90deg);
+}
+
+.tree__switcher--leaf {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+// =============================================
+// Checkbox, Icon, Title
+// =============================================
+
+.tree__checkbox {
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+.tree__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ios-blue, $color-primary);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.tree__title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// =============================================
+// Show-line variant
+// =============================================
+
+.tree--show-line {
+  .tree__list {
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: $color-border;
+    }
+  }
+}
+
+// =============================================
+// Block-node variant
+// =============================================
+
+.tree--block-node {
+  .tree__node {
+    width: 100%;
+    border-radius: $border-radius-md;
+  }
+}
+
+// =============================================
+// Drag-and-drop states
+// =============================================
+
+.tree__node--drag-over {
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.12));
+}
+
+.tree__node--drag-enter {
+  outline: 2px dashed var(--ios-blue, $color-primary);
+  outline-offset: -2px;
+}
+

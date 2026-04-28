@@ -1,0 +1,209 @@
+// iOS UI Kit - Steps Component
+// Step-by-step progress indicator
+
+.steps {
+  display: flex;
+  width: 100%;
+  font-family: $font-family-base;
+}
+
+.steps--horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.steps--vertical {
+  flex-direction: column;
+}
+
+// =============================================
+// Step Item
+// =============================================
+
+.steps__item {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.steps--horizontal .steps__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: calc(50% + 20px);
+    right: calc(-50% + 20px);
+    height: 1px;
+    background-color: $color-border;
+  }
+
+  &.steps__item--finish:not(:last-child)::after {
+    background-color: var(--ios-blue, $color-primary);
+  }
+}
+
+.steps--vertical .steps__item {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-3;
+  padding-bottom: $spacing-6;
+
+  &:not(:last-child) {
+    .steps__icon-wrap::after {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      bottom: -$spacing-6;
+      background-color: $color-border;
+    }
+  }
+
+  &.steps__item--finish:not(:last-child) .steps__icon-wrap::after {
+    background-color: var(--ios-blue, $color-primary);
+  }
+}
+
+// =============================================
+// Icon
+// =============================================
+
+.steps__icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.steps__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $ios-footnote-size;
+  font-weight: $font-weight-semibold;
+  border: 2px solid $color-border;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  color: var(--ios-secondary-label, $color-text-secondary);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+// =============================================
+// Step Labels
+// =============================================
+
+.steps__content {
+  flex: 1;
+  min-width: 0;
+
+  .steps--horizontal & {
+    margin-top: $spacing-2;
+  }
+}
+
+.steps__title {
+  font-size: $ios-subhead-size;
+  font-weight: $font-weight-medium;
+  color: var(--ios-label, $color-text-primary);
+  line-height: 1.3;
+}
+
+.steps__description {
+  font-size: $ios-footnote-size;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  margin-top: 2px;
+  line-height: $line-height-normal;
+}
+
+// =============================================
+// State Variants
+// =============================================
+
+.steps__item--wait {
+  .steps__icon {
+    border-color: $color-gray-300;
+    color: $color-gray-500;
+  }
+  .steps__title { color: var(--ios-secondary-label, $color-text-secondary); }
+}
+
+.steps__item--process {
+  .steps__icon {
+    border-color: var(--ios-blue, $color-primary);
+    background-color: var(--ios-blue, $color-primary);
+    color: $color-white;
+  }
+  .steps__title { color: var(--ios-label, $color-text-primary); font-weight: $font-weight-semibold; }
+}
+
+.steps__item--finish {
+  .steps__icon {
+    border-color: var(--ios-blue, $color-primary);
+    background-color: var(--ios-blue-tint, rgba(0,122,255,0.12));
+    color: var(--ios-blue, $color-primary);
+  }
+}
+
+.steps__item--error {
+  .steps__icon {
+    border-color: var(--ios-red, $color-danger);
+    background-color: var(--ios-red-tint, rgba(255,59,48,0.12));
+    color: var(--ios-red, $color-danger);
+  }
+  .steps__title { color: var(--ios-red, $color-danger); }
+}
+
+// =============================================
+// Small variant
+// =============================================
+
+.steps--small {
+  .steps__icon {
+    width: 24px;
+    height: 24px;
+    font-size: $ios-caption2-size;
+  }
+
+  .steps--horizontal .steps__item::after {
+    top: 12px;
+    left: calc(50% + 14px);
+    right: calc(-50% + 14px);
+  }
+}
+
+// =============================================
+// Dot variant
+// =============================================
+
+.steps--dot {
+  .steps__icon {
+    width: 10px;
+    height: 10px;
+    border-width: 0;
+    font-size: 0;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+  }
+
+  .steps__item--process .steps__icon {
+    width: 14px;
+    height: 14px;
+    background-color: var(--ios-blue, $color-primary);
+  }
+}
+

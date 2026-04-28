@@ -1,0 +1,187 @@
+// iOS UI Kit - TreeSelect Component
+// Select input with tree-structured dropdown
+
+.tree-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  font-family: $font-family-base;
+}
+
+// =============================================
+// Selector (visible trigger)
+// =============================================
+
+.tree-select__selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: $spacing-2 $spacing-3;
+  min-height: 44px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  padding-right: 56px;
+
+  &:hover {
+    border-color: var(--ios-blue, $color-primary);
+  }
+}
+
+.tree-select__selector--focused {
+  border-color: var(--ios-blue, $color-primary);
+  box-shadow: 0 0 0 3px rgba(0,122,255,0.15);
+  outline: none;
+}
+
+.tree-select__placeholder {
+  color: var(--ios-placeholder-text, $color-text-disabled);
+  font-size: $ios-body-size;
+  pointer-events: none;
+}
+
+.tree-select__selection-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.1));
+  color: var(--ios-blue, $color-primary);
+  border-radius: $border-radius-sm;
+  padding: 1px $spacing-2;
+  font-size: $ios-footnote-size;
+  font-weight: $font-weight-medium;
+}
+
+.tree-select__clear {
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ios-gray, $color-gray-600);
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.1));
+  font-size: 12px;
+  transition: opacity 0.15s ease;
+  opacity: 0;
+
+  .tree-select:hover & { opacity: 1; }
+  &:hover { opacity: 0.7; }
+}
+
+.tree-select__arrow {
+  position: absolute;
+  right: $spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ios-gray, $color-gray-600);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+}
+
+.tree-select--open .tree-select__arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+// =============================================
+// Dropdown Panel
+// =============================================
+
+.tree-select__dropdown {
+  position: absolute;
+  z-index: $z-index-dropdown;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+.tree-select--open .tree-select__dropdown {
+  display: block;
+}
+
+.tree-select__search {
+  padding: $spacing-2 $spacing-3;
+  border-bottom: 1px solid $color-border-light;
+  position: sticky;
+  top: 0;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  z-index: 1;
+
+  input {
+    width: 100%;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    padding: $spacing-1 $spacing-2;
+    font-size: $ios-subhead-size;
+    font-family: $font-family-base;
+    background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+    color: var(--ios-label, $color-text-primary);
+    outline: none;
+
+    &:focus {
+      border-color: var(--ios-blue, $color-primary);
+    }
+  }
+}
+
+.tree-select__tree {
+  padding: $spacing-2;
+}
+
+// =============================================
+// States & Sizes
+// =============================================
+
+.tree-select--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.tree-select--sm {
+  .tree-select__selector {
+    min-height: 34px;
+    padding: $spacing-1 $spacing-2;
+    font-size: $ios-footnote-size;
+    border-radius: $border-radius-sm;
+  }
+}
+
+.tree-select--lg {
+  .tree-select__selector {
+    min-height: 52px;
+    padding: $spacing-3 $spacing-4;
+    font-size: $ios-body-size;
+    border-radius: $border-radius-lg;
+  }
+}
+

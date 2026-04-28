@@ -1,0 +1,130 @@
+// iOS UI Kit - AutoComplete Component
+// Text input with dropdown suggestion list
+
+.auto-complete {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  font-family: $font-family-base;
+}
+
+// =============================================
+// Input
+// =============================================
+
+.auto-complete__input {
+  width: 100%;
+  display: block;
+  padding: $spacing-2 $spacing-3;
+  min-height: 44px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  font-size: $ios-body-size;
+  font-family: $font-family-base;
+  color: var(--ios-label, $color-text-primary);
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &::placeholder { color: var(--ios-placeholder-text, $color-text-disabled); }
+
+  &:focus {
+    border-color: var(--ios-blue, $color-primary);
+    box-shadow: 0 0 0 3px rgba(0,122,255,0.15);
+  }
+}
+
+// =============================================
+// Dropdown Panel
+// =============================================
+
+.auto-complete__dropdown {
+  position: absolute;
+  z-index: $z-index-dropdown;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  max-height: 256px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: $spacing-1 0;
+  display: none;
+
+  &.auto-complete__dropdown--visible { display: block; }
+}
+
+// =============================================
+// Options
+// =============================================
+
+.auto-complete__option {
+  padding: $spacing-2 $spacing-3;
+  font-size: $ios-subhead-size;
+  color: var(--ios-label, $color-text-primary);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  user-select: none;
+
+  &:hover { background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.1)); }
+}
+
+.auto-complete__option--active {
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+}
+
+.auto-complete__option--selected {
+  font-weight: $font-weight-medium;
+  color: var(--ios-blue, $color-primary);
+}
+
+.auto-complete__option--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+// Highlight matched text
+.auto-complete__option-label { display: block; }
+
+.auto-complete__highlight {
+  font-weight: $font-weight-semibold;
+  color: var(--ios-blue, $color-primary);
+}
+
+// =============================================
+// Empty State
+// =============================================
+
+.auto-complete__empty {
+  padding: $spacing-4 $spacing-3;
+  text-align: center;
+  font-size: $ios-subhead-size;
+  color: var(--ios-tertiary-label, $color-text-disabled);
+}
+
+// =============================================
+// Loading State
+// =============================================
+
+.auto-complete--loading {
+  .auto-complete__dropdown::after {
+    content: '';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3;
+    margin: auto;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(0,122,255,0.25);
+    border-top-color: var(--ios-blue, $color-primary);
+    border-radius: 50%;
+    animation: ios-spin 0.75s linear infinite;
+  }
+}
+

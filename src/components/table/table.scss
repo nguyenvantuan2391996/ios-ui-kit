@@ -1,0 +1,184 @@
+// iOS UI Kit - Table Component
+// Structured data grid
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-family: $font-family-base;
+  position: relative;
+  border-radius: $border-radius-lg;
+  border: 1px solid $color-border-light;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $ios-subhead-size;
+  color: var(--ios-label, $color-text-primary);
+  background-color: var(--ios-system-bg, $color-bg-primary);
+  min-width: 100%;
+}
+
+// =============================================
+// Header
+// =============================================
+
+.table__header {
+  background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+}
+
+.table__header-cell {
+  text-align: left;
+  font-size: $ios-footnote-size;
+  font-weight: $font-weight-semibold;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border;
+  white-space: nowrap;
+  letter-spacing: $letter-spacing-wide;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+  z-index: 1;
+}
+
+.table__header-cell--sortable {
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  }
+
+  .table__sort-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-left: $spacing-1;
+    opacity: 0.4;
+    vertical-align: middle;
+  }
+}
+
+.table__header-cell--sorted-asc,
+.table__header-cell--sorted-desc {
+  color: var(--ios-blue, $color-primary);
+
+  .table__sort-icon { opacity: 1; }
+}
+
+// =============================================
+// Rows & Cells
+// =============================================
+
+.table__row {
+  border-bottom: 1px solid $color-border-light;
+  transition: background-color 0.1s ease;
+
+  &:last-child { border-bottom: none; }
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.06));
+  }
+}
+
+.table__row--selected {
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.06));
+
+  &:hover {
+    background-color: var(--ios-blue-tint, rgba(0,122,255,0.1));
+  }
+}
+
+.table__cell {
+  padding: $spacing-3 $spacing-4;
+  vertical-align: middle;
+}
+
+.table__cell--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.table__selection-cell {
+  width: 40px;
+  padding: $spacing-3 $spacing-2;
+  text-align: center;
+}
+
+.table__expand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: $border-radius-xs;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  transition: transform 0.2s ease;
+
+  &:hover { background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12)); }
+}
+
+.table__row--expanded .table__expand-icon {
+  transform: rotate(90deg);
+}
+
+// =============================================
+// Variants
+// =============================================
+
+.table--bordered {
+  .table__header-cell,
+  .table__cell {
+    border: 1px solid $color-border-light;
+  }
+}
+
+.table--striped {
+  .table__row:nth-child(even) {
+    background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+  }
+}
+
+.table--compact {
+  .table__header-cell,
+  .table__cell {
+    padding: $spacing-2 $spacing-3;
+  }
+}
+
+// =============================================
+// Empty & Loading States
+// =============================================
+
+.table__empty {
+  text-align: center;
+  padding: $spacing-12;
+  color: var(--ios-gray, $color-gray-600);
+  font-size: $ios-subhead-size;
+}
+
+.table__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.7);
+  z-index: 2;
+  border-radius: $border-radius-lg;
+}
+
+.table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: $spacing-3 $spacing-4;
+  border-top: 1px solid $color-border-light;
+  background-color: var(--ios-system-bg, $color-bg-primary);
+}
+

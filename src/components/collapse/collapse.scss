@@ -1,0 +1,134 @@
+// iOS UI Kit – Collapse Component
+// Accordion-style expanding/collapsing content panels
+
+.collapse {
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  font-family: $font-family-base;
+}
+
+.collapse__item {
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.collapse__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4;
+  cursor: pointer;
+  background-color: var(--ios-secondary-system-bg, $color-bg-secondary);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--ios-tertiary-system-bg, $color-gray-100);
+  }
+
+  &:active {
+    background-color: $color-gray-200;
+  }
+}
+
+.collapse__title {
+  font-size: $ios-subhead-size;
+  font-weight: $font-weight-medium;
+  color: var(--ios-label, $color-text-primary);
+  flex: 1;
+}
+
+.collapse__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--ios-gray, $color-gray-600);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-left: $spacing-2;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+}
+
+.collapse__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--ios-system-bg, $color-bg-primary);
+}
+
+.collapse__body-inner {
+  padding: $spacing-4;
+  font-size: $ios-body-size;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  line-height: $line-height-normal;
+}
+
+// =============================================
+// Active (expanded) state
+// =============================================
+
+.collapse__item--active {
+  .collapse__body {
+    max-height: 2000px;
+  }
+
+  .collapse__icon {
+    transform: rotate(180deg);
+  }
+}
+
+// =============================================
+// Variants
+// =============================================
+
+.collapse--borderless {
+  border: none;
+  border-radius: 0;
+
+  .collapse__item {
+    border-bottom: 1px solid $color-border;
+  }
+
+  .collapse__header {
+    background-color: transparent;
+  }
+}
+
+.collapse--ghost {
+  border: none;
+  background: transparent;
+
+  .collapse__item {
+    border-bottom: none;
+  }
+
+  .collapse__header {
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .collapse__body {
+    background-color: transparent;
+  }
+
+  .collapse__body-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+

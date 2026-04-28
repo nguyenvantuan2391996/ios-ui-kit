@@ -1,0 +1,131 @@
+// iOS UI Kit – Pagination Component
+// Page navigation control
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-base;
+  font-size: $ios-subhead-size;
+}
+
+.pagination__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 $spacing-2;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  color: var(--ios-label, $color-text-primary);
+  font-weight: $font-weight-medium;
+  user-select: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  }
+
+  &:active {
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+  }
+}
+
+.pagination__item--active {
+  background-color: var(--ios-blue, $color-primary);
+  color: $color-white;
+  font-weight: $font-weight-semibold;
+
+  &:hover {
+    background-color: var(--ios-blue, $color-primary);
+    opacity: 0.88;
+  }
+}
+
+.pagination__item--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pagination__item--ellipsis {
+  cursor: default;
+  letter-spacing: 0.1em;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.pagination__prev,
+.pagination__next {
+  font-weight: $font-weight-semibold;
+  color: var(--ios-blue, $color-primary);
+}
+
+// =============================================
+// Sizes
+// =============================================
+
+.pagination--sm {
+  .pagination__item {
+    min-width: 28px;
+    height: 28px;
+    font-size: $ios-footnote-size;
+    border-radius: $border-radius-sm;
+  }
+}
+
+.pagination--lg {
+  .pagination__item {
+    min-width: 44px;
+    height: 44px;
+    font-size: $ios-body-size;
+    border-radius: $border-radius-lg;
+  }
+}
+
+// =============================================
+// Simple variant (prev / page / next only)
+// =============================================
+
+.pagination--simple {
+  gap: $spacing-2;
+
+  .pagination__current {
+    font-size: $ios-subhead-size;
+    font-weight: $font-weight-medium;
+    color: var(--ios-label, $color-text-primary);
+  }
+}
+
+// =============================================
+// Supplementary elements
+// =============================================
+
+.pagination__total {
+  font-size: $ios-footnote-size;
+  color: var(--ios-secondary-label, $color-text-secondary);
+  margin-left: $spacing-2;
+  white-space: nowrap;
+}
+
+.pagination__sizer {
+  margin-left: $spacing-2;
+
+  select {
+    font-size: $ios-footnote-size;
+    padding: 4px $spacing-2;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    background-color: var(--ios-system-bg, $color-bg-primary);
+    color: var(--ios-label, $color-text-primary);
+    cursor: pointer;
+  }
+}
+
