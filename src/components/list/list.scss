@@ -133,6 +133,43 @@ a.list-item {
 }
 
 // ============================================
+// Commonly-used alias classes
+// ============================================
+
+// list-item__icon → leading iOS icon (colored rounded square)
+.list-item__icon {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  width:   28px;
+  height:  28px;
+  border-radius:   $border-radius-sm + 1;  // iOS app-icon style
+  background-color: var(--ios-blue, $color-primary);
+  color:           $color-white;
+  font-size:       14px;
+}
+
+// list-item__detail → right-side value text
+.list-item__detail {
+  color:      var(--ios-secondary-label, rgba(60,60,67,0.6));
+  font-size:  $ios-body-size;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: $spacing-3;
+}
+
+// list-item__arrow → iOS disclosure indicator "›"
+.list-item__arrow {
+  color:       var(--ios-gray3, $color-gray-400);
+  font-size:   20px;
+  font-weight: $font-weight-light;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-left: $spacing-1;
+}
+
+// ============================================
 // List Item Sizes
 // ============================================
 

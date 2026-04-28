@@ -85,7 +85,8 @@
 // Radio Label
 // ============================================
 
-.radio-label {
+.radio-label,
+.radio__label {
   font-size:   $ios-body-size;
   font-weight: $font-weight-normal;
   color:       var(--ios-label, $color-text-primary);

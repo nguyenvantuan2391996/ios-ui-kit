@@ -51,6 +51,12 @@
   min-width: 0;
 }
 
+// Alias: some templates use __body instead of __content
+.alert__body {
+  flex: 1;
+  min-width: 0;
+}
+
 .alert__title {
   font-size:   $ios-subhead-size;
   font-weight: $font-weight-semibold;
@@ -60,6 +66,14 @@
 
 .alert__message {
   font-size:   $ios-footnote-size;   // 13pt
+  color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
+  margin:      0;
+  line-height: $line-height-relaxed;
+}
+
+// Alias: some templates use __text instead of __message
+.alert__text {
+  font-size:   $ios-footnote-size;
   color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
   margin:      0;
   line-height: $line-height-relaxed;

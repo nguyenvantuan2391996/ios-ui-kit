@@ -119,6 +119,13 @@
   border: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
 }
 
+// Outlined (standard 1px border — alias for flat with slightly stronger border)
+.card--outlined {
+  box-shadow: none;
+  border:     1px solid var(--ios-separator, rgba(60,60,67,0.29));
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+}
+
 // Filled (tinted background)
 .card--filled {
   background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));

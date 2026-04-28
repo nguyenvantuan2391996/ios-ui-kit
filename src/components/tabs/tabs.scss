@@ -125,7 +125,7 @@
   letter-spacing: -0.1px;
 
   padding:    $spacing-3 $spacing-4;
-  min-height: $touch-target_min; // 44pt
+  min-height: $touch-target-min; // 44pt
   border:     none;
   background: none;
   cursor:     pointer;
@@ -216,3 +216,64 @@
   font-size:  $ios-body-size;
   padding:    $spacing-4 $spacing-5;
 }
+
+// ============================================
+// BEM Aliases: tabs__nav + tabs__item
+// Allow <div class="tabs"><div class="tabs__nav"> usage
+// ============================================
+
+.tabs__nav {
+  display:         flex;
+  flex-direction:  row;
+  width:           100%;
+  overflow-x:      auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.tabs__item {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             $spacing-1;
+
+  font-family:    $font-family-base;
+  font-size:      $ios-subhead-size;
+  font-weight:    $font-weight-semibold;
+  color:          var(--ios-secondary-label, rgba(60,60,67,0.6));
+  white-space:    nowrap;
+  letter-spacing: -0.1px;
+
+  padding:    $spacing-3 $spacing-4;
+  min-height: $touch-target-min;
+  border:     none;
+  background: none;
+  cursor:     pointer;
+  position:   relative;
+  transition: color 0.15s ease;
+
+  &:hover { color: var(--ios-label, $color-text-primary); }
+
+  &--active {
+    color: var(--ios-blue, $color-primary);
+
+    &::after {
+      content:          '';
+      position:         absolute;
+      bottom:           0;
+      left:             $spacing-3;
+      right:            $spacing-3;
+      height:           2.5px;
+      background-color: var(--ios-blue, $color-primary);
+      border-radius:    2px 2px 0 0;
+    }
+  }
+
+  &:disabled {
+    opacity:        0.35;
+    cursor:         not-allowed;
+    pointer-events: none;
+  }
+}
+

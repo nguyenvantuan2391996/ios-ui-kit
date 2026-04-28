@@ -50,19 +50,6 @@
   visibility: hidden !important;
 }
 
-// Text Alignment
-.text-left {
-  text-align: left;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
 // Text Color
 .text-primary {
   color: $color-primary;
@@ -90,39 +77,6 @@
 
 .text-muted {
   color: $color-text-secondary;
-}
-
-// Text Utilities
-.text-uppercase {
-  text-transform: uppercase;
-}
-
-.text-lowercase {
-  text-transform: lowercase;
-}
-
-.text-capitalize {
-  text-transform: capitalize;
-}
-
-.font-weight-light {
-  font-weight: $font-weight-light;
-}
-
-.font-weight-normal {
-  font-weight: $font-weight-normal;
-}
-
-.font-weight-medium {
-  font-weight: $font-weight-medium;
-}
-
-.font-weight-semibold {
-  font-weight: $font-weight-semibold;
-}
-
-.font-weight-bold {
-  font-weight: $font-weight-bold;
 }
 
 // Cursor
@@ -332,11 +286,6 @@
   background-color: $color-gray-200;
 }
 
-// Focus Visible
-:focus-visible {
-  outline: 2px solid $color-focus;
-  outline-offset: 2px;
-}
 
 // Transitions
 .transition {

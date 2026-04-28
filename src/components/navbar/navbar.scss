@@ -96,7 +96,8 @@
 // Displayed below the standard navbar
 // ============================================
 
-.navbar--large-title {
+.navbar--large-title,
+.navbar--large {
   flex-direction: column;
   align-items:    flex-start;
   height:         auto;

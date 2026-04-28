@@ -158,3 +158,46 @@
     &:last-child  { border-bottom: none; border-radius: 0 0 $border-radius-lg $border-radius-lg; }
   }
 }
+
+// ============================================
+// Label-wrapper toggle support
+// When .toggle is on a <label> that wraps an <input type="checkbox">
+// ============================================
+
+// On state — explicit class (for SSR / non-JS)
+.toggle--on {
+  &::before { background-color: var(--ios-green, $color-success); }
+  &::after  { transform: translateX(20px); }
+}
+
+// On state — :has() based (automatic state detection, modern browsers)
+.toggle:has(input[type="checkbox"]:checked) {
+  &::before { background-color: var(--ios-green, $color-success); }
+  &::after  { transform: translateX(20px); }
+}
+
+// Disabled — class-based
+.toggle--disabled,
+.toggle:has(input:disabled) {
+  opacity:        0.35;
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+
+// Color variant aliases (orange = warning, red = danger)
+.toggle--orange {
+  &.toggle--on::before                 { background-color: var(--ios-orange, $color-warning); }
+  &:has(input:checked)::before         { background-color: var(--ios-orange, $color-warning); }
+}
+
+.toggle--red {
+  &.toggle--on::before                 { background-color: var(--ios-red, $color-danger); }
+  &:has(input:checked)::before         { background-color: var(--ios-red, $color-danger); }
+}
+
+// Ensure .toggle--success label-based works too
+.toggle--success:not([type="checkbox"]) {
+  &.toggle--on::before                 { background-color: var(--ios-green, $color-success); }
+  &:has(input:checked)::before         { background-color: var(--ios-green, $color-success); }
+}
+
