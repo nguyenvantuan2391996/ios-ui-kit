@@ -1,381 +1,1274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iOS UI Kit - Phase 2: Core Components</title>
-    <link rel="stylesheet" href="../dist/ios-ui-kit.css">
-    <style>
-        body {
-            background-color: #f9fafb;
-            padding: 40px 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section {
-            margin-bottom: 60px;
-        }
-        .section__title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #000;
-        }
-        .component-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .component-box {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .component-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>iOS UI Kit — Component Browser</title>
+  <link rel="stylesheet" href="../dist/ios-ui-kit.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 17px;
+      background-color: #F2F2F7;
+      color: #000;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .shell { display: flex; height: 100vh; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: rgba(242,242,247,0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-right: 0.5px solid rgba(60,60,67,0.29);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .sidebar__header { padding: 20px 16px 12px; border-bottom: 0.5px solid rgba(60,60,67,0.12); }
+    .sidebar__title { font-size: 22px; font-weight: 700; color: #000; letter-spacing: -0.5px; }
+    .sidebar__subtitle { font-size: 13px; color: rgba(60,60,67,0.6); margin-top: 2px; }
+    .sidebar__search { padding: 10px 12px; border-bottom: 0.5px solid rgba(60,60,67,0.12); }
+    .sidebar__search input {
+      width: 100%; background: rgba(118,118,128,0.12); border: none;
+      border-radius: 10px; padding: 7px 12px; font-size: 15px;
+      font-family: inherit; color: #000; outline: none;
+    }
+    .sidebar__search input::placeholder { color: rgba(60,60,67,0.4); }
+    .sidebar__nav { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
+    .sidebar__nav::-webkit-scrollbar { width: 0; }
+    .nav-group { margin-bottom: 4px; }
+    .nav-group__label {
+      font-size: 11px; font-weight: 600; color: rgba(60,60,67,0.5);
+      text-transform: uppercase; letter-spacing: 0.6px; padding: 8px 16px 4px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 9px 16px;
+      font-size: 15px; font-weight: 400; color: #000; cursor: pointer;
+      border-radius: 10px; margin: 0 8px; transition: background 0.15s ease; user-select: none;
+    }
+    .nav-item:hover { background: rgba(118,118,128,0.12); }
+    .nav-item.active { background: #007AFF; color: #fff; font-weight: 500; }
+    .nav-item__icon { font-size: 17px; width: 22px; text-align: center; flex-shrink: 0; }
+    .nav-item.hidden { display: none; }
+
+    /* Main */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar {
+      height: 44px;
+      background: rgba(242,242,247,0.92);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 0.5px solid rgba(60,60,67,0.29);
+      display: flex; align-items: center; padding: 0 20px; gap: 12px; flex-shrink: 0;
+    }
+    .topbar__title { font-size: 17px; font-weight: 600; color: #000; letter-spacing: -0.3px; }
+    .topbar__badge {
+      background: rgba(0,122,255,0.12); color: #007AFF;
+      font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px;
+    }
+    .content { flex: 1; overflow-y: auto; padding: 24px; }
+    .content::-webkit-scrollbar { width: 6px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: rgba(60,60,67,0.2); border-radius: 3px; }
+
+    /* Panels */
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .panel__title { font-size: 28px; font-weight: 700; color: #000; letter-spacing: -0.7px; margin-bottom: 4px; }
+    .panel__desc { font-size: 15px; color: rgba(60,60,67,0.6); margin-bottom: 24px; line-height: 1.5; }
+
+    /* Sections */
+    .section { margin-bottom: 32px; }
+    .section__heading {
+      font-size: 13px; font-weight: 600; color: rgba(60,60,67,0.5);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px;
+    }
+
+    /* Preview cards */
+    .preview {
+      background: #fff; border-radius: 12px; padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.06);
+    }
+    .preview--gray { background: #F2F2F7; }
+    .preview-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .preview-col { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px) { .sidebar { width: 220px; } .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+    .mt-12 { margin-top: 12px; }
+
+    /* Overlay helpers */
+    .demo-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 9000; align-items: flex-end; justify-content: center;
+    }
+    .demo-overlay.open { display: flex; }
+    .demo-overlay--center { align-items: center; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <h1 style="font-size: 36px; margin-bottom: 10px;">📱 iOS UI Kit</h1>
-        <p style="font-size: 16px; color: #6b7280; margin-bottom: 50px;">Phase 2: Core Components Demo</p>
+<div class="shell">
 
-        <!-- ============================================ -->
-        <!-- Button Component Section -->
-        <!-- ============================================ -->
-        <div class="section">
-            <h2 class="section__title">🔘 Button Component</h2>
-            
-            <!-- Button Sizes -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Sizes</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Small</span>
-                    <button class="btn btn--sm btn--primary">Small Button</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Medium (Default)</span>
-                    <button class="btn btn--md btn--primary">Medium Button</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Large</span>
-                    <button class="btn btn--lg btn--primary">Large Button</button>
-                </div>
-            </div>
-
-            <!-- Button Colors -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Filled Variants</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Primary</span>
-                    <button class="btn btn--primary">Primary</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Secondary</span>
-                    <button class="btn btn--secondary">Secondary</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Success</span>
-                    <button class="btn btn--success">Success</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Warning</span>
-                    <button class="btn btn--warning">Warning</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Danger</span>
-                    <button class="btn btn--danger">Danger</button>
-                </div>
-            </div>
-
-            <!-- Button Outlined -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Outlined Variants</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Outlined Primary</span>
-                    <button class="btn btn--outlined">Outlined Primary</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Outlined Secondary</span>
-                    <button class="btn btn--outlined-secondary">Outlined Secondary</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Outlined Danger</span>
-                    <button class="btn btn--outlined-danger">Outlined Danger</button>
-                </div>
-            </div>
-
-            <!-- Button Ghost -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Ghost Variants</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Ghost Primary</span>
-                    <button class="btn btn--ghost">Ghost Primary</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Ghost Secondary</span>
-                    <button class="btn btn--ghost-secondary">Ghost Secondary</button>
-                </div>
-            </div>
-
-            <!-- Button States -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">States</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Normal</span>
-                    <button class="btn btn--primary">Normal</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Disabled</span>
-                    <button class="btn btn--primary" disabled>Disabled</button>
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Block (Full Width)</span>
-                    <button class="btn btn--primary btn--block">Block Button</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================ -->
-        <!-- Input Component Section -->
-        <!-- ============================================ -->
-        <div class="section">
-            <h2 class="section__title">📝 Input Component</h2>
-            
-            <!-- Input Sizes -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Sizes</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Small Input</span>
-                    <input type="text" class="input input--sm" placeholder="Small input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Medium (Default)</span>
-                    <input type="text" class="input input--md" placeholder="Medium input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Large Input</span>
-                    <input type="text" class="input input--lg" placeholder="Large input">
-                </div>
-            </div>
-
-            <!-- Input Variants -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Variants</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Outlined (Default)</span>
-                    <input type="text" class="input input--outlined" placeholder="Outlined input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Filled</span>
-                    <input type="text" class="input input--filled" placeholder="Filled input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Rounded</span>
-                    <input type="text" class="input input--rounded" placeholder="Rounded input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Underline</span>
-                    <input type="text" class="input input--underline" placeholder="Underline input">
-                </div>
-            </div>
-
-            <!-- Input States -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">States</h3>
-            <div class="component-grid">
-                <div class="component-box">
-                    <span class="component-label">Normal</span>
-                    <input type="text" class="input" placeholder="Normal input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Error</span>
-                    <input type="text" class="input input--error" placeholder="Error input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Success</span>
-                    <input type="text" class="input input--success" placeholder="Success input">
-                </div>
-                <div class="component-box">
-                    <span class="component-label">Disabled</span>
-                    <input type="text" class="input" placeholder="Disabled input" disabled>
-                </div>
-            </div>
-
-            <!-- Input with Label -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Input with Label</h3>
-            <div class="component-box" style="max-width: 300px;">
-                <label class="input-label input-label--required">Email Address</label>
-                <input type="email" class="input" placeholder="your@email.com">
-                <span class="input-helper">We'll never share your email with anyone else.</span>
-            </div>
-        </div>
-
-        <!-- ============================================ -->
-        <!-- Card Component Section -->
-        <!-- ============================================ -->
-        <div class="section">
-            <h2 class="section__title">📦 Card Component</h2>
-            
-            <!-- Card Variants -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Card Variants</h3>
-            <div class="card-grid">
-                <div class="card card--outlined">
-                    <div class="card__header">
-                        <h3 class="card__title">Outlined Card</h3>
-                        <p class="card__subtitle">With border</p>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">This is an outlined card with a border and subtle shadow.</p>
-                    </div>
-                    <div class="card__footer">
-                        <button class="btn btn--sm btn--ghost">Cancel</button>
-                        <button class="btn btn--sm btn--primary">Action</button>
-                    </div>
-                </div>
-
-                <div class="card card--elevated">
-                    <div class="card__header">
-                        <h3 class="card__title">Elevated Card</h3>
-                        <p class="card__subtitle">With shadow</p>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">This is an elevated card with prominent shadow.</p>
-                    </div>
-                    <div class="card__footer">
-                        <button class="btn btn--sm btn--ghost">Cancel</button>
-                        <button class="btn btn--sm btn--primary">Action</button>
-                    </div>
-                </div>
-
-                <div class="card card--filled">
-                    <div class="card__header">
-                        <h3 class="card__title">Filled Card</h3>
-                        <p class="card__subtitle">With background</p>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">This is a filled card with background color.</p>
-                    </div>
-                    <div class="card__footer">
-                        <button class="btn btn--sm btn--ghost">Cancel</button>
-                        <button class="btn btn--sm btn--primary">Action</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card with Color -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Colored Cards</h3>
-            <div class="card-grid">
-                <div class="card card--primary">
-                    <div class="card__header">
-                        <h3 class="card__title" style="color: #007aff;">Primary</h3>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">Primary color card</p>
-                    </div>
-                </div>
-
-                <div class="card card--success">
-                    <div class="card__header">
-                        <h3 class="card__title" style="color: #34c759;">Success</h3>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">Success color card</p>
-                    </div>
-                </div>
-
-                <div class="card card--danger">
-                    <div class="card__header">
-                        <h3 class="card__title" style="color: #ff3b30;">Danger</h3>
-                    </div>
-                    <div class="card__body">
-                        <p class="card__content">Danger color card</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================ -->
-        <!-- Badge Component Section -->
-        <!-- ============================================ -->
-        <div class="section">
-            <h2 class="section__title">🏷️ Badge Component</h2>
-            
-            <!-- Badge Colors -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Badge Colors</h3>
-            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; display: flex; flex-wrap: wrap; gap: 10px;">
-                <span class="badge badge--primary">Primary</span>
-                <span class="badge badge--secondary">Secondary</span>
-                <span class="badge badge--success">Success</span>
-                <span class="badge badge--warning">Warning</span>
-                <span class="badge badge--danger">Danger</span>
-                <span class="badge badge--info">Info</span>
-                <span class="badge badge--light">Light</span>
-                <span class="badge badge--dark">Dark</span>
-            </div>
-
-            <!-- Badge Sizes -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Badge Sizes</h3>
-            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-                <span class="badge badge--xs badge--primary">XS</span>
-                <span class="badge badge--sm badge--primary">Small</span>
-                <span class="badge badge--md badge--primary">Medium</span>
-                <span class="badge badge--lg badge--primary">Large</span>
-            </div>
-
-            <!-- Badge Shapes -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Badge Shapes</h3>
-            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-                <span class="badge badge--primary badge--rounded">Rounded</span>
-                <span class="badge badge--primary badge--pill">Pill Shape</span>
-                <span class="badge badge--primary badge--circle">5</span>
-                <span class="badge badge--primary badge--circle-lg">99+</span>
-            </div>
-
-            <!-- Badge Styles -->
-            <h3 style="font-size: 18px; font-weight: 600; margin: 30px 0 15px 0;">Badge Styles</h3>
-            <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; display: flex; flex-wrap: wrap; gap: 15px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-size: 12px; font-weight: 600; color: #6b7280;">Filled</span>
-                    <span class="badge badge--filled badge--primary">Filled</span>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-size: 12px; font-weight: 600; color: #6b7280;">Outlined</span>
-                    <span class="badge badge--outlined">Outlined</span>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-size: 12px; font-weight: 600; color: #6b7280;">Soft</span>
-                    <span class="badge badge--soft">Soft</span>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-size: 12px; font-weight: 600; color: #6b7280;">Success Soft</span>
-                    <span class="badge badge--soft-success">Success</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div style="margin-top: 80px; padding: 40px; background: white; border-radius: 12px; border: 1px solid #e5e7eb; text-align: center;">
-            <p style="color: #6b7280; margin: 0;">
-                <strong>Phase 2 Complete! ✅</strong><br>
-                Button • Input • Card • Badge components are ready to use.
-            </p>
-            <p style="color: #9ca3af; margin: 10px 0 0 0; font-size: 14px;">
-                Next: Phase 3 - Navigation Components (Navbar, Tabs, Segmented Control)
-            </p>
-        </div>
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__header">
+      <div class="sidebar__title">📱 iOS UI Kit</div>
+      <div class="sidebar__subtitle">45 components · Apple HIG</div>
     </div>
+    <div class="sidebar__search">
+      <input type="text" id="searchInput" placeholder="🔍  Search components…" oninput="filterNav(this.value)">
+    </div>
+    <nav class="sidebar__nav" id="sidebarNav">
+
+      <div class="nav-group">
+        <div class="nav-group__label">Overview</div>
+        <div class="nav-item active" data-panel="overview" onclick="showPanel('overview',this)"><span class="nav-item__icon">🏠</span> Overview</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Foundation</div>
+        <div class="nav-item" data-panel="colors" onclick="showPanel('colors',this)"><span class="nav-item__icon">🎨</span> Colors</div>
+        <div class="nav-item" data-panel="typography" onclick="showPanel('typography',this)"><span class="nav-item__icon">Tt</span> Typography</div>
+        <div class="nav-item" data-panel="spacing" onclick="showPanel('spacing',this)"><span class="nav-item__icon">⬜</span> Spacing</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Controls</div>
+        <div class="nav-item" data-panel="button" onclick="showPanel('button',this)"><span class="nav-item__icon">⬛</span> Button</div>
+        <div class="nav-item" data-panel="input" onclick="showPanel('input',this)"><span class="nav-item__icon">✏️</span> Input</div>
+        <div class="nav-item" data-panel="select" onclick="showPanel('select',this)"><span class="nav-item__icon">▾</span> Select</div>
+        <div class="nav-item" data-panel="checkbox" onclick="showPanel('checkbox',this)"><span class="nav-item__icon">☑️</span> Checkbox</div>
+        <div class="nav-item" data-panel="radio" onclick="showPanel('radio',this)"><span class="nav-item__icon">🔘</span> Radio</div>
+        <div class="nav-item" data-panel="toggle" onclick="showPanel('toggle',this)"><span class="nav-item__icon">🔛</span> Toggle</div>
+        <div class="nav-item" data-panel="segmented" onclick="showPanel('segmented',this)"><span class="nav-item__icon">⊟</span> Segmented Control</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Navigation</div>
+        <div class="nav-item" data-panel="navbar" onclick="showPanel('navbar',this)"><span class="nav-item__icon">📶</span> Navbar</div>
+        <div class="nav-item" data-panel="tabs" onclick="showPanel('tabs',this)"><span class="nav-item__icon">⊞</span> Tabs</div>
+        <div class="nav-item" data-panel="breadcrumb" onclick="showPanel('breadcrumb',this)"><span class="nav-item__icon">›</span> Breadcrumb</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Display</div>
+        <div class="nav-item" data-panel="card" onclick="showPanel('card',this)"><span class="nav-item__icon">🗂</span> Card</div>
+        <div class="nav-item" data-panel="list" onclick="showPanel('list',this)"><span class="nav-item__icon">📋</span> List</div>
+        <div class="nav-item" data-panel="avatar" onclick="showPanel('avatar',this)"><span class="nav-item__icon">👤</span> Avatar</div>
+        <div class="nav-item" data-panel="badge" onclick="showPanel('badge',this)"><span class="nav-item__icon">🔴</span> Badge</div>
+        <div class="nav-item" data-panel="tag" onclick="showPanel('tag',this)"><span class="nav-item__icon">🏷</span> Tag</div>
+        <div class="nav-item" data-panel="icon" onclick="showPanel('icon',this)"><span class="nav-item__icon">⭐</span> Icon</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Feedback</div>
+        <div class="nav-item" data-panel="alert" onclick="showPanel('alert',this)"><span class="nav-item__icon">⚠️</span> Alert</div>
+        <div class="nav-item" data-panel="modal" onclick="showPanel('modal',this)"><span class="nav-item__icon">🪟</span> Modal</div>
+        <div class="nav-item" data-panel="drawer" onclick="showPanel('drawer',this)"><span class="nav-item__icon">◁</span> Drawer</div>
+        <div class="nav-item" data-panel="popover" onclick="showPanel('popover',this)"><span class="nav-item__icon">💬</span> Popover</div>
+        <div class="nav-item" data-panel="tooltip" onclick="showPanel('tooltip',this)"><span class="nav-item__icon">ℹ️</span> Tooltip</div>
+        <div class="nav-item" data-panel="notification" onclick="showPanel('notification',this)"><span class="nav-item__icon">🔔</span> Notification</div>
+        <div class="nav-item" data-panel="spinner" onclick="showPanel('spinner',this)"><span class="nav-item__icon">⏳</span> Spinner</div>
+        <div class="nav-item" data-panel="skeleton" onclick="showPanel('skeleton',this)"><span class="nav-item__icon">👻</span> Skeleton</div>
+        <div class="nav-item" data-panel="empty" onclick="showPanel('empty',this)"><span class="nav-item__icon">📭</span> Empty</div>
+        <div class="nav-item" data-panel="result" onclick="showPanel('result',this)"><span class="nav-item__icon">✅</span> Result</div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group__label">Layout</div>
+        <div class="nav-item" data-panel="space" onclick="showPanel('space',this)"><span class="nav-item__icon">↔️</span> Space</div>
+        <div class="nav-item" data-panel="rowcol" onclick="showPanel('rowcol',this)"><span class="nav-item__icon">⊞</span> Row / Col</div>
+        <div class="nav-item" data-panel="layout" onclick="showPanel('layout',this)"><span class="nav-item__icon">🖥</span> Layout</div>
+      </div>
+
+    </nav>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar__title" id="topbarTitle">Overview</span>
+      <span class="topbar__badge">iOS HIG</span>
+    </div>
+
+    <div class="content" id="content">
+
+      <!-- OVERVIEW -->
+      <div class="panel active" id="panel-overview">
+        <div class="panel__title">iOS UI Kit</div>
+        <div class="panel__desc">Pixel-perfect CSS component library following Apple Human Interface Guidelines. Every component matches native iOS — colors, typography, spacing, animations.</div>
+        <div class="grid-3" style="margin-bottom:24px;">
+          <div class="preview" style="text-align:center;padding:24px 16px;">
+            <div style="font-size:40px;margin-bottom:8px;">🎨</div>
+            <div style="font-size:20px;font-weight:700;letter-spacing:-0.4px;">System Colors</div>
+            <div style="font-size:13px;color:rgba(60,60,67,0.6);margin-top:4px;">Auto light/dark via CSS vars</div>
+          </div>
+          <div class="preview" style="text-align:center;padding:24px 16px;">
+            <div style="font-size:40px;margin-bottom:8px;">Aa</div>
+            <div style="font-size:20px;font-weight:700;letter-spacing:-0.4px;">SF Pro Type</div>
+            <div style="font-size:13px;color:rgba(60,60,67,0.6);margin-top:4px;">11 iOS text styles, exact HIG</div>
+          </div>
+          <div class="preview" style="text-align:center;padding:24px 16px;">
+            <div style="font-size:40px;margin-bottom:8px;">📐</div>
+            <div style="font-size:20px;font-weight:700;letter-spacing:-0.4px;">4pt Grid</div>
+            <div style="font-size:13px;color:rgba(60,60,67,0.6);margin-top:4px;">44pt touch targets · 10–12pt radii</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Quick Start</div>
+          <div class="preview">
+            <pre style="background:rgba(118,118,128,0.10);padding:16px;border-radius:10px;font-size:13px;overflow-x:auto;color:#1D1D1F;line-height:1.6;"><code>&lt;link rel="stylesheet" href="ios-ui-kit.css"&gt;
+
+&lt;button class="btn btn--primary"&gt;Tap me&lt;/button&gt;
+&lt;input  class="input"  placeholder="Enter text…"&gt;
+&lt;label  class="toggle"&gt;&lt;input type="checkbox"&gt;&lt;/label&gt;</code></pre>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Component Count</div>
+          <div class="grid-4">
+            <div class="preview" style="text-align:center;padding:16px;"><div style="font-size:32px;font-weight:700;color:#007AFF;letter-spacing:-1px;">7</div><div style="font-size:13px;color:rgba(60,60,67,0.6);">Controls</div></div>
+            <div class="preview" style="text-align:center;padding:16px;"><div style="font-size:32px;font-weight:700;color:#34C759;letter-spacing:-1px;">6</div><div style="font-size:13px;color:rgba(60,60,67,0.6);">Display</div></div>
+            <div class="preview" style="text-align:center;padding:16px;"><div style="font-size:32px;font-weight:700;color:#FF9500;letter-spacing:-1px;">10</div><div style="font-size:13px;color:rgba(60,60,67,0.6);">Feedback</div></div>
+            <div class="preview" style="text-align:center;padding:16px;"><div style="font-size:32px;font-weight:700;color:#FF3B30;letter-spacing:-1px;">3</div><div style="font-size:13px;color:rgba(60,60,67,0.6);">Layout</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLORS -->
+      <div class="panel" id="panel-colors">
+        <div class="panel__title">Colors</div>
+        <div class="panel__desc">Apple system colors that automatically adapt to light and dark mode via CSS custom properties.</div>
+        <div class="section">
+          <div class="section__heading">System Colors</div>
+          <div class="preview">
+            <div class="preview-row" style="flex-wrap:wrap;gap:16px;">
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#007AFF;box-shadow:0 2px 8px rgba(0,122,255,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Blue</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#007AFF</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#34C759;box-shadow:0 2px 8px rgba(52,199,89,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Green</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#34C759</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#FF3B30;box-shadow:0 2px 8px rgba(255,59,48,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Red</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#FF3B30</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#FF9500;box-shadow:0 2px 8px rgba(255,149,0,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Orange</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#FF9500</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#FFCC00;box-shadow:0 2px 8px rgba(255,204,0,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Yellow</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#FFCC00</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#5AC8FA;box-shadow:0 2px 8px rgba(90,200,250,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Teal</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#5AC8FA</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#5856D6;box-shadow:0 2px 8px rgba(88,86,214,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Indigo</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#5856D6</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#AF52DE;box-shadow:0 2px 8px rgba(175,82,222,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Purple</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#AF52DE</div></div>
+              <div style="text-align:center;"><div style="width:56px;height:56px;border-radius:14px;background:#FF2D55;box-shadow:0 2px 8px rgba(255,45,85,0.4);margin-bottom:6px;"></div><div style="font-size:12px;font-weight:600;color:rgba(60,60,67,0.7);">Pink</div><div style="font-size:11px;color:rgba(60,60,67,0.45);">#FF2D55</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Gray Family</div>
+          <div class="preview">
+            <div class="preview-row">
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#8E8E93;margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray</div></div>
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#AEAEB2;margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray 2</div></div>
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#C7C7CC;margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray 3</div></div>
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#D1D1D6;margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray 4</div></div>
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#E5E5EA;margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray 5</div></div>
+              <div style="text-align:center;"><div style="width:48px;height:48px;border-radius:12px;background:#F2F2F7;border:0.5px solid rgba(60,60,67,0.12);margin-bottom:6px;"></div><div style="font-size:11px;color:rgba(60,60,67,0.6);">Gray 6</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <div class="panel" id="panel-typography">
+        <div class="panel__title">Typography</div>
+        <div class="panel__desc">iOS SF Pro text styles. The system font <code>-apple-system</code> renders SF Pro on Apple devices automatically.</div>
+        <div class="section">
+          <div class="section__heading">iOS Text Styles</div>
+          <div class="preview preview--gray" style="display:flex;flex-direction:column;gap:10px;">
+            <div style="font-size:34px;font-weight:700;letter-spacing:-1px;">Large Title — 34pt Bold</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-0.8px;">Title 1 — 28pt Bold</div>
+            <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;">Title 2 — 22pt Bold</div>
+            <div style="font-size:20px;font-weight:600;letter-spacing:-0.4px;">Title 3 — 20pt Semibold</div>
+            <div style="font-size:17px;font-weight:600;letter-spacing:-0.3px;">Headline — 17pt Semibold</div>
+            <div style="font-size:17px;font-weight:400;letter-spacing:-0.2px;line-height:1.53;">Body — 17pt Regular. The quick brown fox jumps over the lazy dog.</div>
+            <div style="font-size:16px;font-weight:400;letter-spacing:-0.2px;">Callout — 16pt Regular</div>
+            <div style="font-size:15px;font-weight:400;letter-spacing:-0.15px;">Subheadline — 15pt Regular</div>
+            <div style="font-size:13px;font-weight:400;">Footnote — 13pt Regular</div>
+            <div style="font-size:12px;font-weight:400;">Caption 1 — 12pt Regular</div>
+            <div style="font-size:11px;font-weight:400;">Caption 2 — 11pt Regular</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPACING -->
+      <div class="panel" id="panel-spacing">
+        <div class="panel__title">Spacing</div>
+        <div class="panel__desc">4pt base grid with iOS-standard touch targets (44pt minimum) and border radii.</div>
+        <div class="section">
+          <div class="section__heading">Border Radii</div>
+          <div class="preview">
+            <div class="preview-row">
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:4px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">XS — 4px</div></div>
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:6px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">SM — 6px</div></div>
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:10px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">MD — 10px<br><small>Controls</small></div></div>
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:12px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">LG — 12px<br><small>Cards</small></div></div>
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:16px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">XL — 16px</div></div>
+              <div style="text-align:center;"><div style="width:64px;height:64px;background:#007AFF;border-radius:9999px;margin:0 auto 8px;"></div><div style="font-size:12px;color:rgba(60,60,67,0.6);">Full</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">44pt Touch Target</div>
+          <div class="preview">
+            <div style="font-size:15px;margin-bottom:12px;">Minimum interactive element size: <strong>44 × 44 pt</strong></div>
+            <button class="btn btn--primary">Tap Me — 44pt height</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+      <div class="panel" id="panel-button">
+        <div class="panel__title">Button</div>
+        <div class="panel__desc">iOS-style buttons following Apple HIG. All meet the 44pt minimum touch target.</div>
+        <div class="section">
+          <div class="section__heading">Filled</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--primary">Primary</button>
+            <button class="btn btn--success">Success</button>
+            <button class="btn btn--warning">Warning</button>
+            <button class="btn btn--danger">Danger</button>
+            <button class="btn btn--gray">Gray</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Tinted</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--tinted">Blue</button>
+            <button class="btn btn--tinted-success">Green</button>
+            <button class="btn btn--tinted-warning">Orange</button>
+            <button class="btn btn--tinted-danger">Red</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Outlined</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--outlined">Outlined</button>
+            <button class="btn btn--outlined-danger">Destructive</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Plain / Text</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--plain">Plain</button>
+            <button class="btn btn--ghost">Ghost</button>
+            <button class="btn btn--plain-danger">Destructive</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview"><div class="preview-row" style="align-items:flex-end;">
+            <button class="btn btn--primary btn--sm">Small</button>
+            <button class="btn btn--primary">Medium</button>
+            <button class="btn btn--primary btn--lg">Large</button>
+            <button class="btn btn--primary btn--capsule">Capsule</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">States</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--primary">Normal</button>
+            <button class="btn btn--primary" disabled>Disabled</button>
+            <button class="btn btn--primary btn--loading">Loading</button>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Full Width</div>
+          <div class="preview" style="max-width:360px;">
+            <button class="btn btn--primary btn--block">Block Button</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INPUT -->
+      <div class="panel" id="panel-input">
+        <div class="panel__title">Input</div>
+        <div class="panel__desc">iOS UITextField style. 44pt height, filled or outlined variant.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview" style="max-width:400px;"><div class="preview-col">
+            <input class="input" type="text" placeholder="Name">
+            <input class="input" type="email" placeholder="Email address">
+            <input class="input" type="password" placeholder="Password">
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">States</div>
+          <div class="preview" style="max-width:400px;"><div class="preview-col">
+            <input class="input input--error" type="text" value="bad@value" placeholder="Error">
+            <input class="input input--success" type="text" value="valid@email.com" placeholder="Success">
+            <input class="input" type="text" placeholder="Disabled" disabled>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview" style="max-width:400px;"><div class="preview-col">
+            <input class="input input--sm" type="text" placeholder="Small">
+            <input class="input" type="text" placeholder="Medium (default)">
+            <input class="input input--lg" type="text" placeholder="Large">
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Textarea</div>
+          <div class="preview" style="max-width:400px;">
+            <textarea class="input input--textarea" placeholder="Write something…" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECT -->
+      <div class="panel" id="panel-select">
+        <div class="panel__title">Select</div>
+        <div class="panel__desc">iOS picker-style select with chevron indicator.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview" style="max-width:360px;"><div class="preview-col">
+            <select class="select"><option>Select a country…</option><option>Vietnam</option><option>United States</option><option>Japan</option></select>
+            <select class="select select--outlined"><option>Outlined variant…</option><option>Option 1</option><option>Option 2</option></select>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview" style="max-width:360px;"><div class="preview-col">
+            <select class="select select--sm"><option>Small</option></select>
+            <select class="select"><option>Medium (default)</option></select>
+            <select class="select select--lg"><option>Large</option></select>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- CHECKBOX -->
+      <div class="panel" id="panel-checkbox">
+        <div class="panel__title">Checkbox</div>
+        <div class="panel__desc">iOS-style checkbox: filled circle with checkmark when selected.</div>
+        <div class="section">
+          <div class="section__heading">States</div>
+          <div class="preview"><div class="preview-col">
+            <label class="checkbox-wrapper"><input type="checkbox" class="checkbox"><span class="checkbox__label">Unchecked</span></label>
+            <label class="checkbox-wrapper"><input type="checkbox" class="checkbox" checked><span class="checkbox__label">Checked</span></label>
+            <label class="checkbox-wrapper checkbox-wrapper--disabled"><input type="checkbox" class="checkbox" disabled><span class="checkbox__label">Disabled</span></label>
+            <label class="checkbox-wrapper checkbox-wrapper--disabled"><input type="checkbox" class="checkbox" checked disabled><span class="checkbox__label">Disabled Checked</span></label>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-col">
+            <label class="checkbox-wrapper"><input type="checkbox" class="checkbox" checked><span class="checkbox__label">Blue (default)</span></label>
+            <label class="checkbox-wrapper"><input type="checkbox" class="checkbox checkbox--success" checked><span class="checkbox__label">Green</span></label>
+            <label class="checkbox-wrapper"><input type="checkbox" class="checkbox checkbox--danger" checked><span class="checkbox__label">Red</span></label>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- RADIO -->
+      <div class="panel" id="panel-radio">
+        <div class="panel__title">Radio</div>
+        <div class="panel__desc">iOS-style radio button: circle with filled inner dot when selected.</div>
+        <div class="section">
+          <div class="section__heading">Group</div>
+          <div class="preview"><div class="preview-col">
+            <label class="radio-wrapper"><input type="radio" class="radio" name="r1" checked><span class="radio__label">Option A</span></label>
+            <label class="radio-wrapper"><input type="radio" class="radio" name="r1"><span class="radio__label">Option B</span></label>
+            <label class="radio-wrapper"><input type="radio" class="radio" name="r1"><span class="radio__label">Option C</span></label>
+            <label class="radio-wrapper radio-wrapper--disabled"><input type="radio" class="radio" name="r2" disabled><span class="radio__label">Disabled</span></label>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- TOGGLE -->
+      <div class="panel" id="panel-toggle">
+        <div class="panel__title">Toggle</div>
+        <div class="panel__desc">iOS UISwitch. Exact dimensions: 51 × 31pt track, 27pt thumb.</div>
+        <div class="section">
+          <div class="section__heading">iOS Settings Style</div>
+          <div class="preview"><div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;max-width:320px;">
+              <span style="font-size:17px;">Wi-Fi</span>
+              <label class="toggle toggle--on"><input type="checkbox" checked></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;max-width:320px;">
+              <span style="font-size:17px;">Bluetooth</span>
+              <label class="toggle"><input type="checkbox"></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;max-width:320px;">
+              <span style="font-size:17px;color:rgba(60,60,67,0.35);">Airplane Mode</span>
+              <label class="toggle toggle--disabled"><input type="checkbox" disabled></label>
+            </div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-row">
+            <label class="toggle toggle--on"><input type="checkbox" checked></label>
+            <label class="toggle toggle--on toggle--success"><input type="checkbox" checked></label>
+            <label class="toggle toggle--on toggle--orange"><input type="checkbox" checked></label>
+            <label class="toggle toggle--on toggle--red"><input type="checkbox" checked></label>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SEGMENTED CONTROL -->
+      <div class="panel" id="panel-segmented">
+        <div class="panel__title">Segmented Control</div>
+        <div class="panel__desc">iOS UISegmentedControl. Gray fill background, white active segment.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview">
+            <div class="segmented-control">
+              <button class="segmented-control__item segmented-control__item--active">All</button>
+              <button class="segmented-control__item">Active</button>
+              <button class="segmented-control__item">Done</button>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Full Width</div>
+          <div class="preview" style="max-width:360px;">
+            <div class="segmented-control segmented-control--block">
+              <button class="segmented-control__item segmented-control__item--active">Day</button>
+              <button class="segmented-control__item">Week</button>
+              <button class="segmented-control__item">Month</button>
+              <button class="segmented-control__item">Year</button>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Interactive</div>
+          <div class="preview">
+            <div class="segmented-control" id="demoSeg">
+              <button class="segmented-control__item segmented-control__item--active" onclick="setSegment(this)">iOS</button>
+              <button class="segmented-control__item" onclick="setSegment(this)">Android</button>
+              <button class="segmented-control__item" onclick="setSegment(this)">Web</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVBAR -->
+      <div class="panel" id="panel-navbar">
+        <div class="panel__title">Navbar</div>
+        <div class="panel__desc">iOS UINavigationBar. 44pt height, translucent background, hairline separator.</div>
+        <div class="section">
+          <div class="section__heading">Standard</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;">
+            <div class="navbar">
+              <span class="navbar__back"><span class="navbar__back-icon">‹</span> Back</span>
+              <span class="navbar__title">Settings</span>
+              <button class="navbar__action btn btn--plain" style="min-height:auto;padding:0;">Edit</button>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Large Title</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;">
+            <div class="navbar navbar--large">
+              <span class="navbar__back"></span>
+              <div class="navbar__large-title">Inbox</div>
+              <button class="navbar__action btn btn--plain" style="min-height:auto;padding:0;font-size:28px;">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Transparent (over image)</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;background:linear-gradient(135deg,#007AFF 0%,#5856D6 100%);">
+            <div class="navbar" style="background:transparent;border-bottom-color:rgba(255,255,255,0.2);">
+              <span class="navbar__back" style="color:#fff;"><span class="navbar__back-icon">‹</span> Back</span>
+              <span class="navbar__title" style="color:#fff;">Profile</span>
+              <button class="navbar__action btn btn--plain" style="min-height:auto;padding:0;color:#fff;">···</button>
+            </div>
+            <div style="height:80px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="panel" id="panel-tabs">
+        <div class="panel__title">Tabs</div>
+        <div class="panel__desc">iOS UITabBar (49pt bottom bar) and picker-style top tabs.</div>
+        <div class="section">
+          <div class="section__heading">Tab Bar — Bottom</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;">
+            <div style="height:100px;background:#F2F2F7;display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(60,60,67,0.5);">Content</div>
+            <div class="tab-bar">
+              <div class="tab-bar__item tab-bar__item--active"><span class="tab-bar__icon">⊞</span><span class="tab-bar__label">Home</span></div>
+              <div class="tab-bar__item"><span class="tab-bar__icon">🔍</span><span class="tab-bar__label">Search</span></div>
+              <div class="tab-bar__item"><span class="tab-bar__icon">🔔</span><span class="tab-bar__label">Alerts</span></div>
+              <div class="tab-bar__item"><span class="tab-bar__icon">👤</span><span class="tab-bar__label">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Top Tabs</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;">
+            <div class="tabs"><div class="tabs__nav">
+              <button class="tabs__item tabs__item--active">Featured</button>
+              <button class="tabs__item">Categories</button>
+              <button class="tabs__item">Top Charts</button>
+            </div></div>
+            <div style="height:60px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(60,60,67,0.5);">Tab content</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BREADCRUMB -->
+      <div class="panel" id="panel-breadcrumb">
+        <div class="panel__title">Breadcrumb</div>
+        <div class="panel__desc">Navigation trail showing the path to current page.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview">
+            <ol class="breadcrumb">
+              <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Home</a></li>
+              <li class="breadcrumb__item breadcrumb__item--separator">›</li>
+              <li class="breadcrumb__item"><a class="breadcrumb__link" href="#">Settings</a></li>
+              <li class="breadcrumb__item breadcrumb__item--separator">›</li>
+              <li class="breadcrumb__item breadcrumb__item--active">Privacy</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="panel" id="panel-card">
+        <div class="panel__title">Card</div>
+        <div class="panel__desc">iOS inset grouped card. White surface on gray background, 12pt corners.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview preview--gray">
+            <div class="card">
+              <div class="card__header"><h3 class="card__title">Settings</h3><p class="card__subtitle">General preferences</p></div>
+              <div class="card__body"><p class="card__content">Configure your app preferences, notifications, and account details.</p></div>
+              <div class="card__footer">
+                <button class="btn btn--plain" style="min-height:auto;padding:4px 0;">Cancel</button>
+                <button class="btn btn--primary btn--sm">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Variants</div>
+          <div class="grid-3">
+            <div class="card card--elevated"><div class="card__header"><h3 class="card__title">Elevated</h3></div><div class="card__body"><p class="card__content">With shadow.</p></div></div>
+            <div class="card card--outlined"><div class="card__header"><h3 class="card__title">Outlined</h3></div><div class="card__body"><p class="card__content">With border.</p></div></div>
+            <div class="card card--filled"><div class="card__header"><h3 class="card__title">Filled</h3></div><div class="card__body"><p class="card__content">Filled bg.</p></div></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Clickable</div>
+          <div class="preview preview--gray">
+            <div class="card card--clickable" tabindex="0">
+              <div class="card__header"><h3 class="card__title">Apple Music</h3><p class="card__subtitle">Tap to open</p></div>
+              <div class="card__body"><p class="card__content">Stream 100 million songs ad-free.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIST -->
+      <div class="panel" id="panel-list">
+        <div class="panel__title">List</div>
+        <div class="panel__desc">iOS UITableView insetGrouped. White rows with 0.5px hairline separators.</div>
+        <div class="section">
+          <div class="section__heading">Inset Grouped</div>
+          <div class="preview preview--gray">
+            <ul class="list">
+              <li class="list-item">
+                <span class="list-item__icon" style="background:#007AFF;">📶</span>
+                <span class="list-item__content"><span class="list-item__title">Wi-Fi</span></span>
+                <span class="list-item__detail">StarbucksGuest</span>
+                <span class="list-item__arrow">›</span>
+              </li>
+              <li class="list-item">
+                <span class="list-item__icon" style="background:#007AFF;">🔵</span>
+                <span class="list-item__content"><span class="list-item__title">Bluetooth</span></span>
+                <span class="list-item__detail">On</span>
+                <span class="list-item__arrow">›</span>
+              </li>
+              <li class="list-item">
+                <span class="list-item__icon" style="background:#FF9500;">✈️</span>
+                <span class="list-item__content"><span class="list-item__title">Airplane Mode</span></span>
+                <label class="toggle" style="margin-left:auto;"><input type="checkbox"></label>
+              </li>
+            </ul>
+            <div style="height:12px;"></div>
+            <ul class="list">
+              <li class="list-item"><span class="list-item__content"><span class="list-item__title">Notifications</span></span><span class="list-item__arrow">›</span></li>
+              <li class="list-item"><span class="list-item__content"><span class="list-item__title">Sounds &amp; Haptics</span></span><span class="list-item__arrow">›</span></li>
+              <li class="list-item"><span class="list-item__content"><span class="list-item__title">Focus</span></span><span class="list-item__arrow">›</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVATAR -->
+      <div class="panel" id="panel-avatar">
+        <div class="panel__title">Avatar</div>
+        <div class="panel__desc">iOS contact avatar — circular, image, initials, or icon.</div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview"><div class="preview-row" style="align-items:flex-end;">
+            <div style="text-align:center;"><div class="avatar avatar--xs"><span class="avatar__text">AB</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">XS</div></div>
+            <div style="text-align:center;"><div class="avatar avatar--sm"><span class="avatar__text">CD</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">SM</div></div>
+            <div style="text-align:center;"><div class="avatar"><span class="avatar__text">EF</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">MD</div></div>
+            <div style="text-align:center;"><div class="avatar avatar--lg"><span class="avatar__text">GH</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">LG</div></div>
+            <div style="text-align:center;"><div class="avatar avatar--xl"><span class="avatar__text">IJ</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">XL</div></div>
+            <div style="text-align:center;"><div class="avatar avatar--2xl"><span class="avatar__text">KL</span></div><div style="font-size:11px;color:rgba(60,60,67,0.5);margin-top:6px;">2XL</div></div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-row">
+            <div class="avatar avatar--blue"><span class="avatar__text">TN</span></div>
+            <div class="avatar avatar--green"><span class="avatar__text">JD</span></div>
+            <div class="avatar avatar--red"><span class="avatar__text">AK</span></div>
+            <div class="avatar avatar--orange"><span class="avatar__text">MR</span></div>
+            <div class="avatar avatar--purple"><span class="avatar__text">SB</span></div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Status Indicators</div>
+          <div class="preview"><div class="preview-row">
+            <div class="avatar avatar--status-online"><span class="avatar__text">TN</span></div>
+            <div class="avatar avatar--status-busy"><span class="avatar__text">JD</span></div>
+            <div class="avatar avatar--status-away"><span class="avatar__text">AK</span></div>
+            <div class="avatar avatar--status-offline"><span class="avatar__text">MR</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- BADGE -->
+      <div class="panel" id="panel-badge">
+        <div class="panel__title">Badge</div>
+        <div class="panel__desc">iOS notification badge. Red pill for counts, colored chips for status.</div>
+        <div class="section">
+          <div class="section__heading">Notification</div>
+          <div class="preview"><div class="preview-row">
+            <div style="position:relative;display:inline-flex;">
+              <div style="width:48px;height:48px;background:#E5E5EA;border-radius:12px;"></div>
+              <span class="badge badge--danger" style="position:absolute;top:-4px;right:-4px;">99+</span>
+            </div>
+            <span class="badge">3</span>
+            <span class="badge">99+</span>
+            <span class="badge badge--dot"></span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-row">
+            <span class="badge badge--primary">Primary</span>
+            <span class="badge badge--success">Success</span>
+            <span class="badge badge--warning">Warning</span>
+            <span class="badge badge--danger">Danger</span>
+            <span class="badge badge--info">Info</span>
+            <span class="badge badge--gray">Gray</span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Soft / Tinted</div>
+          <div class="preview"><div class="preview-row">
+            <span class="badge badge--soft">Default</span>
+            <span class="badge badge--soft-success">Success</span>
+            <span class="badge badge--soft-warning">Warning</span>
+            <span class="badge badge--soft-danger">Danger</span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- TAG -->
+      <div class="panel" id="panel-tag">
+        <div class="panel__title">Tag</div>
+        <div class="panel__desc">iOS chip/label for categories, filters, keywords.</div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-row" style="flex-wrap:wrap;">
+            <span class="tag">Default</span>
+            <span class="tag tag--blue">Blue</span>
+            <span class="tag tag--green">Green</span>
+            <span class="tag tag--red">Red</span>
+            <span class="tag tag--orange">Orange</span>
+            <span class="tag tag--purple">Purple</span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Closeable</div>
+          <div class="preview"><div class="preview-row">
+            <span class="tag tag--closeable">Swift <button class="tag__close">×</button></span>
+            <span class="tag tag--blue tag--closeable">iOS <button class="tag__close">×</button></span>
+            <span class="tag tag--green tag--closeable">SwiftUI <button class="tag__close">×</button></span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ICON -->
+      <div class="panel" id="panel-icon">
+        <div class="panel__title">Icon</div>
+        <div class="panel__desc">Icon wrapper supporting SVG, emoji, or icon fonts.</div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview"><div class="preview-row" style="align-items:flex-end;">
+            <span class="icon icon--xs">★</span>
+            <span class="icon icon--sm">★</span>
+            <span class="icon icon--md">★</span>
+            <span class="icon icon--lg">★</span>
+            <span class="icon icon--xl">★</span>
+            <span class="icon icon--2xl">★</span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Colors</div>
+          <div class="preview"><div class="preview-row">
+            <span class="icon icon--lg icon--primary">★</span>
+            <span class="icon icon--lg icon--success">★</span>
+            <span class="icon icon--lg icon--warning">★</span>
+            <span class="icon icon--lg icon--danger">★</span>
+            <span class="icon icon--lg icon--muted">★</span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Icon Buttons</div>
+          <div class="preview"><div class="preview-row">
+            <button class="icon-button icon-button--lg icon-button--primary">★</button>
+            <button class="icon-button icon-button--lg icon-button--danger">♥</button>
+            <button class="icon-button icon-button--lg icon-button--success">✓</button>
+            <button class="icon-button icon-button--lg">⚙</button>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ALERT -->
+      <div class="panel" id="panel-alert">
+        <div class="panel__title">Alert</div>
+        <div class="panel__desc">iOS inline banner alerts and system alert dialogs.</div>
+        <div class="section">
+          <div class="section__heading">Inline Alerts</div>
+          <div class="preview"><div class="preview-col">
+            <div class="alert alert--info"><span class="alert__icon">ℹ️</span><div class="alert__body"><div class="alert__title">Update Available</div><div class="alert__text">iOS 18.2 is ready to install.</div></div></div>
+            <div class="alert alert--success"><span class="alert__icon">✅</span><div class="alert__body"><div class="alert__title">Payment Successful</div><div class="alert__text">Your order has been confirmed.</div></div></div>
+            <div class="alert alert--warning"><span class="alert__icon">⚠️</span><div class="alert__body"><div class="alert__title">Low Storage</div><div class="alert__text">Less than 1 GB available.</div></div></div>
+            <div class="alert alert--danger"><span class="alert__icon">🛑</span><div class="alert__body"><div class="alert__title">Sign-in Failed</div><div class="alert__text">Incorrect password. Try again.</div></div></div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Alert Dialog</div>
+          <div class="preview">
+            <button class="btn btn--primary btn--sm" onclick="document.getElementById('alertOverlay').classList.add('open')">Show Alert Dialog</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL -->
+      <div class="panel" id="panel-modal">
+        <div class="panel__title">Modal</div>
+        <div class="panel__desc">iOS sheet presentation. Slides up from the bottom with 20pt rounded corners.</div>
+        <div class="section">
+          <div class="section__heading">Bottom Sheet</div>
+          <div class="preview">
+            <button class="btn btn--primary" onclick="document.getElementById('sheetOverlay').classList.add('open')">Open Bottom Sheet</button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Center Modal</div>
+          <div class="preview">
+            <button class="btn btn--tinted" onclick="document.getElementById('centerOverlay').classList.add('open')">Open Center Modal</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRAWER -->
+      <div class="panel" id="panel-drawer">
+        <div class="panel__title">Drawer</div>
+        <div class="panel__desc">iOS side panel / action sheet sliding from edge.</div>
+        <div class="section">
+          <div class="section__heading">Demo</div>
+          <div class="preview"><div class="preview-row">
+            <button class="btn btn--primary" onclick="openDrawer('drawerRight')">Right Drawer</button>
+            <button class="btn btn--tinted" onclick="openDrawer('drawerLeft')">Left Drawer</button>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- POPOVER -->
+      <div class="panel" id="panel-popover">
+        <div class="panel__title">Popover</div>
+        <div class="panel__desc">Small overlay panel relative to a trigger element.</div>
+        <div class="section">
+          <div class="section__heading">Demo</div>
+          <div class="preview" style="padding:48px 32px;">
+            <div style="position:relative;display:inline-block;">
+              <button class="btn btn--primary" onclick="togglePopover('demoPopover')">Tap for Popover</button>
+              <div id="demoPopover" class="popover popover--bottom" style="display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:180px;z-index:100;">
+                <div class="popover__content">
+                  <ul class="list" style="border-radius:10px;">
+                    <li class="list-item" style="cursor:pointer;">Share</li>
+                    <li class="list-item" style="cursor:pointer;">Duplicate</li>
+                    <li class="list-item" style="cursor:pointer;color:#FF3B30;">Delete</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOOLTIP -->
+      <div class="panel" id="panel-tooltip">
+        <div class="panel__title">Tooltip</div>
+        <div class="panel__desc">Small informational label on hover or long press.</div>
+        <div class="section">
+          <div class="section__heading">Positions</div>
+          <div class="preview" style="padding:48px 32px;">
+            <div class="preview-row" style="flex-wrap:wrap;gap:24px;justify-content:center;">
+              <div class="tooltip"><button class="btn btn--gray btn--sm">Top</button><span class="tooltip__content tooltip__content--top">Appears on top</span></div>
+              <div class="tooltip"><button class="btn btn--gray btn--sm">Bottom</button><span class="tooltip__content tooltip__content--bottom">Appears below</span></div>
+              <div class="tooltip"><button class="btn btn--gray btn--sm">Left</button><span class="tooltip__content tooltip__content--left">Appears left</span></div>
+              <div class="tooltip"><button class="btn btn--gray btn--sm">Right</button><span class="tooltip__content tooltip__content--right">Appears right</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTIFICATION -->
+      <div class="panel" id="panel-notification">
+        <div class="panel__title">Notification</div>
+        <div class="panel__desc">iOS lock screen / banner notification style.</div>
+        <div class="section">
+          <div class="section__heading">Banners</div>
+          <div class="preview preview--gray"><div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="notification">
+              <div class="notification__icon" style="background:#007AFF;">📱</div>
+              <div class="notification__body"><div class="notification__app">Messages</div><div class="notification__title">John Doe</div><div class="notification__text">Hey, are you coming to the meeting?</div></div>
+              <div class="notification__time">now</div>
+            </div>
+            <div class="notification notification--success">
+              <div class="notification__icon" style="background:#34C759;">✓</div>
+              <div class="notification__body"><div class="notification__app">App Store</div><div class="notification__title">Update Complete</div><div class="notification__text">iOS UI Kit 2.0 is ready.</div></div>
+              <div class="notification__time">2m ago</div>
+            </div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Toast</div>
+          <div class="preview">
+            <button class="btn btn--primary" onclick="showToast()">Show Toast</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPINNER -->
+      <div class="panel" id="panel-spinner">
+        <div class="panel__title">Spinner</div>
+        <div class="panel__desc">iOS UIActivityIndicatorView — rotating indicator.</div>
+        <div class="section">
+          <div class="section__heading">Sizes</div>
+          <div class="preview"><div class="preview-row" style="align-items:center;">
+            <span class="spinner spinner--sm"></span>
+            <span class="spinner"></span>
+            <span class="spinner spinner--lg"></span>
+            <span class="spinner spinner--xl"></span>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">In Context</div>
+          <div class="preview"><div style="display:flex;align-items:center;gap:10px;padding:4px 0;">
+            <span class="spinner spinner--sm"></span>
+            <span style="font-size:15px;color:rgba(60,60,67,0.6);">Loading…</span>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SKELETON -->
+      <div class="panel" id="panel-skeleton">
+        <div class="panel__title">Skeleton</div>
+        <div class="panel__desc">iOS shimmer loading placeholder.</div>
+        <div class="section">
+          <div class="section__heading">List Skeleton</div>
+          <div class="preview"><div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span class="skeleton skeleton--circle" style="width:44px;height:44px;"></span>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                <span class="skeleton skeleton--text" style="width:60%;"></span>
+                <span class="skeleton skeleton--text skeleton--text-sm" style="width:40%;"></span>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <span class="skeleton skeleton--circle" style="width:44px;height:44px;"></span>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                <span class="skeleton skeleton--text" style="width:75%;"></span>
+                <span class="skeleton skeleton--text skeleton--text-sm" style="width:50%;"></span>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Card Skeleton</div>
+          <div class="preview preview--gray">
+            <div class="card">
+              <span class="skeleton skeleton--rect" style="width:100%;height:120px;border-radius:8px;margin-bottom:12px;"></span>
+              <span class="skeleton skeleton--text" style="width:70%;margin-bottom:8px;"></span>
+              <span class="skeleton skeleton--text skeleton--text-sm" style="width:90%;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPTY -->
+      <div class="panel" id="panel-empty">
+        <div class="panel__title">Empty State</div>
+        <div class="panel__desc">Placeholder for empty lists or content areas.</div>
+        <div class="section">
+          <div class="section__heading">Default</div>
+          <div class="preview preview--gray">
+            <div class="empty">
+              <div class="empty__icon">📭</div>
+              <div class="empty__title">No Messages</div>
+              <div class="empty__description">Replies will appear here.</div>
+              <button class="btn btn--primary btn--sm" style="margin-top:16px;">Compose</button>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Error</div>
+          <div class="preview preview--gray">
+            <div class="empty empty--error">
+              <div class="empty__icon">⚠️</div>
+              <div class="empty__title">Unable to Load</div>
+              <div class="empty__description">Check your internet connection.</div>
+              <button class="btn btn--outlined btn--sm" style="margin-top:16px;">Retry</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="panel" id="panel-result">
+        <div class="panel__title">Result</div>
+        <div class="panel__desc">Full-page feedback after an operation completes.</div>
+        <div class="grid-2">
+          <div class="result result--success">
+            <div class="result__icon">✅</div>
+            <div class="result__title">Payment Complete</div>
+            <div class="result__subtitle">Order #1234 confirmed.</div>
+            <button class="btn btn--success btn--sm" style="margin-top:16px;">View Receipt</button>
+          </div>
+          <div class="result result--error">
+            <div class="result__icon">❌</div>
+            <div class="result__title">Upload Failed</div>
+            <div class="result__subtitle">File exceeded 10 MB limit.</div>
+            <button class="btn btn--danger btn--sm" style="margin-top:16px;">Try Again</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPACE -->
+      <div class="panel" id="panel-space">
+        <div class="panel__title">Space</div>
+        <div class="panel__desc">Utility for consistent spacing between inline elements.</div>
+        <div class="section">
+          <div class="section__heading">Horizontal</div>
+          <div class="preview"><div class="preview-col">
+            <div class="space space--gap-sm"><button class="btn btn--primary btn--sm">Save</button><button class="btn btn--gray btn--sm">Cancel</button></div>
+            <div class="space space--gap-lg"><button class="btn btn--tinted btn--sm">Back</button><button class="btn btn--primary btn--sm">Next</button></div>
+          </div></div>
+        </div>
+        <div class="section">
+          <div class="section__heading">Wrap</div>
+          <div class="preview">
+            <div class="space space--wrap space--gap-sm">
+              <span class="tag tag--blue">Swift</span><span class="tag tag--green">SwiftUI</span>
+              <span class="tag tag--orange">Objective-C</span><span class="tag tag--purple">Xcode</span>
+              <span class="tag">iOS</span><span class="tag">macOS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW COL -->
+      <div class="panel" id="panel-rowcol">
+        <div class="panel__title">Row / Col</div>
+        <div class="panel__desc">24-column flex grid system for page layout.</div>
+        <div class="section">
+          <div class="section__heading">Grid Examples</div>
+          <div class="preview"><div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="row row--gutter-md">
+              <div class="col col-8"><div style="background:#007AFF22;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#007AFF;font-weight:600;">col-8</div></div>
+              <div class="col col-8"><div style="background:#007AFF22;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#007AFF;font-weight:600;">col-8</div></div>
+              <div class="col col-8"><div style="background:#007AFF22;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#007AFF;font-weight:600;">col-8</div></div>
+            </div>
+            <div class="row row--gutter-md">
+              <div class="col col-16"><div style="background:#FF950022;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#FF9500;font-weight:600;">col-16</div></div>
+              <div class="col col-8"><div style="background:#FF950022;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#FF9500;font-weight:600;">col-8</div></div>
+            </div>
+            <div class="row row--gutter-md">
+              <div class="col col-6"><div style="background:#34C75922;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#34C759;font-weight:600;">col-6</div></div>
+              <div class="col col-6"><div style="background:#34C75922;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#34C759;font-weight:600;">col-6</div></div>
+              <div class="col col-6"><div style="background:#34C75922;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#34C759;font-weight:600;">col-6</div></div>
+              <div class="col col-6"><div style="background:#34C75922;border-radius:8px;padding:12px;text-align:center;font-size:13px;color:#34C759;font-weight:600;">col-6</div></div>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- LAYOUT -->
+      <div class="panel" id="panel-layout">
+        <div class="panel__title">Layout</div>
+        <div class="panel__desc">Full-page structure with header, sider, content, and footer.</div>
+        <div class="section">
+          <div class="section__heading">Basic Layout</div>
+          <div class="preview" style="padding:0;overflow:hidden;border-radius:12px;">
+            <div class="layout" style="min-height:240px;">
+              <header style="background:rgba(242,242,247,0.92);border-bottom:0.5px solid rgba(60,60,67,0.2);padding:0 16px;height:44px;display:flex;align-items:center;font-weight:600;font-size:15px;">Header</header>
+              <div style="display:flex;flex:1;">
+                <aside style="width:100px;background:#F2F2F7;border-right:0.5px solid rgba(60,60,67,0.15);padding:12px;font-size:13px;color:rgba(60,60,67,0.6);">Sider</aside>
+                <main style="flex:1;padding:16px;font-size:13px;color:rgba(60,60,67,0.6);">Content</main>
+              </div>
+              <footer style="background:rgba(242,242,247,0.92);border-top:0.5px solid rgba(60,60,67,0.2);padding:0 16px;height:44px;display:flex;align-items:center;font-size:13px;color:rgba(60,60,67,0.6);">Footer</footer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.content -->
+  </main>
+</div><!-- /.shell -->
+
+<!-- ══════════════════ OVERLAYS ══════════════════ -->
+
+<!-- Bottom Sheet -->
+<div class="demo-overlay" id="sheetOverlay" onclick="this.classList.remove('open')">
+  <div class="modal__content" style="max-width:480px;padding:0 0 32px;" onclick="event.stopPropagation()">
+    <div style="width:36px;height:4px;background:rgba(60,60,67,0.3);border-radius:2px;margin:10px auto 16px;"></div>
+    <div style="padding:0 20px 16px;">
+      <div style="font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:-0.4px;">Share</div>
+      <div style="font-size:15px;color:rgba(60,60,67,0.6);margin-bottom:20px;line-height:1.45;">Choose how to share this item.</div>
+    </div>
+    <ul class="list" style="border-radius:0;box-shadow:none;">
+      <li class="list-item" style="cursor:pointer;padding:14px 20px;">✉️  Mail <span class="list-item__arrow">›</span></li>
+      <li class="list-item" style="cursor:pointer;padding:14px 20px;">💬  Messages <span class="list-item__arrow">›</span></li>
+      <li class="list-item" style="cursor:pointer;padding:14px 20px;">🔗  Copy Link <span class="list-item__arrow">›</span></li>
+    </ul>
+    <div style="padding:16px 20px 0;">
+      <button class="btn btn--gray btn--block" onclick="document.getElementById('sheetOverlay').classList.remove('open')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Center Modal -->
+<div class="demo-overlay demo-overlay--center" id="centerOverlay" onclick="this.classList.remove('open')">
+  <div style="background:#fff;border-radius:14px;padding:20px;max-width:300px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);" onclick="event.stopPropagation()">
+    <div style="font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.4px;">Enable Notifications</div>
+    <div style="font-size:15px;color:rgba(60,60,67,0.6);margin-bottom:20px;line-height:1.45;">Allow iOS UI Kit to send you alerts and updates.</div>
+    <div style="border-top:0.5px solid rgba(60,60,67,0.2);margin:0 -20px;">
+      <button class="btn btn--plain btn--block" style="border-bottom:0.5px solid rgba(60,60,67,0.2);border-radius:0;color:rgba(60,60,67,0.6);font-weight:400;" onclick="document.getElementById('centerOverlay').classList.remove('open')">Don't Allow</button>
+      <button class="btn btn--plain btn--block" style="border-radius:0;" onclick="document.getElementById('centerOverlay').classList.remove('open')">Allow</button>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Dialog -->
+<div class="demo-overlay demo-overlay--center" id="alertOverlay" onclick="this.classList.remove('open')">
+  <div style="background:#fff;border-radius:14px;padding:20px;max-width:270px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);" onclick="event.stopPropagation()">
+    <div style="font-size:17px;font-weight:600;margin-bottom:4px;">Delete Contact?</div>
+    <div style="font-size:13px;color:rgba(60,60,67,0.6);margin-bottom:16px;">This contact will be removed from your address book.</div>
+    <div style="border-top:0.5px solid rgba(60,60,67,0.2);margin:0 -20px;">
+      <button class="btn btn--plain btn--block" style="border-bottom:0.5px solid rgba(60,60,67,0.2);border-radius:0;" onclick="document.getElementById('alertOverlay').classList.remove('open')">Cancel</button>
+      <button class="btn btn--plain btn--block" style="border-radius:0;color:#FF3B30;" onclick="document.getElementById('alertOverlay').classList.remove('open')">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Drawer Right -->
+<div id="drawerRight" style="display:none;position:fixed;inset:0;z-index:9000;">
+  <div onclick="closeDrawer('drawerRight')" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);"></div>
+  <div style="position:fixed;top:0;right:0;height:100%;width:300px;background:#fff;box-shadow:-8px 0 32px rgba(0,0,0,0.15);padding:20px;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span style="font-size:20px;font-weight:700;letter-spacing:-0.4px;">Menu</span>
+      <button class="btn btn--plain btn--sm" style="min-height:auto;" onclick="closeDrawer('drawerRight')">✕</button>
+    </div>
+    <ul class="list">
+      <li class="list-item">Profile <span class="list-item__arrow">›</span></li>
+      <li class="list-item">Settings <span class="list-item__arrow">›</span></li>
+      <li class="list-item">Help <span class="list-item__arrow">›</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Drawer Left -->
+<div id="drawerLeft" style="display:none;position:fixed;inset:0;z-index:9000;">
+  <div onclick="closeDrawer('drawerLeft')" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);"></div>
+  <div style="position:fixed;top:0;left:0;height:100%;width:280px;background:#fff;box-shadow:8px 0 32px rgba(0,0,0,0.15);padding:20px;display:flex;flex-direction:column;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <span style="font-size:20px;font-weight:700;letter-spacing:-0.4px;">Navigation</span>
+      <button class="btn btn--plain btn--sm" style="min-height:auto;" onclick="closeDrawer('drawerLeft')">✕</button>
+    </div>
+    <ul class="list">
+      <li class="list-item">Home <span class="list-item__arrow">›</span></li>
+      <li class="list-item">Explore <span class="list-item__arrow">›</span></li>
+      <li class="list-item">Library <span class="list-item__arrow">›</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" style="position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-120px);z-index:9999;transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);">
+  <div class="notification" style="box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:300px;">
+    <div class="notification__icon" style="background:#34C759;">✓</div>
+    <div class="notification__body">
+      <div class="notification__app">iOS UI Kit</div>
+      <div class="notification__title">Copied!</div>
+      <div class="notification__text">Link copied to clipboard.</div>
+    </div>
+    <div class="notification__time">now</div>
+  </div>
+</div>
+
+<script>
+  function showPanel(id, el) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    el.classList.add('active');
+    document.getElementById('topbarTitle').textContent =
+      el.querySelector('.nav-item__icon').nextSibling.textContent.trim();
+    document.getElementById('content').scrollTop = 0;
+  }
+
+  function filterNav(q) {
+    const query = q.toLowerCase().trim();
+    document.querySelectorAll('.nav-item').forEach(item => {
+      if (!query) { item.classList.remove('hidden'); return; }
+      item.classList.toggle('hidden', !item.textContent.toLowerCase().includes(query));
+    });
+  }
+
+  function setSegment(el) {
+    el.closest('.segmented-control').querySelectorAll('.segmented-control__item')
+      .forEach(i => i.classList.remove('segmented-control__item--active'));
+    el.classList.add('segmented-control__item--active');
+  }
+
+  function togglePopover(id) {
+    const p = document.getElementById(id);
+    p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function openDrawer(id) { document.getElementById(id).style.display = 'block'; }
+  function closeDrawer(id) { document.getElementById(id).style.display = 'none'; }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+      t.style.transform = 'translateX(-50%) translateY(-120px)';
+    }, 3000);
+  }
+</script>
 </body>
 </html>

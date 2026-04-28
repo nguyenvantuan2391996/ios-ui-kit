@@ -1,107 +1,103 @@
 // iOS UI Kit - Input Component
-// Defines input styles with variants and states
+// Matches iOS UITextField styling exactly
 
 // ============================================
-// Input Base Styles
+// iOS Text Field Base
 // ============================================
 
 .input {
-  // Layout
-  display: block;
-  width: 100%;
-  
-  // Typography
+  display:    block;
+  width:      100%;
+
   font-family: $font-family-base;
-  font-size: $font-size-base;
+  font-size:   $ios-body-size;    // 17pt
   font-weight: $font-weight-normal;
   line-height: $line-height-normal;
-  
-  // Spacing & Sizing
-  padding: $input-padding-y $input-padding-x;
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  
-  // Colors
-  color: $color-text-primary;
-  background-color: $color-white;
-  caret-color: $color-primary;
-  
-  // Effects
-  transition: all 0.2s ease;
-  box-shadow: none;
-  
-  // User interaction
-  -webkit-tap-highlight-color: transparent;
-  
-  // Focus state
+  letter-spacing: -0.2px;
+
+  padding:       $input-padding-y $input-padding-x;
+  min-height:    $touch-target-min;  // 44pt
+  border-radius: $border-radius-md;  // 10pt
+  border:        none;
+  outline:       none;
+
+  color:            var(--ios-label, $color-text-primary);
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  caret-color:      var(--ios-blue, $color-primary);
+
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
   &:focus {
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+    box-shadow: 0 0 0 3.5px rgba(0,122,255,0.3);
     outline: none;
-    border-color: $color-primary;
-    background-color: $color-white;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
   }
-  
-  // Placeholder
+
   &::placeholder {
-    color: $color-text-tertiary;
+    color: var(--ios-placeholder-text, rgba(60,60,67,0.3));
   }
-  
-  // Disabled state
+
   &:disabled {
-    background-color: $color-gray-50;
-    border-color: $color-border-light;
-    color: $color-text-disabled;
-    cursor: not-allowed;
-    opacity: 0.6;
+    opacity:        0.35;
+    cursor:         not-allowed;
+    pointer-events: none;
   }
 }
 
 textarea.input {
-  resize: vertical;
-  min-height: 80px;
+  resize:     vertical;
+  min-height: 88px;
+  padding:    $spacing-3 $input-padding-x;
+  line-height: $line-height-relaxed;
 }
 
 // ============================================
-// Input Variants
+// iOS Input Variants
 // ============================================
 
-// Filled variant
+// Filled (default iOS style — gray fill, no border)
 .input--filled {
-  background-color: $color-gray-50;
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
   border-color: transparent;
-  
+
   &:focus {
-    background-color: $color-white;
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+    box-shadow: 0 0 0 3.5px rgba(0,122,255,0.3);
   }
 }
 
-// Outlined variant (default)
+// Outlined (white bg with border — secondary iOS style)
 .input--outlined {
-  background-color: $color-white;
-  border: 1px solid $color-border;
+  background-color: var(--ios-system-bg, $color-white);
+  border:           1px solid var(--ios-separator, rgba(60,60,67,0.29));
+
+  &:focus {
+    border-color: var(--ios-blue, $color-primary);
+    box-shadow:   0 0 0 3.5px rgba(0,122,255,0.20);
+    background-color: var(--ios-system-bg, $color-white);
+  }
 }
 
-// Rounded variant
+// Rounded (search bar style)
 .input--rounded {
-  border-radius: 24px;
-  padding-left: $spacing-4;
-  padding-right: $spacing-4;
+  border-radius: $border-radius-full;
+  padding-left:  $spacing-5;
+  padding-right: $spacing-5;
 }
 
-// Underline variant
+// Underline (classic iOS style for some forms)
 .input--underline {
   background-color: transparent;
-  border: none;
-  border-bottom: 1px solid $color-border;
-  border-radius: 0;
-  padding-left: 0;
-  padding-right: 0;
-  
+  border:           none;
+  border-bottom:    0.5px solid var(--ios-separator, $color-border);
+  border-radius:    0;
+  padding-left:     0;
+  padding-right:    0;
+
   &:focus {
-    border-bottom-color: $color-primary;
-    box-shadow: 0 2px 0 0 $color-primary;
+    border-bottom-color: var(--ios-blue, $color-primary);
+    box-shadow:          0 1px 0 0 var(--ios-blue, $color-primary);
+    background-color:    transparent;
   }
 }
 
@@ -110,147 +106,186 @@ textarea.input {
 // ============================================
 
 .input--sm {
-  padding: $spacing-1 $spacing-2;
-  font-size: $font-size-sm;
-  border-radius: 6px;
+  font-size:     $ios-subhead-size;  // 15pt
+  padding:       $input-padding-y-sm $input-padding-x-sm;
+  min-height:    36px;
+  border-radius: $border-radius-sm;
 }
 
-.input--md {
-  // Default size
-}
+.input--md { /* default */ }
 
 .input--lg {
-  padding: $spacing-3 $spacing-4;
-  font-size: $font-size-lg;
-  border-radius: 10px;
+  font-size:     $ios-callout-size;  // keep readable at 16px
+  padding:       $input-padding-y-lg $input-padding-x-lg;
+  min-height:    50px;
+  border-radius: $border-radius-lg;
 }
 
 // ============================================
-// Input States
+// Validation States
 // ============================================
 
 .input--error {
-  border-color: $color-danger;
-  
+  background-color: rgba(255,59,48,0.08);
   &:focus {
-    border-color: $color-danger;
-    box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
+    box-shadow: 0 0 0 3.5px rgba(255,59,48,0.25);
   }
 }
 
 .input--warning {
-  border-color: $color-warning;
-  
+  background-color: rgba(255,149,0,0.08);
   &:focus {
-    border-color: $color-warning;
-    box-shadow: 0 0 0 3px rgba($color-warning, 0.1);
+    box-shadow: 0 0 0 3.5px rgba(255,149,0,0.25);
   }
 }
 
 .input--success {
-  border-color: $color-success;
-  
+  background-color: rgba(52,199,89,0.08);
   &:focus {
-    border-color: $color-success;
-    box-shadow: 0 0 0 3px rgba($color-success, 0.1);
+    box-shadow: 0 0 0 3.5px rgba(52,199,89,0.25);
   }
 }
 
 // ============================================
-// Input with Icon Wrapper
+// Input Group (with icon)
 // ============================================
 
 .input-group {
   position: relative;
-  display: inline-block;
-  width: 100%;
+  display:  inline-block;
+  width:    100%;
 }
 
-.input-group--icon-left .input {
-  padding-left: $spacing-10;
-}
-
-.input-group--icon-right .input {
-  padding-right: $spacing-10;
-}
+.input-group--icon-left  .input { padding-left:  $spacing-11; }
+.input-group--icon-right .input { padding-right: $spacing-11; }
 
 .input-group__icon {
-  position: absolute;
-  top: 50%;
+  position:  absolute;
+  top:       50%;
   transform: translateY(-50%);
-  color: $color-text-tertiary;
+  color:     var(--ios-gray, $color-gray-600);
   pointer-events: none;
-  display: flex;
-  align-items: center;
+  display:   flex;
+  align-items:     center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width:     44px;
+  height:    44px;
+
+  svg, i { width: 18px; height: 18px; }
 }
 
-.input-group--icon-left .input-group__icon {
-  left: 0;
-}
+.input-group--icon-left  .input-group__icon { left:  0; }
+.input-group--icon-right .input-group__icon { right: 0; }
 
-.input-group--icon-right .input-group__icon {
-  right: 0;
+// iOS-style clear button
+.input-group__clear {
+  position:  absolute;
+  top:       50%;
+  right:     $spacing-3;
+  transform: translateY(-50%);
+  display:   flex;
+  align-items:     center;
+  justify-content: center;
+  width:  20px;
+  height: 20px;
+  background-color: var(--ios-gray5, $color-gray-200);
+  border-radius: 50%;
+  cursor: pointer;
+  color:  var(--ios-gray, $color-gray-600);
+  font-size: 12px;
+  transition: opacity 0.15s ease;
+
+  &:hover { opacity: 0.7; }
 }
 
 // ============================================
-// Input Label
+// Input Label (iOS-style)
 // ============================================
 
 .input-label {
-  display: block;
+  display:       block;
   margin-bottom: $spacing-2;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
+  font-size:     $ios-subhead-size;  // 15pt subhead
+  font-weight:   $font-weight-medium;
+  color:         var(--ios-secondary-label, $color-text-secondary);
+  text-transform: none;
 }
 
 .input-label--required::after {
   content: ' *';
-  color: $color-danger;
+  color: var(--ios-red, $color-danger);
 }
 
 // ============================================
-// Input Helper Text
+// Helper / Validation Text
 // ============================================
 
 .input-helper {
-  display: block;
+  display:    block;
   margin-top: $spacing-1;
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
+  font-size:  $ios-footnote-size;    // 13pt footnote
+  color:      var(--ios-secondary-label, $color-text-secondary);
+  padding:    0 $spacing-1;
 }
 
-.input-helper--error {
-  color: $color-danger;
-}
-
-.input-helper--warning {
-  color: $color-warning;
-}
-
-.input-helper--success {
-  color: $color-success;
-}
+.input-helper--error   { color: var(--ios-red,    $color-danger);  }
+.input-helper--warning { color: var(--ios-orange, $color-warning); }
+.input-helper--success { color: var(--ios-green,  $color-success); }
 
 // ============================================
-// Input Wrapper
+// Input Field (complete unit: label + input + helper)
 // ============================================
 
 .input-field {
-  margin-bottom: $spacing-4;
+  margin-bottom: $spacing-5;
 }
 
-.input-field__label {
-  @extend .input-label;
-}
+.input-field__label  { @extend .input-label; }
+.input-field__input  { width: 100%; }
+.input-field__helper { @extend .input-helper; }
 
-.input-field__input {
-  width: 100%;
-}
+// ============================================
+// iOS Search Bar
+// ============================================
 
-.input-field__helper {
-  @extend .input-helper;
+.search-bar {
+  display:          flex;
+  align-items:      center;
+  gap:              $spacing-2;
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  border-radius:    $border-radius-md; // 10pt
+  padding:          $spacing-2 $spacing-3;
+  min-height:       36px;  // iOS search bar is 36pt
+
+  &__icon {
+    color:  var(--ios-gray, $color-gray-600);
+    flex-shrink: 0;
+    svg { width: 16px; height: 16px; }
+  }
+
+  &__input {
+    flex:         1;
+    background:   none;
+    border:       none;
+    outline:      none;
+    font-family:  $font-family-base;
+    font-size:    $ios-body-size;
+    color:        var(--ios-label, $color-text-primary);
+    caret-color:  var(--ios-blue, $color-primary);
+
+    &::placeholder {
+      color: var(--ios-placeholder-text, rgba(60,60,67,0.3));
+    }
+  }
+
+  &__cancel {
+    color:       var(--ios-blue, $color-primary);
+    font-size:   $ios-body-size;
+    font-weight: $font-weight-normal;
+    cursor:      pointer;
+    white-space: nowrap;
+    transition:  opacity 0.15s ease;
+
+    &:hover { opacity: 0.7; }
+  }
 }

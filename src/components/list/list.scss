@@ -1,209 +1,200 @@
 // iOS UI Kit - List Component
-// Defines list and list item styles with various layout options
+// Matches iOS UITableView insetGrouped style exactly
 
 // ============================================
-// List Base Styles
+// List Base (insetGrouped section)
 // ============================================
 
 .list {
-  // Layout
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  display:          flex;
+  flex-direction:   column;
+  list-style:       none;
+  margin:           0;
+  padding:          0;
 
-  // Styling
-  border-radius: 12px;
-  background-color: white;
-  border: 1px solid $color-border;
-  overflow: hidden;
-
-  // Effects
-  box-shadow: $card-shadow-sm;
+  border-radius:    $border-radius-lg;   // 12pt
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  overflow:         hidden;
+  box-shadow:       $card-shadow-xs;
 }
 
-// List may contain children without specific class
-.list > div {
-  border-bottom: 1px solid $color-border;
-
-  &:last-child {
-    border-bottom: none;
-  }
+// Direct children get iOS hairline separators
+.list > .list-item:not(:last-child),
+.list > li:not(:last-child) {
+  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
 }
 
 // ============================================
-// List Item Base Styles
+// List Item — iOS Table View Row
 // ============================================
 
 .list-item {
-  // Layout
-  display: flex;
+  display:     flex;
   align-items: center;
-  gap: $spacing-3;
-  padding: $spacing-3 $spacing-4;
+  gap:         $spacing-3;
+  padding:     0 $spacing-4;
 
-  // Typography
-  color: $color-text-primary;
-  text-decoration: none;
+  min-height:       $touch-target-min; // 44pt minimum
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  color:            var(--ios-label, $color-text-primary);
+  text-decoration:  none;
+  user-select:      none;
 
-  // Styling
-  background-color: white;
-  border-bottom: 1px solid $color-border;
-  transition: all 0.15s ease;
+  // iOS uses inset separator by default (starts at leading icon / text left edge)
+  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
 
-  // User interaction
-  user-select: none;
+  transition: background-color 0.12s ease;
 
-  &:last-child {
-    border-bottom: none;
-  }
+  &:last-child { border-bottom: none; }
 
-  &:hover {
-    background-color: $color-gray-50;
-  }
+  // Touch highlight
+  &:active { background-color: var(--ios-gray6, $color-gray-100); }
 
-  &:active {
-    background-color: $color-gray-100;
-  }
-
-  // For clickable list items (as links)
   &[role="button"],
-  &[data-clickable="true"] {
+  &[data-clickable="true"],
+  &--clickable {
     cursor: pointer;
   }
 }
 
-// List item as link
 a.list-item {
   cursor: pointer;
-
-  &:visited {
-    color: $color-text-primary;
-  }
+  &:visited { color: var(--ios-label, $color-text-primary); }
 }
 
 // ============================================
 // List Item Content Structure
 // ============================================
 
-// Main content area (flex-grow to push trailing content to right)
 .list-item__content {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  flex: 1;
-  gap: $spacing-1;
-  min-width: 0; // Allow truncation of long text
+  flex:           1;
+  gap:            2px;
+  min-width:      0;
+  padding:        $spacing-3 0; // vertical breathing room within 44pt
 }
 
-// Title (primary text)
+// Primary text — iOS Body (17pt)
 .list-item__title {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-tight;
-  color: $color-text-primary;
-  margin: 0;
-  overflow: hidden;
+  font-size:    $ios-body-size;      // 17pt
+  font-weight:  $font-weight-normal;
+  line-height:  $ios-body-line-height;
+  color:        var(--ios-label, $color-text-primary);
+  margin:       0;
+  overflow:     hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space:  nowrap;
+  letter-spacing: -0.2px;
 }
 
-// Subtitle/Description (secondary text)
+// Secondary text — iOS Subhead (15pt)
 .list-item__description {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-regular;
-  line-height: $line-height-tight;
-  color: $color-text-secondary;
-  margin: 0;
-  overflow: hidden;
+  font-size:    $ios-subhead-size;   // 15pt
+  font-weight:  $font-weight-normal;
+  line-height:  $ios-subhead-line-height;
+  color:        var(--ios-secondary-label, rgba(60,60,67,0.6));
+  margin:       0;
+  overflow:     hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space:  nowrap;
 }
 
-// List item leading element (avatar, icon, etc.)
+// Leading (icon, avatar, image)
 .list-item__leading {
-  display: flex;
+  display:     flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--ios-gray, $color-gray-600);
 }
 
-// List item trailing element (badge, icon, chevron, etc.)
+// Trailing (badge, chevron, value text, toggle)
 .list-item__trailing {
-  display: flex;
+  display:     flex;
   align-items: center;
-  justify-content: center;
-  gap: $spacing-2;
+  gap:         $spacing-2;
   flex-shrink: 0;
   margin-left: auto;
-  color: $color-text-secondary;
+  color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
+  font-size:   $ios-body-size;
 }
 
-// ============================================
-// List Item with Avatar
-// ============================================
+// iOS disclosure chevron ›
+.list-item__chevron {
+  color:     var(--ios-gray3, $color-gray-400);
+  font-size: 18px;
+  margin-left: $spacing-1;
 
-.list-item--with-avatar {
-  gap: $spacing-3;
+  &::after {
+    content: '›';
+    font-weight: $font-weight-light;
+  }
 }
 
 // ============================================
 // List Item Sizes
 // ============================================
 
-// Compact size
 .list-item--sm {
-  padding: $spacing-2 $spacing-3;
-  gap: $spacing-2;
+  min-height: 36px;
+  padding: 0 $spacing-3;
 
-  .list-item__title {
-    font-size: $font-size-xs;
-  }
-
-  .list-item__description {
-    font-size: 0.75rem;
-  }
+  .list-item__title       { font-size: $ios-subhead-size; }
+  .list-item__description { font-size: $ios-footnote-size; }
+  .list-item__content     { padding: $spacing-2 0; }
 }
 
-// Medium (default)
-.list-item--md {
-  padding: $spacing-3 $spacing-4;
-  gap: $spacing-3;
-}
-
-// Large/Relaxed size
 .list-item--lg {
-  padding: $spacing-4 $spacing-4;
-  gap: $spacing-3;
+  min-height: 54px;
 
-  .list-item__title {
-    font-size: $font-size-base;
-  }
+  .list-item__title       { font-size: $ios-callout-size; }
+  .list-item__content     { padding: $spacing-4 0; }
 }
 
 // ============================================
 // List Item States
 // ============================================
 
-// Selected/Active state
 .list-item--active,
 .list-item[aria-selected="true"] {
-  background-color: rgba($color-primary, 0.05);
-  border-left: 3px solid $color-primary;
-  padding-left: calc($spacing-4 - 3px);
+  background-color: rgba(0,122,255,0.06);
+  .list-item__title { color: var(--ios-blue, $color-primary); }
 }
 
-// Disabled state
+.list-item--selected .list-item__trailing::before {
+  content: '✓';
+  color:   var(--ios-blue, $color-primary);
+  font-size: 17px;
+  font-weight: $font-weight-semibold;
+  margin-right: $spacing-1;
+}
+
 .list-item--disabled,
 .list-item[aria-disabled="true"] {
-  opacity: 0.5;
+  opacity:        0.35;
   pointer-events: none;
-  background-color: transparent;
+}
 
-  .list-item__title,
-  .list-item__description {
-    color: $color-gray-400;
-  }
+// ============================================
+// iOS Section Header / Footer
+// ============================================
+
+.list-section-header {
+  font-size:      $ios-footnote-size;  // 13pt
+  font-weight:    $font-weight-normal;
+  color:          var(--ios-secondary-label, rgba(60,60,67,0.6));
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding:        $spacing-2 $spacing-4 $spacing-1 $spacing-4;
+  margin-top:     $spacing-5;
+}
+
+.list-section-footer {
+  font-size:   $ios-footnote-size;
+  color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
+  padding:     $spacing-1 $spacing-4 $spacing-4 $spacing-4;
+  line-height: $line-height-relaxed;
 }
 
 // ============================================
@@ -211,242 +202,112 @@ a.list-item {
 // ============================================
 
 .list-divider {
-  height: 1px;
-  background-color: $color-border;
-  margin: 0;
+  height:           0.5px;
+  background-color: var(--ios-opaque-separator, #C6C6C8);
+  margin:           0;
 }
 
-// Divider with label
-.list-divider--labeled {
-  display: flex;
-  align-items: center;
-  height: auto;
-  padding: $spacing-2 $spacing-4;
-  background-color: $color-gray-50;
-
-  &::before,
-  &::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background-color: $color-border;
-  }
-
-  &::before {
-    margin-right: $spacing-2;
-  }
-
-  &::after {
-    margin-left: $spacing-2;
-  }
-}
-
-.list-divider__label {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-  text-transform: uppercase;
-  color: $color-text-secondary;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
+.list-divider--inset {
+  margin-left: $spacing-16; // inset to align with text
 }
 
 // ============================================
-// List Group (section with heading)
+// List Group
 // ============================================
 
 .list-group {
-  display: flex;
+  display:        flex;
   flex-direction: column;
+  gap:            0;
 }
 
 .list-group__header {
-  padding: $spacing-2 $spacing-4;
-  background-color: $color-gray-50;
-  border-bottom: 1px solid $color-border;
-}
-
-.list-group__title {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-bold;
+  padding:        $spacing-2 $spacing-4 $spacing-1 $spacing-4;
+  margin-top:     $spacing-4;
+  font-size:      $ios-footnote-size;
+  font-weight:    $font-weight-normal;
+  color:          var(--ios-secondary-label, rgba(60,60,67,0.6));
   text-transform: uppercase;
-  color: $color-text-secondary;
-  letter-spacing: 0.5px;
-  margin: 0;
+  letter-spacing: 0.4px;
 }
 
 .list-group__items {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  list-style:     none;
+  margin:         0;
+  padding:        0;
+  border-radius:  $border-radius-lg;
+  overflow:       hidden;
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  box-shadow:     $card-shadow-xs;
 }
 
 // ============================================
 // List Variants
 // ============================================
 
-// Flush/Edge-to-edge list
+// Edge-to-edge (no border radius, full bleed)
 .list--flush {
-  border: none;
   border-radius: 0;
-  box-shadow: none;
-
-  .list-item {
-    border-bottom: 1px solid $color-border;
-    border-radius: 0;
-  }
-}
-
-// Bordered/Outlined list
-.list--bordered {
-  border: 1px solid $color-border;
+  box-shadow:    none;
 
   .list-item {
     border-radius: 0;
+    padding-left:  $spacing-4;
   }
 }
 
-// Striped list
-.list--striped .list-item {
-  &:nth-child(even) {
-    background-color: $color-gray-50;
-  }
-}
-
-// Spaced list (more padding)
+// Spaced (separate card per item — less common in iOS)
 .list--spaced {
+  background-color: transparent;
   gap: $spacing-2;
 
   .list-item {
-    border: 1px solid $color-border;
-    border-radius: 8px;
-    margin-bottom: $spacing-2;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    border-bottom:    none;
+    border-radius:    $border-radius-lg;
+    background-color: var(--ios-secondary-grouped-bg, $color-white);
+    box-shadow:       $card-shadow-xs;
+    padding:          $spacing-3 $spacing-4;
+    min-height:       auto;
   }
 }
 
 // ============================================
-// List Condensed
+// Empty State
 // ============================================
-
-.list--condensed {
-  .list-item {
-    padding: $spacing-2 $spacing-3;
-
-    .list-item__title {
-      font-size: $font-size-xs;
-    }
-
-    .list-item__description {
-      font-size: 0.7rem;
-    }
-  }
-}
-
-// ============================================
-// List Empty State
-// ============================================
-
-.list--empty {
-  text-align: center;
-  padding: $spacing-6 $spacing-4;
-}
 
 .list-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
   justify-content: center;
-  gap: $spacing-2;
-  padding: $spacing-6 $spacing-4;
-  min-height: 200px;
+  gap:             $spacing-2;
+  padding:         $spacing-8 $spacing-4;
+  min-height:      160px;
+  color:           var(--ios-secondary-label, rgba(60,60,67,0.6));
 }
 
-.list-empty__icon {
-  font-size: 2.5rem;
-  color: $color-gray-300;
-}
-
+.list-empty__icon  { font-size: 40px; opacity: 0.3; }
 .list-empty__title {
-  font-size: $font-size-sm;
+  font-size:   $ios-body-size;
   font-weight: $font-weight-semibold;
-  color: $color-text-secondary;
+  color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
   margin: 0;
 }
-
 .list-empty__message {
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
+  font-size: $ios-subhead-size;
+  color:     var(--ios-tertiary-label, rgba(60,60,67,0.3));
   margin: 0;
-  max-width: 250px;
+  text-align: center;
+  max-width: 240px;
 }
 
 // ============================================
-// List Loading State
+// Responsive
 // ============================================
 
-.list-item--loading {
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    animation: shimmer 2s infinite;
-  }
+@media (max-width: #{$breakpoint-sm}) {
+  .list-item--lg { min-height: $touch-target-min; }
+  .list-item__description { display: none; }
 }
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-// ============================================
-// List with Checkbox/Radio
-// ============================================
-
-.list-item--selectable {
-  cursor: pointer;
-
-  .list-item__leading {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-// ============================================
-// List Responsive
-// ============================================
-
-@media (max-width: 640px) {
-  .list-item {
-    padding: $spacing-3 $spacing-2;
-    gap: $spacing-2;
-  }
-
-  .list-item__description {
-    display: none;
-  }
-
-  .list-item--lg {
-    padding: $spacing-3 $spacing-2;
-  }
-}
-

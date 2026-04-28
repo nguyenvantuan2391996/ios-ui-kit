@@ -1,230 +1,83 @@
-// iOS UI Kit - Select/Dropdown Component
-// Defines select styles with variants
-
-// ============================================
-// Select Base Styles
-// ============================================
+// iOS UI Kit - Select Component
+// iOS UIPickerView / picker-style select
 
 .select {
-  // Layout
-  display: block;
-  width: 100%;
-  
-  // Typography
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: $font-weight-normal;
-  line-height: $line-height-normal;
-  
-  // Spacing & Sizing
-  padding: $input-padding-y $input-padding-x;
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  
-  // Colors
-  color: $color-text-primary;
-  background-color: $color-white;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right $spacing-2 center;
-  background-size: 20px;
-  padding-right: $spacing-10;
-  
-  // Effects
-  appearance: none;
+  display:     block;
+  width:       100%;
+  appearance:  none;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  
-  // Focus state
+
+  font-family:  $font-family-base;
+  font-size:    $ios-body-size;       // 17pt
+  font-weight:  $font-weight-normal;
+  line-height:  $line-height-normal;
+  letter-spacing: -0.2px;
+
+  padding:       $input-padding-y $spacing-10 $input-padding-y $input-padding-x;
+  min-height:    $touch-target-min;   // 44pt
+  border-radius: $border-radius-md;   // 10pt
+  border:        none;
+
+  color:            var(--ios-label, $color-text-primary);
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  caret-color:      var(--ios-blue, $color-primary);
+  cursor:           pointer;
+
+  // iOS-style chevron
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'%3E%3Cpath fill='%238E8E93' d='M6 3L1 8h10L6 3zm0 10L1 8h10L6 13z'/%3E%3C/svg%3E");
+  background-repeat:   no-repeat;
+  background-position: right $spacing-3 center;
+  background-size:     12px 14px;
+
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
   &:focus {
-    outline: none;
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+    box-shadow:       0 0 0 3.5px rgba(0,122,255,0.3);
+    outline:          none;
   }
-  
-  // Hover state
-  &:hover {
-    border-color: $color-primary;
-  }
-  
-  // Disabled state
+
   &:disabled {
-    background-color: $color-gray-50;
-    border-color: $color-border-light;
-    color: $color-text-disabled;
-    cursor: not-allowed;
-    opacity: 0.6;
+    opacity:        0.35;
+    cursor:         not-allowed;
+    pointer-events: none;
   }
 }
 
-// Remove default arrow on IE
-select::-ms-expand {
-  display: none;
-}
-
-// ============================================
-// Select Variants
-// ============================================
-
-// Filled variant
-.select--filled {
-  background-color: $color-gray-50;
-  border-color: transparent;
-  
-  &:focus {
-    background-color: $color-white;
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
-  }
-}
-
-// Outlined variant (default)
+// Outlined variant
 .select--outlined {
-  background-color: $color-white;
-  border: 1px solid $color-border;
+  background-color: var(--ios-system-bg, $color-white);
+  border:           1px solid var(--ios-separator, rgba(60,60,67,0.29));
+
+  &:focus {
+    border-color:     var(--ios-blue, $color-primary);
+    box-shadow:       0 0 0 3.5px rgba(0,122,255,0.20);
+    background-color: var(--ios-system-bg, $color-white);
+  }
 }
 
-// Rounded variant
-.select--rounded {
-  border-radius: 24px;
-  padding-left: $spacing-4;
-  padding-right: $spacing-10;
-}
-
-// ============================================
-// Select Sizes
-// ============================================
-
+// Sizes
 .select--sm {
-  padding: $spacing-1 $spacing-2;
-  font-size: $font-size-sm;
-  border-radius: 6px;
-  background-position: right $spacing-2 center;
-  padding-right: $spacing-8;
-}
-
-.select--md {
-  // Default size
+  font-size:    $ios-subhead-size;
+  min-height:   36px;
+  padding:      $input-padding-y-sm $spacing-8 $input-padding-y-sm $input-padding-x-sm;
+  border-radius: $border-radius-sm;
 }
 
 .select--lg {
-  padding: $spacing-3 $spacing-4;
-  font-size: $font-size-lg;
-  border-radius: 10px;
+  font-size:    $ios-callout-size;
+  min-height:   50px;
+  padding:      $input-padding-y-lg $spacing-10 $input-padding-y-lg $input-padding-x-lg;
+  border-radius: $border-radius-lg;
 }
 
-// ============================================
-// Select States
-// ============================================
+// Validation states
+.select--error   { background-color: rgba(255,59,48,0.08);  &:focus { box-shadow: 0 0 0 3.5px rgba(255,59,48,0.25); } }
+.select--warning { background-color: rgba(255,149,0,0.08);  &:focus { box-shadow: 0 0 0 3.5px rgba(255,149,0,0.25); } }
+.select--success { background-color: rgba(52,199,89,0.08);  &:focus { box-shadow: 0 0 0 3.5px rgba(52,199,89,0.25); } }
 
-.select--error {
-  border-color: $color-danger;
-  
-  &:focus {
-    border-color: $color-danger;
-    box-shadow: 0 0 0 3px rgba($color-danger, 0.1);
-  }
-}
-
-.select--warning {
-  border-color: $color-warning;
-  
-  &:focus {
-    border-color: $color-warning;
-    box-shadow: 0 0 0 3px rgba($color-warning, 0.1);
-  }
-}
-
-.select--success {
-  border-color: $color-success;
-  
-  &:focus {
-    border-color: $color-success;
-    box-shadow: 0 0 0 3px rgba($color-success, 0.1);
-  }
-}
-
-// ============================================
-// Select Group (Multiple)
-// ============================================
-
-.select[multiple] {
-  height: auto;
-  min-height: 120px;
-  padding: $spacing-2;
-  background-image: none;
-  
-  option {
-    padding: $spacing-2;
-    border-radius: 4px;
-    
-    &:checked {
-      background: linear-gradient($color-primary, $color-primary);
-      background-color: $color-primary;
-    }
-  }
-}
-
-// ============================================
-// Select Wrapper
-// ============================================
-
+// Select wrapper
 .select-wrapper {
   position: relative;
-  width: 100%;
-}
-
-.select-wrapper__icon {
-  position: absolute;
-  right: $spacing-3;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: $color-text-tertiary;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-}
-
-// ============================================
-// Select with Label
-// ============================================
-
-.select-field {
-  margin-bottom: $spacing-4;
-}
-
-.select-field__label {
-  display: block;
-  margin-bottom: $spacing-2;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-}
-
-.select-field__select {
-  width: 100%;
-}
-
-.select-field__helper {
-  display: block;
-  margin-top: $spacing-1;
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-}
-
-.select-field__helper--error {
-  color: $color-danger;
-}
-
-.select-field__helper--success {
-  color: $color-success;
-}
-
-.select-field__helper--warning {
-  color: $color-warning;
+  width:    100%;
 }

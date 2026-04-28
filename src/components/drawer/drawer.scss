@@ -1,145 +1,111 @@
 // iOS UI Kit – Drawer Component
-// Panel that slides in from the edge of the screen
+// iOS Action Sheet slides up from bottom
+// Side drawers match iOS navigation pattern
 
 // ============================================
-// Drawer Overlay/Backdrop
+// Backdrop
 // ============================================
 
 .drawer__overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  position:         fixed;
+  inset:            0;
+  background-color: rgba(0,0,0,0.50);
+  z-index:          $z-index-modal-backdrop;
+  opacity:          0;
+  visibility:       hidden;
+  transition:       opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .drawer--open .drawer__overlay {
-  opacity: 1;
+  opacity:    1;
   visibility: visible;
 }
 
 // ============================================
-// Drawer Base Container
+// Drawer Base
 // ============================================
 
 .drawer {
   position: fixed;
-  z-index: 1001;
-  background: white;
-  box-shadow: $shadow-lg;
-  overflow-y: auto;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index:  $z-index-modal;
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  transition:    transform 0.35s cubic-bezier(0.32, 0.72, 0, 1),
+                 visibility 0.35s ease;
+  visibility:    hidden;
+  overflow:      hidden;
+  display:       flex;
+  flex-direction: column;
 }
 
 // ============================================
-// Drawer Placement
+// Bottom Drawer (iOS Action Sheet / default)
+// ============================================
+
+.drawer--bottom {
+  bottom:  0;
+  left:    0;
+  right:   0;
+  width:   100%;
+  max-height: 90vh;
+  border-radius: $border-radius-2xl $border-radius-2xl 0 0; // 20pt top corners
+  transform: translateY(100%);
+  box-shadow: $card-shadow-2xl;
+}
+
+.drawer--open.drawer--bottom {
+  transform:  translateY(0);
+  visibility: visible;
+}
+
+// ============================================
+// Left / Right Drawers (side navigation)
 // ============================================
 
 .drawer--left {
-  top: 0;
-  left: 0;
+  top:    0;
+  left:   0;
   bottom: 0;
-  width: 280px;
+  width:  280px;
+  max-width: 85vw;
+  border-radius: 0 $border-radius-2xl $border-radius-2xl 0;
   transform: translateX(-100%);
+  box-shadow: $card-shadow-xl;
 }
 
 .drawer--right {
-  top: 0;
-  right: 0;
+  top:    0;
+  right:  0;
   bottom: 0;
-  width: 280px;
+  width:  280px;
+  max-width: 85vw;
+  border-radius: $border-radius-2xl 0 0 $border-radius-2xl;
   transform: translateX(100%);
+  box-shadow: $card-shadow-xl;
 }
 
-.drawer--top {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 280px;
-  transform: translateY(-100%);
-}
-
-.drawer--bottom {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 280px;
-  transform: translateY(100%);
+.drawer--open.drawer--left,
+.drawer--open.drawer--right {
+  transform:  translateX(0);
+  visibility: visible;
 }
 
 // ============================================
-// Drawer Open State
+// iOS Pull Handle
 // ============================================
 
-.drawer--open {
-  &.drawer--left {
-    transform: translateX(0);
-  }
+.drawer__handle {
+  display:         flex;
+  justify-content: center;
+  padding:         $spacing-2 0 0 0;
+  flex-shrink:     0;
 
-  &.drawer--right {
-    transform: translateX(0);
-  }
-
-  &.drawer--top {
-    transform: translateY(0);
-  }
-
-  &.drawer--bottom {
-    transform: translateY(0);
-  }
-}
-
-// ============================================
-// Drawer Sizes
-// ============================================
-
-.drawer--sm {
-  &.drawer--left,
-  &.drawer--right {
-    width: 200px;
-  }
-
-  &.drawer--top,
-  &.drawer--bottom {
-    height: 200px;
-  }
-}
-
-.drawer--md {
-  &.drawer--left,
-  &.drawer--right {
-    width: 280px;
-  }
-
-  &.drawer--top,
-  &.drawer--bottom {
-    height: 280px;
-  }
-}
-
-.drawer--lg {
-  &.drawer--left,
-  &.drawer--right {
-    width: 400px;
-  }
-
-  &.drawer--top,
-  &.drawer--bottom {
-    height: 400px;
-  }
-}
-
-.drawer--full {
-  &.drawer--left,
-  &.drawer--right {
-    width: 100%;
-  }
-
-  &.drawer--top,
-  &.drawer--bottom {
-    height: 100%;
+  &::before {
+    content: '';
+    display: block;
+    width:  36px;
+    height: 5px;
+    border-radius: $border-radius-full;
+    background-color: var(--ios-gray4, $color-gray-300);
   }
 }
 
@@ -148,49 +114,37 @@
 // ============================================
 
 .drawer__header {
-  display: flex;
+  display:         flex;
   justify-content: space-between;
-  align-items: center;
-  padding: $spacing-4;
-  border-bottom: 1px solid $color-border;
-  flex-shrink: 0;
+  align-items:     center;
+  padding:         $spacing-3 $spacing-4;
+  border-bottom:   0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  flex-shrink:     0;
 }
 
 .drawer__title {
-  font-size: $font-size-base;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-  margin: 0;
+  font-size:   $ios-headline-size;   // 17pt
+  font-weight: $ios-headline-weight; // Semibold
+  color:       var(--ios-label, $color-text-primary);
+  margin:      0;
 }
 
 .drawer__close {
-  display: inline-flex;
-  align-items: center;
+  display:         inline-flex;
+  align-items:     center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: $border-radius-md;
-  border: none;
-  background: transparent;
-  color: $color-text-primary;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
+  width:   30px;
+  height:  30px;
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  border:       none;
+  border-radius: 50%;
+  color:        var(--ios-secondary-label, rgba(60,60,67,0.6));
+  cursor:       pointer;
+  font-size:    17px;
+  transition:   opacity 0.15s ease;
 
-  &:hover {
-    background: $color-gray-100;
-    color: $color-text-primary;
-  }
-
-  &:active {
-    background: $color-gray-200;
-  }
-
-  svg,
-  i {
-    width: 18px;
-    height: 18px;
-  }
+  &:hover  { opacity: 0.7; }
+  &:active { opacity: 0.4; }
 }
 
 // ============================================
@@ -198,9 +152,10 @@
 // ============================================
 
 .drawer__body {
-  overflow-y: auto;
-  flex: 1;
-  padding: $spacing-4;
+  flex:         1;
+  overflow-y:   auto;
+  -webkit-overflow-scrolling: touch;
+  padding:      $spacing-4;
 }
 
 // ============================================
@@ -208,94 +163,57 @@
 // ============================================
 
 .drawer__footer {
-  border-top: 1px solid $color-border;
-  padding: $spacing-4;
-  display: flex;
-  gap: $spacing-2;
-  flex-shrink: 0;
-  justify-content: flex-end;
+  flex-shrink:   0;
+  padding:       $spacing-4;
+  border-top:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  padding-bottom: calc(#{$spacing-4} + env(safe-area-inset-bottom, 0));
 }
 
 // ============================================
-// Drawer Content
+// Sizes
 // ============================================
 
-.drawer__content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+.drawer--sm  { width: 240px; }
+.drawer--md  { width: 280px; } // default
+.drawer--lg  { width: 360px; }
+.drawer--full { width: 100%; border-radius: 0; }
 
 // ============================================
-// Drawer No Header
+// iOS Action Sheet variant (buttons in body)
 // ============================================
 
-.drawer--no-header {
-  .drawer__header {
-    display: none;
-  }
-}
-
-// ============================================
-// Drawer No Footer
-// ============================================
-
-.drawer--no-footer {
-  .drawer__footer {
-    display: none;
-  }
-}
-
-// ============================================
-// Drawer Responsive
-// ============================================
-
-@media (max-width: 768px) {
-  .drawer--left,
-  .drawer--right {
-    width: 70vw;
-    min-width: 200px;
-  }
-
-  .drawer--top,
-  .drawer--bottom {
-    height: 60vh;
-    max-height: 400px;
-  }
-
-  .drawer--full {
-    width: 100vw;
-    height: 100vh;
-  }
-}
-
-@media (max-width: 576px) {
-  .drawer--left,
-  .drawer--right {
-    width: 100vw;
-  }
-
-  .drawer--top,
-  .drawer--bottom {
-    height: 100vh;
-  }
-
-  .drawer__header {
-    padding: $spacing-3;
-  }
-
+.drawer--action-sheet {
   .drawer__body {
-    padding: $spacing-3;
+    padding: $spacing-2;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
   }
 
-  .drawer__footer {
-    padding: $spacing-3;
-    flex-direction: column;
-    justify-content: stretch;
+  .action-sheet__item {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    min-height:      $touch-target_min;
+    padding:         $spacing-3 $spacing-4;
+    font-size:       $ios-body-size;
+    font-weight:     $font-weight-normal;
+    color:           var(--ios-blue, $color-primary);
+    background-color: var(--ios-secondary-grouped-bg, $color-white);
+    border-radius:   $border-radius-lg;
+    cursor:          pointer;
+    transition:      background-color 0.12s;
+    border:          none;
+    width:           100%;
 
-    button {
-      width: 100%;
-    }
+    &:active { background-color: var(--ios-gray6, $color-gray-100); }
+    &--destructive { color: var(--ios-red, $color-danger); }
+    &--bold { font-weight: $font-weight-semibold; }
+  }
+
+  .action-sheet__cancel {
+    @extend .action-sheet__item;
+    font-weight: $font-weight-semibold;
+    margin-top:  $spacing-2;
   }
 }
-

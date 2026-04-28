@@ -1,70 +1,153 @@
 // iOS UI Kit - Checkbox Component
-// Defines checkbox styles with states and variants
+// iOS checkmark style (filled circle with SF checkmark)
 
 // ============================================
-// Checkbox Base Styles
+// Checkbox Wrapper
+// ============================================
+
+.checkbox-wrapper {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             $spacing-3;
+  cursor:          pointer;
+  min-height:      $touch-target-min;
+  user-select:     none;
+  -webkit-tap-highlight-color: transparent;
+
+  &--disabled {
+    opacity:        0.35;
+    pointer-events: none;
+  }
+}
+
+// ============================================
+// Checkbox (custom control)
 // ============================================
 
 .checkbox {
-  // Hide default checkbox
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  width: 0;
-  height: 0;
-  margin: 0;
-  
-  // Style the custom checkbox
+  appearance:         none;
+  -webkit-appearance: none;
+  position:           relative;
+  width:   22px;
+  height:  22px;
+  flex-shrink: 0;
+  cursor:      pointer;
+  outline:     none;
+  margin:      0;
+
+  // Unchecked box
   &::before {
     content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid $color-border;
+    position:      absolute;
+    inset:         0;
+    border:        1.5px solid var(--ios-gray3, $color-gray-400);
     border-radius: 6px;
-    background-color: $color-white;
-    transition: all 0.2s ease;
+    background-color: var(--ios-system-bg, $color-white);
+    transition:    border-color 0.15s ease, background-color 0.15s ease;
   }
-  
-  // Checked state
-  &:checked::before {
-    background-color: $color-primary;
-    border-color: $color-primary;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z'/%3E%3C/svg%3E");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 14px;
+
+  // Checked: iOS blue filled circle/square with white checkmark
+  &:checked {
+
+    &::before {
+      background-color: var(--ios-blue, $color-primary);
+      border-color:     var(--ios-blue, $color-primary);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left:   6px;
+      top:    3px;
+      width:   6px;
+      height: 11px;
+      border:       solid $color-white;
+      border-width: 0 1.8px 1.8px 0;
+      transform:    rotate(45deg);
+    }
   }
-  
-  // Indeterminate state
-  &:indeterminate::before {
-    background-color: $color-primary;
-    border-color: $color-primary;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 8h12v1H2z'/%3E%3C/svg%3E");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 14px;
+
+  // Indeterminate
+  &:indeterminate {
+    &::before {
+      background-color: var(--ios-blue, $color-primary);
+      border-color:     var(--ios-blue, $color-primary);
+    }
+
+    &::after {
+      content: '';
+      position:         absolute;
+      top:   50%;
+      left:  4px;
+      right: 4px;
+      height: 2px;
+      background-color: $color-white;
+      border-radius:    1px;
+      transform:        translateY(-50%);
+    }
   }
-  
-  // Focus state
-  &:focus-visible ~ .checkbox-label {
-    outline: 2px solid $color-primary;
-    outline-offset: 2px;
+
+  // Focus
+  &:focus-visible {
+    outline:        2px solid var(--ios-blue, $color-primary);
+    outline-offset: 3px;
+    border-radius:  8px;
   }
-  
-  // Disabled state
-  &:disabled::before {
-    background-color: $color-gray-100;
-    border-color: $color-gray-300;
-    cursor: not-allowed;
+
+  // Disabled
+  &:disabled {
+    opacity: 0.35;
+    cursor:  not-allowed;
+    pointer-events: none;
   }
-  
-  &:disabled:checked::before {
-    background-color: $color-gray-400;
-    border-color: $color-gray-400;
+}
+
+// ============================================
+// Checkbox Sizes
+// ============================================
+
+.checkbox--sm {
+  width:  18px;
+  height: 18px;
+
+  &::before { border-radius: 4px; }
+
+  &:checked::after {
+    left:   4px;
+    top:    2px;
+    width:  5px;
+    height: 9px;
   }
+}
+
+.checkbox--lg {
+  width:  26px;
+  height: 26px;
+
+  &::before { border-radius: 8px; }
+
+  &:checked::after {
+    left:   7px;
+    top:    4px;
+    width:  8px;
+    height: 13px;
+  }
+}
+
+// ============================================
+// Color Variants
+// ============================================
+
+.checkbox--success {
+  &:checked::before { background-color: var(--ios-green, $color-success); border-color: var(--ios-green, $color-success); }
+}
+
+.checkbox--warning {
+  &:checked::before { background-color: var(--ios-orange, $color-warning); border-color: var(--ios-orange, $color-warning); }
+}
+
+.checkbox--danger {
+  &:checked::before { background-color: var(--ios-red, $color-danger); border-color: var(--ios-red, $color-danger); }
 }
 
 // ============================================
@@ -72,107 +155,17 @@
 // ============================================
 
 .checkbox-label {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-2;
-  cursor: pointer;
-  font-size: $font-size-base;
-  color: $color-text-primary;
-  user-select: none;
-  transition: all 0.2s ease;
-  
-  // Create space for checkbox
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid $color-border;
-    border-radius: 6px;
-    background-color: $color-white;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-  }
-  
-  // Hover state
-  &:hover {
-    &::before {
-      border-color: $color-primary;
-    }
-  }
+  font-size:    $ios-body-size;
+  font-weight:  $font-weight-normal;
+  line-height:  $line-height-normal;
+  color:        var(--ios-label, $color-text-primary);
+  user-select:  none;
 }
 
-// Link checkbox with label
-.checkbox:checked ~ .checkbox-label::before {
-  background-color: $color-primary;
-  border-color: $color-primary;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z'/%3E%3C/svg%3E");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 14px;
-}
-
-.checkbox:indeterminate ~ .checkbox-label::before {
-  background-color: $color-primary;
-  border-color: $color-primary;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='white' d='M2 8h12v1H2z'/%3E%3C/svg%3E");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 14px;
-}
-
-.checkbox:disabled ~ .checkbox-label {
-  opacity: 0.6;
-  cursor: not-allowed;
-  
-  &::before {
-    background-color: $color-gray-100;
-    border-color: $color-gray-300;
-    cursor: not-allowed;
-  }
-}
-
-.checkbox:disabled:checked ~ .checkbox-label::before {
-  background-color: $color-gray-400;
-  border-color: $color-gray-400;
-}
-
-// ============================================
-// Checkbox Sizes
-// ============================================
-
-.checkbox--sm ~ .checkbox-label::before {
-  width: 16px;
-  height: 16px;
-}
-
-.checkbox--lg ~ .checkbox-label::before {
-  width: 24px;
-  height: 24px;
-}
-
-// ============================================
-// Checkbox Colors
-// ============================================
-
-.checkbox--primary:checked ~ .checkbox-label::before {
-  background-color: $color-primary;
-  border-color: $color-primary;
-}
-
-.checkbox--secondary:checked ~ .checkbox-label::before {
-  background-color: $color-secondary;
-  border-color: $color-secondary;
-}
-
-.checkbox--success:checked ~ .checkbox-label::before {
-  background-color: $color-success;
-  border-color: $color-success;
-}
-
-.checkbox--danger:checked ~ .checkbox-label::before {
-  background-color: $color-danger;
-  border-color: $color-danger;
+.checkbox-description {
+  font-size:  $ios-subhead-size;
+  color:      var(--ios-secondary-label, rgba(60,60,67,0.6));
+  margin-top: 2px;
 }
 
 // ============================================
@@ -180,13 +173,25 @@
 // ============================================
 
 .checkbox-group {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  gap: $spacing-3;
-}
+  gap:            0;
+  border-radius:  $border-radius-lg;
+  overflow:       hidden;
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  box-shadow:     $card-shadow-xs;
 
-.checkbox-group--inline {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: $spacing-4;
+  .checkbox-item {
+    display:       flex;
+    align-items:   center;
+    justify-content: space-between;
+    padding:       $spacing-3 $spacing-4;
+    border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+    min-height:    $touch-target-min;
+    cursor:        pointer;
+    transition:    background-color 0.12s;
+
+    &:last-child  { border-bottom: none; }
+    &:active { background-color: var(--ios-gray6, $color-gray-100); }
+  }
 }

@@ -1,274 +1,218 @@
 // iOS UI Kit - Tabs Component
-// Defines tab styles with variants and layouts
+// Two styles: iOS Tab Bar (bottom nav) + iOS picker-style top tabs
 
 // ============================================
-// Tabs Base Styles
+// iOS Tab Bar (UITabBar — bottom navigation)
+// Height: 49pt + safe area inset
+// ============================================
+
+.tab-bar {
+  display:          flex;
+  flex-direction:   row;
+  align-items:      stretch;
+
+  height:           $tab-bar-height;  // 49pt
+  width:            100%;
+
+  background-color: rgba(249,249,249,0.92);
+  backdrop-filter:  blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  border-top: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  box-shadow: none;
+
+  // Fixed to bottom
+  &--fixed {
+    position:  fixed;
+    bottom:    0;
+    left:      0;
+    right:     0;
+    z-index:   $z-index-fixed;
+    padding-bottom: env(safe-area-inset-bottom, 0); // iPhone notch
+    height:    calc(#{$tab-bar-height} + env(safe-area-inset-bottom, 0));
+  }
+}
+
+// ============================================
+// Tab Bar Item
+// ============================================
+
+.tab-bar__item {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  flex:            1;
+  gap:             2px;
+  padding:         6px $spacing-2 4px;
+
+  cursor:      pointer;
+  position:    relative;
+  border:      none;
+  background:  none;
+  transition:  none; // iOS instant response
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  color: var(--ios-gray, #8E8E93); // unselected: system gray
+
+  &--active {
+    color: var(--ios-blue, $color-primary); // selected: system blue
+  }
+}
+
+.tab-bar__icon {
+  width:    25px;
+  height:   25px;
+  display:  flex;
+  align-items:     center;
+  justify-content: center;
+  position: relative;
+
+  svg, i { width: 25px; height: 25px; }
+
+  // Badge on icon
+  .badge {
+    position:  absolute;
+    top:   -4px;
+    right: -6px;
+    z-index: 1;
+  }
+}
+
+.tab-bar__label {
+  font-size:   10px;    // iOS tab label: 10pt
+  font-weight: $font-weight-medium;
+  line-height: 1.2;
+  text-align:  center;
+  letter-spacing: 0;
+}
+
+// ============================================
+// Horizontal Tabs (page-level navigation)
+// Segmented / underline style
 // ============================================
 
 .tabs {
-  // Layout
-  display: flex;
+  display:     flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 0;
-  
-  // Colors
-  background-color: $color-white;
-  border-bottom: 1px solid $color-border;
-  
-  // Effects
-  width: 100%;
+
+  width:            100%;
+  background-color: var(--ios-system-bg, $color-white);
+  border-bottom:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  overflow-x:       auto;
+  scrollbar-width:  none;
+
+  &::-webkit-scrollbar { display: none; }
 }
 
 // ============================================
-// Tab Item
+// Individual Tab (underline style)
 // ============================================
 
 .tab {
-  // Layout
-  display: inline-flex;
-  align-items: center;
+  display:         inline-flex;
+  align-items:     center;
   justify-content: center;
-  gap: $spacing-2;
-  
-  // Typography
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: $font-weight-medium;
-  color: $color-text-secondary;
-  white-space: nowrap;
-  
-  // Spacing & Sizing
-  padding: $spacing-3 $spacing-4;
-  border: none;
+  gap:             $spacing-1;
+
+  font-family:  $font-family-base;
+  font-size:    $ios-subhead-size;   // 15pt
+  font-weight:  $font-weight-semibold;
+  color:        var(--ios-secondary-label, rgba(60,60,67,0.6));
+  white-space:  nowrap;
+  letter-spacing: -0.1px;
+
+  padding:    $spacing-3 $spacing-4;
+  min-height: $touch-target_min; // 44pt
+  border:     none;
   background: none;
-  cursor: pointer;
-  
-  // Effects
-  transition: all 0.2s ease;
+  cursor:     pointer;
+
   position: relative;
-  
-  // Hover state
-  &:hover {
-    color: $color-text-primary;
-  }
-  
-  // Active state
+  transition: color 0.15s ease;
+
+  &:hover { color: var(--ios-label, $color-text-primary); }
+
+  // Active underline indicator
   &--active {
-    color: $color-primary;
-    
+    color: var(--ios-blue, $color-primary);
+
     &::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background-color: $color-primary;
-      border-radius: 2px 2px 0 0;
-      animation: tabIndicator 0.3s ease;
+      content:   '';
+      position:  absolute;
+      bottom:    0;
+      left:      $spacing-3;
+      right:     $spacing-3;
+      height:    2.5px;
+      background-color: var(--ios-blue, $color-primary);
+      border-radius:    2px 2px 0 0;
     }
   }
-  
-  // Disabled state
+
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    color: $color-text-disabled;
+    opacity:        0.35;
+    cursor:         not-allowed;
+    pointer-events: none;
   }
 }
-
-@keyframes tabIndicator {
-  from {
-    width: 0;
-    left: 50%;
-  }
-  to {
-    width: 100%;
-    left: 0;
-  }
-}
-
-// ============================================
-// Tabs Variants
-// ============================================
-
-// Underline tabs (default)
-.tabs--underline {
-  border-bottom: 1px solid $color-border;
-}
-
-// Filled tabs
-.tabs--filled {
-  gap: $spacing-2;
-  padding: $spacing-2;
-  background-color: $color-gray-100;
-  border-radius: 8px;
-  border-bottom: none;
-  
-  .tab {
-    background-color: transparent;
-    border-radius: 6px;
-    
-    &--active {
-      background-color: $color-white;
-      
-      &::after {
-        display: none;
-      }
-    }
-  }
-}
-
-// Outlined tabs
-.tabs--outlined {
-  gap: $spacing-1;
-  border-bottom: none;
-  background-color: transparent;
-  
-  .tab {
-    border: 1px solid $color-border;
-    border-radius: 8px 8px 0 0;
-    background-color: $color-gray-50;
-    
-    &--active {
-      background-color: $color-white;
-      border-color: $color-primary;
-      
-      &::after {
-        display: none;
-      }
-    }
-  }
-}
-
-// ============================================
-// Tabs Sizes
-// ============================================
-
-.tabs--sm .tab {
-  padding: $spacing-2 $spacing-3;
-  font-size: $font-size-sm;
-}
-
-.tabs--lg .tab {
-  padding: $spacing-4 $spacing-6;
-  font-size: $font-size-lg;
-}
-
-// ============================================
-// Tabs Layouts
-// ============================================
-
-// Vertical tabs
-.tabs--vertical {
-  flex-direction: column;
-  border-bottom: none;
-  border-right: 1px solid $color-border;
-  
-  .tab {
-    border-bottom: 1px solid $color-border;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    &--active {
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: -1px;
-        width: 3px;
-        height: 100%;
-        background-color: $color-primary;
-        border-radius: 0 2px 2px 0;
-      }
-    }
-  }
-}
-
-// Scrollable tabs
-.tabs--scrollable {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: $color-gray-300;
-    border-radius: 2px;
-  }
-}
-
-// ============================================
-// Tab Icon Support
-// ============================================
 
 .tab__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
-  
-  svg,
-  i {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-// Icon only tabs
-.tab--icon-only {
-  padding: $spacing-3;
-  
-  .tab__icon {
-    width: 24px;
-    height: 24px;
-  }
+  width: 1.1em; height: 1.1em;
+  svg, i { width: 100%; height: 100%; }
 }
 
 // ============================================
-// Tabs Container
+// Tab Content Panels
 // ============================================
 
-.tabs-container {
+.tab-panels {
   width: 100%;
-  
-  @media (max-width: 768px) {
-    .tabs {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
 }
-
-// ============================================
-// Tab Panels
-// ============================================
 
 .tab-panel {
   display: none;
-  animation: fadeIn 0.2s ease;
-  
-  &--active {
-    display: block;
+
+  &--active { display: block; }
+}
+
+// ============================================
+// Pill-style tabs (iOS alternative)
+// ============================================
+
+.tabs--pill {
+  background-color: transparent;
+  border-bottom:    none;
+  gap:              $spacing-1;
+  padding:          $spacing-1;
+
+  .tab {
+    border-radius: $border-radius-full;
+    padding:       $spacing-1 $spacing-4;
+    min-height:    34px;
+    font-size:     $ios-footnote-size;
+
+    &::after { display: none; } // no underline
+
+    &--active {
+      background-color: var(--ios-blue, $color-primary);
+      color:            $color-white;
+    }
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+// ============================================
+// Sizes
+// ============================================
+
+.tabs--sm .tab {
+  font-size:  $ios-caption1-size;
+  padding:    $spacing-2 $spacing-3;
+  min-height: 36px;
+}
+
+.tabs--lg .tab {
+  font-size:  $ios-body-size;
+  padding:    $spacing-4 $spacing-5;
 }

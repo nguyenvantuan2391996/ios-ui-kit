@@ -1,317 +1,149 @@
 // iOS UI Kit – Skeleton Component
-// Placeholder loading state that mimics the shape of content
+// iOS-style shimmer loading placeholder
 
-// ============================================
-// Skeleton Shimmer Animation
-// ============================================
-
-@keyframes skeleton-shimmer {
+@keyframes ios-skeleton-shimmer {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    background-position: -200% 0;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 200% 0;
   }
 }
 
 // ============================================
-// Base Skeleton
+// Skeleton Base
 // ============================================
 
 .skeleton {
+  display: block;
   background: linear-gradient(
     90deg,
-    $color-gray-200 25%,
-    $color-gray-100 50%,
-    $color-gray-200 75%
+    var(--ios-gray6, #F2F2F7) 25%,
+    rgba(255, 255, 255, 0.7) 50%,
+    var(--ios-gray6, #F2F2F7) 75%
   );
-  background-size: 400%;
-  animation: skeleton-shimmer 1.5s infinite;
+  background-size: 200% 100%;
+  animation: ios-skeleton-shimmer 1.6s ease-in-out infinite;
   border-radius: $border-radius-md;
 }
 
-.skeleton--active {
-  animation: skeleton-shimmer 1.5s infinite;
-}
-
-.skeleton--inactive {
-  animation: none;
-  background: $color-gray-100;
-}
-
 // ============================================
-// Skeleton Text Variants
+// Shape variants
 // ============================================
 
 .skeleton--text {
   height: 1em;
-  border-radius: $border-radius-sm;
+  border-radius: $border-radius-xs;
   margin-bottom: $spacing-2;
-  display: block;
   width: 100%;
 }
 
 .skeleton--title {
-  height: 1.5em;
-  border-radius: $border-radius-md;
+  height: 28px;
+  border-radius: $border-radius-sm;
   margin-bottom: $spacing-3;
   width: 60%;
-  display: block;
 }
-
-.skeleton--line {
-  height: 0.8em;
-  border-radius: $border-radius-sm;
-  margin-bottom: $spacing-2;
-  display: block;
-  width: 100%;
-}
-
-// ============================================
-// Skeleton Shape Variants
-// ============================================
 
 .skeleton--circle {
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  flex-shrink: 0;
 }
 
 .skeleton--button {
-  border-radius: $border-radius-lg;
-  width: 80px;
-  height: 32px;
-  display: inline-block;
+  height: 44px;
+  border-radius: $border-radius-md;
+  width: 120px;
 }
 
 .skeleton--image {
-  border-radius: $border-radius-md;
   width: 100%;
-  padding-bottom: 100%;
-  display: block;
-  position: relative;
+  padding-top: 56.25%; // 16:9
+  border-radius: $border-radius-lg;
 }
 
-.skeleton--avatar {
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: inline-block;
+.skeleton--card {
+  height: 120px;
+  border-radius: $border-radius-lg;
 }
 
 // ============================================
-// Skeleton Size Variants
-// ============================================
-
-.skeleton--xs {
-  height: 16px;
-}
-
-.skeleton--sm {
-  height: 24px;
-}
-
-.skeleton--md {
-  height: 32px;
-}
-
-.skeleton--lg {
-  height: 48px;
-}
-
-.skeleton--xl {
-  height: 64px;
-}
-
-// ============================================
-// Skeleton Paragraph
+// Paragraph skeleton
 // ============================================
 
 .skeleton-paragraph {
   display: flex;
   flex-direction: column;
   gap: $spacing-2;
-}
 
-.skeleton-paragraph__row {
-  display: block;
-  height: 0.8em;
-  border-radius: $border-radius-sm;
-  background: linear-gradient(
-    90deg,
-    $color-gray-200 25%,
-    $color-gray-100 50%,
-    $color-gray-200 75%
-  );
-  background-size: 400%;
-  animation: skeleton-shimmer 1.5s infinite;
+  .skeleton {
+    height: 14px;
+    border-radius: $border-radius-xs;
+    width: 100%;
 
-  &:last-child {
-    width: 61%;
+    &:last-child {
+      width: 65%; // natural short last line
+    }
   }
 }
 
 // ============================================
-// Skeleton Avatar & Title
+// Sizes
 // ============================================
 
-.skeleton-avatar-title {
+.skeleton--sm {
+  height: 12px;
+}
+.skeleton--md {
+  height: 16px;
+} // default
+.skeleton--lg {
+  height: 22px;
+}
+
+// ============================================
+// Inactive (no animation)
+// ============================================
+
+.skeleton--inactive {
+  animation: none;
+}
+
+// ============================================
+// iOS List Row skeleton
+// ============================================
+
+.skeleton-list-item {
   display: flex;
   align-items: center;
   gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  min-height: $touch-target-min;
 
-  .skeleton-avatar {
-    flex-shrink: 0;
+  .skeleton-list-item__avatar {
+    @extend .skeleton;
+    @extend .skeleton--circle;
   }
 
-  .skeleton-title {
-    flex: 1;
-  }
-}
-
-.skeleton-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(
-    90deg,
-    $color-gray-200 25%,
-    $color-gray-100 50%,
-    $color-gray-200 75%
-  );
-  background-size: 400%;
-  animation: skeleton-shimmer 1.5s infinite;
-}
-
-// ============================================
-// Skeleton Card
-// ============================================
-
-.skeleton-card {
-  padding: $spacing-4;
-  border: 1px solid $color-border;
-  border-radius: $border-radius-md;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-3;
-
-  .skeleton--image {
-    width: 100%;
-    padding-bottom: 56%;
-    margin-bottom: 0;
-  }
-
-  .skeleton--title {
-    margin-bottom: 0;
-  }
-}
-
-// ============================================
-// Skeleton Button Group
-// ============================================
-
-.skeleton-button-group {
-  display: flex;
-  gap: $spacing-2;
-}
-
-.skeleton-button-group__item {
-  width: 80px;
-  height: 32px;
-  border-radius: $border-radius-md;
-  background: linear-gradient(
-    90deg,
-    $color-gray-200 25%,
-    $color-gray-100 50%,
-    $color-gray-200 75%
-  );
-  background-size: 400%;
-  animation: skeleton-shimmer 1.5s infinite;
-}
-
-// ============================================
-// Skeleton Input
-// ============================================
-
-.skeleton-input {
-  width: 100%;
-  height: 36px;
-  border-radius: $border-radius-md;
-  background: linear-gradient(
-    90deg,
-    $color-gray-200 25%,
-    $color-gray-100 50%,
-    $color-gray-200 75%
-  );
-  background-size: 400%;
-  animation: skeleton-shimmer 1.5s infinite;
-}
-
-// ============================================
-// Skeleton Table
-// ============================================
-
-.skeleton-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: $spacing-2 $spacing-3;
-    border-bottom: 1px solid $color-border;
-  }
-
-  td {
-    height: 32px;
-  }
-
-  td .skeleton--text {
-    margin-bottom: 0;
-  }
-}
-
-// ============================================
-// Skeleton List
-// ============================================
-
-.skeleton-list {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-2;
-}
-
-.skeleton-list__item {
-  display: flex;
-  gap: $spacing-3;
-  padding: $spacing-2;
-  border: 1px solid $color-border;
-  border-radius: $border-radius-md;
-
-  .skeleton-avatar {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-  }
-
-  .skeleton-content {
+  .skeleton-list-item__content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: $spacing-1;
+    gap: $spacing-2;
 
-    .skeleton--title {
-      width: 70%;
-      margin-bottom: 0;
-    }
+    span {
+      @extend .skeleton;
+      height: 13px;
+      border-radius: $border-radius-xs;
 
-    .skeleton--text {
-      width: 100%;
-      margin-bottom: 0;
-      height: 0.8em;
+      &:first-child {
+        width: 55%;
+      }
+      &:last-child {
+        width: 40%;
+      }
     }
   }
 }
-

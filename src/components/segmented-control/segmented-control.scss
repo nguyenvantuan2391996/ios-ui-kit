@@ -1,25 +1,24 @@
 // iOS UI Kit - Segmented Control Component
-// Defines iOS-style segmented control styles
+// Exact Apple UISegmentedControl styling
+// Track: rgba(118,118,128,0.12) | Selected: white card + shadow
 
 // ============================================
-// Segmented Control Base Styles
+// Segmented Control Base
 // ============================================
 
 .segmented-control {
-  // Layout
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  
-  // Spacing & Sizing
-  padding: $spacing-1;
-  border-radius: 8px;
-  
-  // Colors
-  background-color: $color-gray-100;
-  
-  // Effects
-  transition: all 0.2s ease;
+  display:         inline-flex;
+  align-items:     center;
+
+  // Exact iOS fill color
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  border-radius:    $border-radius-sm + 3px;  // ~9pt (iOS exact)
+  padding:          2px;
+  gap:              2px;
+
+  // iOS segmented has no border
+  border: none;
+  overflow: hidden;
 }
 
 // ============================================
@@ -27,199 +26,168 @@
 // ============================================
 
 .segmented-control__item {
-  // Layout
-  display: inline-flex;
-  align-items: center;
+  display:         inline-flex;
+  align-items:     center;
   justify-content: center;
-  gap: $spacing-1;
-  
-  // Typography
+  gap:             $spacing-1;
+
   font-family: $font-family-base;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-normal;
-  text-align: center;
+  font-size:   $ios-subhead-size;     // 13pt (iOS uses 13pt in segments)
+  font-weight: $font-weight-semibold; // 600 — iOS uses semibold for items
+  line-height: 1.2;
+  text-align:  center;
   white-space: nowrap;
-  
-  // Spacing & Sizing
-  padding: $spacing-2 $spacing-4;
-  border: none;
-  border-radius: 6px;
-  
-  // Colors
+  letter-spacing: -0.1px;
+
+  padding:       6px $spacing-3;
+  min-height:    28px; // iOS segmented control height
+  flex:          1;    // equal width items
+  border-radius: 6.93px; // iOS internal radius
+  border:        none;
+
   background-color: transparent;
-  color: $color-text-secondary;
-  
-  // Effects
-  cursor: pointer;
-  transition: all 0.2s ease;
+  color:            var(--ios-secondary-label, rgba(60,60,67,0.6));
+
+  cursor:     pointer;
+  transition: none; // iOS does not animate color, only show/hide the thumb
   user-select: none;
-  
-  // Hover state
+  -webkit-tap-highlight-color: transparent;
+
   &:hover:not(.segmented-control__item--active) {
-    color: $color-text-primary;
+    color: var(--ios-label, $color-text-primary);
   }
-  
-  // Active state
-  &--active {
-    background-color: $color-white;
-    color: $color-primary;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  &:active:not(.segmented-control__item--active) {
+    background-color: rgba(120,120,128,0.10);
   }
-  
-  // Disabled state
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    color: $color-text-disabled;
+
+  // ── Active / Selected state ───────────────────────────────────
+  &--active,
+  &.active {
+    background-color: var(--ios-system-bg, #FFFFFF);
+    color:            var(--ios-label, $color-text-primary);
+    box-shadow:
+      0 3px 8px  rgba(0,0,0,0.12),
+      0 3px 1px  rgba(0,0,0,0.04);
+  }
+
+  // Disabled
+  &:disabled,
+  &--disabled {
+    opacity:        0.35;
+    cursor:         not-allowed;
+    pointer-events: none;
   }
 }
 
 // ============================================
-// Segmented Control Sizes
+// Sizes
 // ============================================
 
 .segmented-control--sm {
-  padding: $spacing-1;
-  border-radius: 6px;
-  
+  padding: 2px;
+  border-radius: 8px;
+
   .segmented-control__item {
-    padding: $spacing-1 $spacing-2;
-    font-size: $font-size-xs;
-    border-radius: 4px;
+    font-size:  $ios-caption1-size; // 11pt
+    padding:    4px $spacing-2;
+    min-height: 24px;
+    border-radius: 5px;
   }
 }
 
-.segmented-control--md {
-  // Default size - no additional styles
-}
+.segmented-control--md { /* default */ }
 
 .segmented-control--lg {
-  padding: $spacing-2;
-  border-radius: 10px;
-  
+  padding: 3px;
+  border-radius: 12px;
+
   .segmented-control__item {
-    padding: $spacing-3 $spacing-5;
-    font-size: $font-size-base;
+    font-size:  $ios-body-size;     // 17pt
+    padding:    $spacing-2 $spacing-5;
+    min-height: 36px;
     border-radius: 8px;
   }
 }
 
 // ============================================
-// Segmented Control Colors
+// Full-width block
 // ============================================
 
-.segmented-control--primary {
-  background-color: $color-gray-100;
-  
-  .segmented-control__item--active {
-    background-color: $color-white;
-    color: $color-primary;
-  }
-}
-
-.segmented-control--secondary {
-  background-color: $color-gray-100;
-  
-  .segmented-control__item--active {
-    background-color: $color-white;
-    color: $color-secondary;
-  }
-}
-
-.segmented-control--outlined {
-  background-color: transparent;
-  border: 1px solid $color-border;
-  
-  .segmented-control__item {
-    border-right: 1px solid $color-border-light;
-    
-    &:last-child {
-      border-right: none;
-    }
-  }
-}
-
-// ============================================
-// Segmented Control Variants
-// ============================================
-
-// Default variant
-.segmented-control--default {
-  // Default styles
-}
-
-// Full width
 .segmented-control--block {
   width: 100%;
-  
-  .segmented-control__item {
-    flex: 1;
-  }
+
+  .segmented-control__item { flex: 1; }
 }
 
 // ============================================
-// Segmented Control with Icons
+// Icon inside item
 // ============================================
 
 .segmented-control__icon {
-  display: inline-flex;
-  align-items: center;
+  display:  inline-flex;
+  align-items:     center;
   justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
-  
-  svg,
-  i {
-    width: 100%;
-    height: 100%;
-  }
+  width:  1.1em;
+  height: 1.1em;
+
+  svg, i { width: 100%; height: 100%; }
 }
 
-// Icon only segmented control
 .segmented-control__item--icon-only {
-  padding: $spacing-2;
-  min-width: auto;
-  border-radius: 6px;
-  
+  padding:    6px $spacing-2;
+  min-width:  36px;
+
   .segmented-control__icon {
-    width: 20px;
-    height: 20px;
+    width:  16px;
+    height: 16px;
   }
 }
 
 // ============================================
-// Segmented Control Group (Multiple Selection)
+// Color Variants (tinted active)
 // ============================================
 
-.segmented-control--multiple .segmented-control__item {
-  // Allow multiple selections
-  &--active {
-    background-color: $color-primary;
-    color: $color-white;
+// Blue (default — same as system)
+.segmented-control--primary {
+  .segmented-control__item--active {
+    background-color: var(--ios-system-bg, #FFFFFF);
+    color:            var(--ios-blue, $color-primary);
+  }
+}
+
+// Green
+.segmented-control--success {
+  .segmented-control__item--active {
+    background-color: var(--ios-system-bg, #FFFFFF);
+    color:            var(--ios-green, $color-success);
   }
 }
 
 // ============================================
-// Segmented Control Responsive
+// Outlined variant (rare / alternative)
 // ============================================
 
-@media (max-width: 480px) {
+.segmented-control--outlined {
+  background-color: transparent;
+  border: 1px solid var(--ios-separator, rgba(60,60,67,0.29));
+
+  .segmented-control__item--active {
+    background-color: var(--ios-blue, $color-primary);
+    color:            $color-white;
+    box-shadow:       none;
+  }
+}
+
+// ============================================
+// Responsive
+// ============================================
+
+@media (max-width: #{$breakpoint-sm}) {
   .segmented-control--block {
     .segmented-control__item {
-      padding: $spacing-2 $spacing-3;
-      font-size: $font-size-xs;
+      font-size: $ios-caption1-size; // 12pt on small screens
+      padding:   6px $spacing-2;
     }
-  }
-}
-
-// ============================================
-// Segmented Control States
-// ============================================
-
-.segmented-control__item {
-  &:focus-visible {
-    outline: 2px solid $color-primary;
-    outline-offset: 2px;
   }
 }

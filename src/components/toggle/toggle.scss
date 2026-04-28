@@ -1,146 +1,124 @@
 // iOS UI Kit - Toggle Switch Component
-// Defines toggle switch styles with animations
+// Exact Apple iOS UISwitch dimensions and behavior
+// iOS Switch: 51pt × 31pt track, 27pt thumb diameter
 
 // ============================================
-// Toggle Base Styles
+// iOS Switch (exact dimensions)
 // ============================================
 
 .toggle {
-  // Hide default checkbox
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 28px;
-  background-color: transparent;
-  cursor: pointer;
-  
-  // Create toggle background
+  width:    51px;
+  height:   31px;
+  cursor:   pointer;
+  flex-shrink: 0;
+
+  // Track
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: $color-gray-300;
-    border-radius: 14px;
-    transition: all 0.3s ease;
+    inset: 0;
+    background-color: var(--ios-gray5, #E5E5EA); // off state: systemGray5
+    border-radius: 16px;
+    transition: background-color 0.25s ease;
   }
-  
-  // Create toggle switch
+
+  // Thumb (white circle)
   &::after {
     content: '';
     position: absolute;
-    top: 2px;
+    top:  2px;
     left: 2px;
-    width: 24px;
-    height: 24px;
-    background-color: $color-white;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width:  27px;
+    height: 27px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    box-shadow:
+      0 3px 8px  rgba(0,0,0,0.15),
+      0 3px 1px  rgba(0,0,0,0.06);
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
   }
-  
-  // Input type toggle
+
+  // Checkbox input
   &[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
-    margin: 0;
+    margin:  0;
     padding: 0;
-    border: none;
+    border:  none;
     outline: none;
-    
-    // Checked state
+
+    // Checked: green track + slide thumb
     &:checked::before {
-      background-color: $color-primary;
+      background-color: var(--ios-green, $color-success);
     }
-    
+
     &:checked::after {
-      left: calc(100% - 26px);
+      transform: translateX(20px); // 51 - 27 - 2*2 = 20px
     }
-    
-    // Focus state
+
+    // Focus ring
     &:focus-visible {
-      outline: 2px solid $color-primary;
-      outline-offset: 2px;
+      outline: 2px solid var(--ios-blue, $color-primary);
+      outline-offset: 3px;
+      border-radius: 16px;
     }
-    
-    // Disabled state
+
+    // Disabled
     &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      
-      &::before {
-        background-color: $color-gray-200;
-      }
+      opacity: 0.35;
+      cursor:  not-allowed;
+      pointer-events: none;
     }
   }
 }
 
 // ============================================
-// Toggle Sizes
+// Color Variants
 // ============================================
 
+.toggle--primary[type="checkbox"]:checked::before { background-color: var(--ios-blue,   $color-primary); }
+.toggle--success[type="checkbox"]:checked::before { background-color: var(--ios-green,  $color-success); }
+.toggle--warning[type="checkbox"]:checked::before { background-color: var(--ios-orange, $color-warning); }
+.toggle--danger [type="checkbox"]:checked::before { background-color: var(--ios-red,    $color-danger);  }
+
+// ============================================
+// Sizes
+// ============================================
+
+// Small — 40×24
 .toggle--sm {
-  width: 40px;
+  width:  40px;
   height: 24px;
-  
+
+  &::before { border-radius: 12px; }
+
   &::after {
-    width: 20px;
+    width:  20px;
     height: 20px;
-    top: 2px;
+    top:  2px;
     left: 2px;
   }
-  
-  &:checked::after {
-    left: calc(100% - 22px);
-  }
+
+  &[type="checkbox"]:checked::after { transform: translateX(16px); }
 }
 
-.toggle--md {
-  // Default size
-  width: 50px;
-  height: 28px;
-}
-
+// Large — 60×37
 .toggle--lg {
-  width: 60px;
-  height: 34px;
-  
+  width:  60px;
+  height: 37px;
+
+  &::before { border-radius: 19px; }
+
   &::after {
-    width: 30px;
-    height: 30px;
-    top: 2px;
+    width:  33px;
+    height: 33px;
+    top:  2px;
     left: 2px;
   }
-  
-  &:checked::after {
-    left: calc(100% - 32px);
-  }
-}
 
-// ============================================
-// Toggle Colors
-// ============================================
-
-.toggle--primary:checked::before {
-  background-color: $color-primary;
-}
-
-.toggle--secondary:checked::before {
-  background-color: $color-secondary;
-}
-
-.toggle--success:checked::before {
-  background-color: $color-success;
-}
-
-.toggle--warning:checked::before {
-  background-color: $color-warning;
-}
-
-.toggle--danger:checked::before {
-  background-color: $color-danger;
+  &[type="checkbox"]:checked::after { transform: translateX(23px); }
 }
 
 // ============================================
@@ -148,43 +126,35 @@
 // ============================================
 
 .toggle-wrapper {
-  display: inline-flex;
+  display:     inline-flex;
   align-items: center;
-  gap: $spacing-3;
+  gap:         $spacing-3;
+  cursor:      pointer;
+  min-height:  $touch-target-min; // 44pt touch target
 }
 
 .toggle-label {
-  font-size: $font-size-base;
-  color: $color-text-primary;
+  font-size:   $ios-body-size;
+  font-weight: $font-weight-normal;
+  color:       var(--ios-label, $color-text-primary);
   user-select: none;
 }
 
-// ============================================
-// Toggle Group
-// ============================================
-
 .toggle-group {
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  gap: $spacing-3;
-}
+  gap:            0;
 
-// ============================================
-// Toggle Animation
-// ============================================
+  .toggle-item {
+    display:          flex;
+    align-items:      center;
+    justify-content:  space-between;
+    padding:          $spacing-3 $spacing-4;
+    background-color: var(--ios-secondary-grouped-bg, $color-white);
+    border-bottom:    0.5px solid var(--ios-separator, $color-border);
+    min-height:       $touch-target-min;
 
-@keyframes toggleSwitch {
-  0% {
-    transform: scale(1);
+    &:first-child { border-radius: $border-radius-lg $border-radius-lg 0 0; }
+    &:last-child  { border-bottom: none; border-radius: 0 0 $border-radius-lg $border-radius-lg; }
   }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.toggle[type="checkbox"]:checked::after {
-  animation: toggleSwitch 0.3s ease;
 }

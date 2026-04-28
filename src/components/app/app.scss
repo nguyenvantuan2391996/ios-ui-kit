@@ -1,407 +1,134 @@
 // iOS UI Kit – App Component
-// Root application wrapper with global context styles
+// Root wrapper with iOS system styles
 
 // ============================================
-// App Root Container
+// App Root
 // ============================================
 
 .app {
-  color: $color-text-primary;
-  background: $color-bg-primary;
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-normal;
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
+  font-family:    $font-family-base;
+  font-size:      $ios-body-size;    // 17pt
+  font-weight:    $font-weight-normal;
+  line-height:    $line-height-normal;
+  color:          var(--ios-label, $color-text-primary);
+  background-color: var(--ios-grouped-bg, $color-bg-secondary);
+
+  -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
+  text-rendering:          optimizeLegibility;
+  scroll-behavior:         smooth;
 
-  // Global box-sizing
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
+  *, *::before, *::after { box-sizing: border-box; }
+
+  // iOS thin scrollbars
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--ios-gray4, $color-gray-300); border-radius: 2px; }
+}
+
+// ============================================
+// iOS App Screen wrapper
+// ============================================
+
+.ios-screen {
+  max-width:        390px;   // iPhone 14 width
+  margin:           0 auto;
+  min-height:       100vh;
+  background-color: var(--ios-grouped-bg, $color-bg-secondary);
+  position:         relative;
+  overflow:         hidden;
+
+  // Simulate iOS device
+  &--device {
+    border-radius: 44px;
+    overflow:      hidden;
+    box-shadow:    0 0 0 8px #1C1C1E, 0 0 0 10px #3A3A3C, 0 60px 120px rgba(0,0,0,0.4);
+    margin:        40px auto;
   }
 }
 
 // ============================================
-// Theme Variants
+// Dark Mode
 // ============================================
 
-.app--light {
-  --color-primary: #{$color-primary};
-  --color-secondary: #{$color-secondary};
-  --color-success: #{$color-success};
-  --color-warning: #{$color-warning};
-  --color-danger: #{$color-danger};
-  --color-info: #{$color-info};
-  --color-text-primary: #{$color-text-primary};
-  --color-text-secondary: #{$color-text-secondary};
-  --color-text-disabled: #{$color-text-disabled};
-  --color-bg-primary: #{$color-bg-primary};
-  --color-border: #{$color-border};
-}
-
-.app--dark {
-  --color-primary: #0084ff;
-  --color-secondary: #666666;
-  --color-success: #52c41a;
-  --color-warning: #faad14;
-  --color-danger: #ff4d4f;
-  --color-info: #1890ff;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #cccccc;
-  --color-text-disabled: #999999;
-  --color-bg-base: #141414;
-  --color-border: #434343;
-
-  background: #141414;
-  color: #ffffff;
+.app--dark,
+[data-theme="dark"] {
+  --ios-label:                  #FFFFFF;
+  --ios-secondary-label:        rgba(235,235,245,0.6);
+  --ios-tertiary-label:         rgba(235,235,245,0.3);
+  --ios-placeholder-text:       rgba(235,235,245,0.3);
+  --ios-system-bg:              #000000;
+  --ios-secondary-system-bg:    #1C1C1E;
+  --ios-grouped-bg:             #000000;
+  --ios-secondary-grouped-bg:   #1C1C1E;
+  --ios-separator:              rgba(84,84,88,0.65);
+  --ios-blue:                   #0A84FF;
+  --ios-green:                  #30D158;
+  --ios-red:                    #FF453A;
+  --ios-orange:                 #FF9F0A;
+  --ios-gray5:                  #2C2C2E;
+  --ios-gray6:                  #1C1C1E;
+  --ios-blue-tint:              rgba(10,132,255,0.24);
+  --ios-green-tint:             rgba(48,209,88,0.24);
+  --ios-red-tint:               rgba(255,69,58,0.24);
+  --ios-orange-tint:            rgba(255,159,10,0.24);
+  --ios-tertiary-fill:          rgba(118,118,128,0.24);
+  --ios-secondary-fill:         rgba(120,120,128,0.32);
+  color:            #FFFFFF;
+  background-color: #000000;
 }
 
 // ============================================
-// App Typography
-// ============================================
-
-.app {
-  h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-weight: $font-weight-bold;
-    line-height: $line-height-tight;
-  }
-
-  h1 {
-    font-size: $font-size-4xl;
-  }
-
-  h2 {
-    font-size: $font-size-3xl;
-  }
-
-  h3 {
-    font-size: $font-size-2xl;
-  }
-
-  h4 {
-    font-size: $font-size-xl;
-  }
-
-  h5 {
-    font-size: $font-size-lg;
-  }
-
-  h6 {
-    font-size: $font-size-base;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    color: $color-primary;
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  strong, b {
-    font-weight: $font-weight-bold;
-  }
-
-  em, i {
-    font-style: italic;
-  }
-
-  code {
-    background: $color-gray-100;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: $font-family-mono;
-    font-size: 0.9em;
-  }
-
-  pre {
-    background: $color-gray-50;
-    padding: $spacing-3;
-    border-radius: $border-radius-md;
-    overflow-x: auto;
-    font-family: $font-family-mono;
-    font-size: $font-size-sm;
-  }
-}
-
-// ============================================
-// App Forms & Inputs
-// ============================================
-
-.app {
-  input,
-  textarea,
-  select {
-    font-family: $font-family-base;
-    font-size: $font-size-base;
-    line-height: $line-height-normal;
-  }
-
-  input[type='text'],
-  input[type='password'],
-  input[type='email'],
-  input[type='number'],
-  input[type='search'],
-  input[type='url'],
-  input[type='date'],
-  input[type='time'],
-  textarea,
-  select {
-    padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-border;
-    border-radius: $border-radius-md;
-    background: white;
-    color: $color-text-primary;
-    transition: all 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
-    }
-
-    &:disabled {
-      background: $color-gray-50;
-      color: $color-text-disabled;
-      cursor: not-allowed;
-    }
-
-    &::placeholder {
-      color: $color-text-disabled;
-    }
-  }
-
-  textarea {
-    resize: vertical;
-    font-family: $font-family-base;
-  }
-}
-
-// ============================================
-// App Tables
-// ============================================
-
-.app {
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  th,
-  td {
-    padding: $spacing-2 $spacing-3;
-    text-align: left;
-    border-bottom: 1px solid $color-border;
-  }
-
-  th {
-    background: $color-gray-50;
-    font-weight: $font-weight-semibold;
-  }
-
-  tr:hover {
-    background: $color-gray-50;
-  }
-}
-
-// ============================================
-// App Lists
-// ============================================
-
-.app {
-  ul,
-  ol {
-    margin: 0;
-    padding-left: $spacing-6;
-  }
-
-  li {
-    line-height: $line-height-normal;
-    margin-bottom: $spacing-1;
-  }
-
-  dl {
-    margin: 0;
-  }
-
-  dt {
-    font-weight: $font-weight-semibold;
-    margin-top: $spacing-2;
-  }
-
-  dd {
-    margin-left: 0;
-    margin-bottom: $spacing-2;
-  }
-}
-
-// ============================================
-// App Loading State
+// iOS App Loading Overlay
 // ============================================
 
 .app__loading {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-  pointer-events: all;
-}
+  position:         fixed;
+  inset:            0;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  flex-direction:   column;
+  gap:              $spacing-4;
+  background-color: var(--ios-system-bg, $color-white);
+  z-index:          9999;
 
-.app__loading-spinner {
-  width: 48px;
-  height: 48px;
-  border: 3px solid rgba($color-primary, 0.2);
-  border-top-color: $color-primary;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  .spinner { width: 36px; height: 36px; }
+  .spinner::after { border-width: 3.5px; }
 }
 
 // ============================================
-// App Scrollbars (Custom for iOS feel)
+// iOS Safe Area Utilities
 // ============================================
 
-.app {
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba($color-text-primary, 0.2);
-    border-radius: 4px;
-    transition: background 0.2s ease;
-
-    &:hover {
-      background: rgba($color-text-primary, 0.4);
-    }
-  }
-
-  // Firefox
-  scrollbar-color: rgba($color-text-primary, 0.2) transparent;
-  scrollbar-width: thin;
-}
+.safe-top    { padding-top:    env(safe-area-inset-top,    0); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0); }
+.safe-left   { padding-left:   env(safe-area-inset-left,   0); }
+.safe-right  { padding-right:  env(safe-area-inset-right,  0); }
 
 // ============================================
-// App Utility Classes
+// iOS Typography Utility Classes
 // ============================================
 
-.app--blur {
-  filter: blur(3px);
+.ios-large-title {
+  font-size:      $ios-large-title-size;
+  font-weight:    $ios-large-title-weight;
+  line-height:    $ios-large-title-line-height;
+  letter-spacing: -0.5px;
 }
 
-.app--disabled {
-  opacity: 0.6;
-  pointer-events: none;
-}
+.ios-title1       { font-size: $ios-title1-size;    font-weight: 700; line-height: $ios-title1-line-height; letter-spacing: -0.4px; }
+.ios-title2       { font-size: $ios-title2-size;    font-weight: 700; line-height: $ios-title2-line-height; letter-spacing: -0.3px; }
+.ios-title3       { font-size: $ios-title3-size;    font-weight: 600; line-height: $ios-title3-line-height; }
+.ios-headline     { font-size: $ios-headline-size;  font-weight: $ios-headline-weight; line-height: $ios-headline-line-height; }
+.ios-body         { font-size: $ios-body-size;      font-weight: $font-weight-normal;  line-height: $ios-body-line-height; }
+.ios-callout      { font-size: $ios-callout-size;   font-weight: $font-weight-normal;  }
+.ios-subhead      { font-size: $ios-subhead-size;   font-weight: $font-weight-normal;  }
+.ios-footnote     { font-size: $ios-footnote-size;  font-weight: $font-weight-normal;  }
+.ios-caption1     { font-size: $ios-caption1-size;  font-weight: $font-weight-normal;  }
+.ios-caption2     { font-size: $ios-caption2-size;  font-weight: $font-weight-normal;  }
 
-.app--hidden {
-  display: none !important;
-}
-
-.app--visible {
-  visibility: visible;
-}
-
-// ============================================
-// App Accessibility
-// ============================================
-
-.app {
-  // Focus visible ring for keyboard navigation
-  *:focus-visible {
-    outline: 2px solid $color-primary;
-    outline-offset: 2px;
-  }
-
-  // Skip link for accessibility
-  .skip-link {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-
-    &:focus {
-      left: 0;
-      top: 0;
-      background: $color-primary;
-      color: white;
-      padding: $spacing-2 $spacing-4;
-      z-index: 10000;
-    }
-  }
-
-  // Reduced motion support
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-}
-
-// ============================================
-// Responsive App Adjustments
-// ============================================
-
-@media (max-width: 768px) {
-  .app {
-    font-size: $font-size-base;
-
-    h1 {
-      font-size: $font-size-3xl;
-    }
-
-    h2 {
-      font-size: $font-size-2xl;
-    }
-
-    h3 {
-      font-size: $font-size-xl;
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  .app {
-    font-size: $font-size-sm;
-
-    h1 {
-      font-size: $font-size-2xl;
-    }
-
-    h2 {
-      font-size: $font-size-xl;
-    }
-
-    h3 {
-      font-size: $font-size-lg;
-    }
-  }
-}
-
+// Label colors
+.ios-label-primary    { color: var(--ios-label, $color-text-primary); }
+.ios-label-secondary  { color: var(--ios-secondary-label, rgba(60,60,67,0.6)); }
+.ios-label-tertiary   { color: var(--ios-tertiary-label,  rgba(60,60,67,0.3)); }

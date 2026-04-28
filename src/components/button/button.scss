@@ -1,68 +1,58 @@
 // iOS UI Kit - Button Component
-// Defines button styles with variants, sizes, and states
+// Matches Apple HIG button styles exactly
+// https://developer.apple.com/design/human-interface-guidelines/buttons
 
 // ============================================
-// Button Base Styles
+// Button Base
 // ============================================
 
 .btn {
-  // Layout
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: $spacing-2;
-  
-  // Typography
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: $font-weight-semibold;
-  line-height: $line-height-normal;
-  text-align: center;
+
+  font-family:  $font-family-base;
+  font-size:    $ios-body-size;       // 17pt
+  font-weight:  $font-weight-semibold; // SF Pro Semibold
+  line-height:  $line-height-tight;
+  text-align:   center;
   text-decoration: none;
   white-space: nowrap;
-  
-  // Spacing & Sizing
-  padding: $button-padding-y-md $button-padding-x-md;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  
-  // Colors
-  color: $color-white;
-  background-color: $color-primary;
-  
-  // Effects
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: $button-shadow;
-  
-  // User interaction
+  letter-spacing: -0.3px;
+
+  padding:       $button-padding-y-md $button-padding-x-md;
+  min-height:    $touch-target-min;   // 44pt touch target
+  border-radius: $border-radius-md;   // 10pt (iOS standard control)
+  border:        none;
+
+  color:            $color-white;
+  background-color: var(--ios-blue, $color-primary);
+
+  cursor:     pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  
-  // Default state
+  position: relative;
+  overflow: hidden;
+
   &:not(:disabled) {
-    &:hover {
-      background-color: $color-primary-dark;
-      box-shadow: $button-shadow-hover;
-    }
-    
+    &:hover  { opacity: 0.85; }
     &:active {
-      background-color: darken($color-primary, 10%);
-      box-shadow: $button-shadow-active;
+      opacity: 0.70;
+      transform: scale(0.98);
     }
   }
-  
-  // Focus state (keyboard navigation)
+
   &:focus-visible {
-    outline: 2px solid $color-primary;
+    outline: 2px solid var(--ios-blue, $color-primary);
     outline-offset: 2px;
   }
-  
-  // Disabled state
+
   &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background-color: $color-gray-400;
+    opacity: 0.3;
+    cursor:  not-allowed;
+    pointer-events: none;
   }
 }
 
@@ -71,268 +61,193 @@
 // ============================================
 
 .btn--sm {
-  padding: $button-padding-y-sm $button-padding-x-sm;
-  font-size: $font-size-sm;
-  border-radius: 6px;
+  font-size:     $ios-subhead-size;   // 15pt
+  padding:       $button-padding-y-sm $button-padding-x-sm;
+  min-height:    34px;
+  border-radius: $border-radius-sm;   // 6pt
 }
 
-.btn--md {
-  // Default size - no additional styles needed
-}
+.btn--md { /* default */ }
 
 .btn--lg {
-  padding: $button-padding-y-lg $button-padding-x-lg;
-  font-size: $font-size-lg;
-  border-radius: 10px;
+  font-size:     $ios-title3-size;    // 20pt
+  padding:       $button-padding-y-lg $button-padding-x-lg;
+  min-height:    $touch-target-large; // 50pt
+  border-radius: $border-radius-lg;   // 12pt
+}
+
+// Capsule / pill (iOS large primary buttons)
+.btn--capsule {
+  border-radius: $border-radius-full;
+  padding-left:  $spacing-6;
+  padding-right: $spacing-6;
+}
+
+// Full width block
+.btn--block {
+  width: 100%;
+  border-radius: $border-radius-lg; // 12pt for full-width iOS buttons
 }
 
 // ============================================
-// Button Variants - Filled (Default)
+// iOS Button Styles
+// Filled (Tinted/Colored) — default
 // ============================================
 
-.btn--primary {
-  background-color: $color-primary;
+.btn--primary,
+.btn--filled {
+  background-color: var(--ios-blue, $color-primary);
   color: $color-white;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: $color-primary-dark;
-    }
-    
-    &:active {
-      background-color: darken($color-primary, 10%);
-    }
-  }
-}
-
-.btn--secondary {
-  background-color: $color-secondary;
-  color: $color-white;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: $color-secondary-dark;
-    }
-    
-    &:active {
-      background-color: darken($color-secondary, 10%);
-    }
-  }
 }
 
 .btn--success {
-  background-color: $color-success;
+  background-color: var(--ios-green, $color-success);
   color: $color-white;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: darken($color-success, 10%);
-    }
-    
-    &:active {
-      background-color: darken($color-success, 15%);
-    }
-  }
 }
 
 .btn--warning {
-  background-color: $color-warning;
+  background-color: var(--ios-orange, $color-warning);
   color: $color-white;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: darken($color-warning, 10%);
-    }
-    
-    &:active {
-      background-color: darken($color-warning, 15%);
-    }
-  }
 }
 
-.btn--danger {
-  background-color: $color-danger;
+.btn--danger,
+.btn--destructive {
+  background-color: var(--ios-red, $color-danger);
   color: $color-white;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: darken($color-danger, 10%);
-    }
-    
-    &:active {
-      background-color: darken($color-danger, 15%);
-    }
-  }
+}
+
+.btn--secondary {
+  background-color: var(--ios-teal, $color-secondary);
+  color: $color-white;
 }
 
 // ============================================
-// Button Variants - Outlined
+// iOS Gray Button (systemGray6 background)
+// ============================================
+
+.btn--gray {
+  background-color: var(--ios-gray6, $color-gray-100);
+  color:            var(--ios-label, $color-text-primary);
+}
+
+// ============================================
+// iOS Tinted Button (colored bg at 16% opacity)
+// ============================================
+
+.btn--tinted {
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.16));
+  color:            var(--ios-blue, $color-primary);
+}
+
+.btn--tinted-success {
+  background-color: var(--ios-green-tint, rgba(52,199,89,0.16));
+  color:            var(--ios-green, $color-success);
+}
+
+.btn--tinted-warning {
+  background-color: var(--ios-orange-tint, rgba(255,149,0,0.16));
+  color:            var(--ios-orange, $color-warning);
+}
+
+.btn--tinted-danger {
+  background-color: var(--ios-red-tint, rgba(255,59,48,0.16));
+  color:            var(--ios-red, $color-danger);
+}
+
+// ============================================
+// iOS Outlined Button (bordered)
 // ============================================
 
 .btn--outlined {
   background-color: transparent;
-  border: 1px solid $color-primary;
-  color: $color-primary;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: rgba($color-primary, 0.05);
-      border-color: $color-primary-dark;
-    }
-    
-    &:active {
-      background-color: rgba($color-primary, 0.1);
-    }
-  }
-  
-  &:disabled {
-    border-color: $color-gray-400;
-    color: $color-gray-400;
-  }
-}
+  border:           1.5px solid var(--ios-blue, $color-primary);
+  color:            var(--ios-blue, $color-primary);
+  min-height:       calc(#{$touch-target-min} - 0px); // border is inside
 
-.btn--outlined-secondary {
-  background-color: transparent;
-  border: 1px solid $color-secondary;
-  color: $color-secondary;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: rgba($color-secondary, 0.05);
-      border-color: $color-secondary-dark;
-    }
-    
-    &:active {
-      background-color: rgba($color-secondary, 0.1);
-    }
-  }
-  
   &:disabled {
-    border-color: $color-gray-400;
-    color: $color-gray-400;
+    border-color: var(--ios-gray4, $color-gray-300);
+    color:        var(--ios-gray4, $color-gray-300);
   }
 }
 
 .btn--outlined-danger {
   background-color: transparent;
-  border: 1px solid $color-danger;
-  color: $color-danger;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: rgba($color-danger, 0.05);
-      border-color: darken($color-danger, 10%);
-    }
-    
-    &:active {
-      background-color: rgba($color-danger, 0.1);
-    }
-  }
-  
-  &:disabled {
-    border-color: $color-gray-400;
-    color: $color-gray-400;
-  }
+  border:           1.5px solid var(--ios-red, $color-danger);
+  color:            var(--ios-red, $color-danger);
 }
 
 // ============================================
-// Button Variants - Ghost/Text
+// iOS Borderless / Plain Button (text only)
 // ============================================
 
-.btn--ghost {
+.btn--plain,
+.btn--ghost,
+.btn--text {
   background-color: transparent;
-  color: $color-primary;
-  
+  color:            var(--ios-blue, $color-primary);
+  min-height:       $touch-target-min;
+
   &:not(:disabled) {
-    &:hover {
-      background-color: rgba($color-primary, 0.1);
-    }
-    
-    &:active {
-      background-color: rgba($color-primary, 0.2);
-    }
+    &:hover  { background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12)); }
+    &:active { background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16)); }
   }
-  
-  &:disabled {
-    color: $color-gray-400;
-  }
+
+  &:disabled { color: var(--ios-gray3, $color-gray-400); }
 }
 
-.btn--ghost-secondary {
-  background-color: transparent;
-  color: $color-secondary;
-  
-  &:not(:disabled) {
-    &:hover {
-      background-color: rgba($color-secondary, 0.1);
-    }
-    
-    &:active {
-      background-color: rgba($color-secondary, 0.2);
-    }
-  }
-  
-  &:disabled {
-    color: $color-gray-400;
-  }
+.btn--plain-danger {
+  @extend .btn--plain;
+  color: var(--ios-red, $color-danger);
 }
 
 // ============================================
-// Button Block (Full Width)
+// Button Icon
 // ============================================
 
-.btn--block {
-  width: 100%;
-}
+.btn--icon-left  { flex-direction: row; }
+.btn--icon-right { flex-direction: row-reverse; }
 
-// ============================================
-// Button with Icon
-// ============================================
-
-.btn--icon-left {
-  flex-direction: row;
-}
-
-.btn--icon-right {
-  flex-direction: row-reverse;
-}
-
-// Icon sizing
 .btn svg,
 .btn i {
-  width: 1.2em;
-  height: 1.2em;
-  display: inline-block;
+  width:  1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
 }
 
 // ============================================
-// Button States
+// Loading State
 // ============================================
 
 .btn--loading {
-  position: relative;
   color: transparent;
-  
+  pointer-events: none;
+
   &::after {
     content: '';
     position: absolute;
-    width: 16px;
-    height: 16px;
-    top: 50%;
-    left: 50%;
-    margin-left: -8px;
-    margin-top: -8px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: $color-white;
+    width:  18px;
+    height: 18px;
+    top:   50%;
+    left:  50%;
+    margin-left: -9px;
+    margin-top:  -9px;
+    border:          2px solid rgba(255,255,255,0.4);
+    border-top-color: rgba(255,255,255,0.9);
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: ios-spin 0.75s linear infinite;
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.btn--loading.btn--gray::after,
+.btn--loading.btn--plain::after,
+.btn--loading.btn--outlined::after,
+.btn--loading.btn--tinted::after {
+  border-color:          rgba(0,122,255,0.25);
+  border-top-color:      var(--ios-blue, $color-primary);
+}
+
+@keyframes ios-spin {
+  to { transform: rotate(360deg); }
 }
 
 // ============================================
@@ -347,20 +262,22 @@
 
 .btn-group--stacked {
   flex-direction: column;
+  width: 100%;
+
+  .btn { width: 100%; }
 }
 
-.btn-group--connected .btn {
-  margin-right: -1px;
-  border-radius: 0;
-  
-  &:first-child {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-  }
-  
-  &:last-child {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+// Connected (joined) button group
+.btn-group--connected {
+  gap: 0;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+
+  .btn {
+    border-radius: 0;
     margin-right: 0;
+
+    &:first-child { border-radius: $border-radius-md 0 0 $border-radius-md; }
+    &:last-child  { border-radius: 0 $border-radius-md $border-radius-md 0; }
   }
 }

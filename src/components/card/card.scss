@@ -1,33 +1,27 @@
 // iOS UI Kit - Card Component
-// Defines card styles with variants and layouts
+// iOS Inset Grouped Card style (UITableView.insetGrouped)
 
 // ============================================
-// Card Base Styles
+// Card Base — iOS inset grouped surface
 // ============================================
 
 .card {
-  // Layout
-  display: flex;
+  display:        flex;
   flex-direction: column;
-  height: 100%;
-  
-  // Spacing & Sizing
-  padding: $card-padding;
-  border-radius: 12px;
-  border: 1px solid $color-border;
-  
-  // Colors
-  background-color: $color-white;
-  color: $color-text-primary;
-  
-  // Effects
-  transition: all 0.2s ease;
-  box-shadow: $card-shadow;
-  
-  // States
-  &:hover {
-    box-shadow: $card-shadow-hover;
-  }
+
+  padding:          $card-padding;
+  border-radius:    $border-radius-lg;    // 12pt
+  border:           none;
+
+  // Pure white surface on grouped gray background
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  color:            var(--ios-label, $color-text-primary);
+
+  // iOS cards use hairline shadow, not heavy shadow
+  box-shadow: $card-shadow-sm;
+
+  // Smooth transitions for interactive cards
+  transition: box-shadow 0.2s ease;
 }
 
 // ============================================
@@ -35,10 +29,10 @@
 // ============================================
 
 .card__header {
-  margin-bottom: $spacing-4;
-  padding-bottom: $spacing-4;
-  border-bottom: 1px solid $color-border-light;
-  
+  margin-bottom: $spacing-3;
+  padding-bottom: $spacing-3;
+  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+
   &:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -47,43 +41,42 @@
 }
 
 .card__title {
-  margin: 0;
-  font-size: $typography-title-3-size;
-  font-weight: $typography-title-3-weight;
-  line-height: $typography-title-3-line-height;
-  color: $color-text-primary;
+  margin:      0;
+  font-size:   $ios-headline-size;    // 17pt semibold
+  font-weight: $font-weight-semibold;
+  line-height: $ios-headline-line-height;
+  color:       var(--ios-label, $color-text-primary);
+  letter-spacing: -0.3px;
 }
 
 .card__subtitle {
-  margin: $spacing-1 0 0 0;
-  font-size: $font-size-sm;
+  margin:      $spacing-1 0 0 0;
+  font-size:   $ios-subhead-size;     // 15pt
   font-weight: $font-weight-normal;
-  color: $color-text-secondary;
+  color:       var(--ios-secondary-label, $color-text-secondary);
 }
 
 .card__body {
-  flex: 1;
-  margin-bottom: $spacing-4;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
+  flex:          1;
+  margin-bottom: $spacing-3;
+
+  &:last-child { margin-bottom: 0; }
 }
 
 .card__content {
-  font-size: $font-size-base;
+  font-size:   $ios-body-size;      // 17pt
   line-height: $line-height-relaxed;
-  color: $color-text-primary;
+  color:       var(--ios-label, $color-text-primary);
 }
 
 .card__footer {
-  margin-top: $spacing-4;
-  padding-top: $spacing-4;
-  border-top: 1px solid $color-border-light;
-  display: flex;
-  gap: $spacing-2;
+  margin-top:    $spacing-3;
+  padding-top:   $spacing-3;
+  border-top:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  display:       flex;
+  gap:           $spacing-2;
   justify-content: flex-end;
-  
+
   &:first-child {
     margin-top: 0;
     padding-top: 0;
@@ -96,93 +89,97 @@
 // ============================================
 
 .card__image {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: -$card-padding -$card-padding $spacing-4 -$card-padding;
-  border-radius: 12px 12px 0 0;
-  object-fit: cover;
+  display:       block;
+  width:         calc(100% + #{$card-padding * 2});
+  margin:        (-$card-padding) (-$card-padding) $spacing-4 (-$card-padding);
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+  object-fit:    cover;
+  min-height:    180px;
 }
 
 .card__image--bottom {
-  margin: $spacing-4 -$card-padding -$card-padding -$card-padding;
-  border-radius: 0 0 12px 12px;
+  margin: $spacing-4 (-$card-padding) (-$card-padding) (-$card-padding);
+  border-radius: 0 0 $border-radius-lg $border-radius-lg;
 }
 
 // ============================================
 // Card Variants
 // ============================================
 
-// Elevated variant (with shadow)
+// Elevated — stronger shadow
 .card--elevated {
-  border: none;
-  box-shadow: $card-shadow-elevated;
-  
-  &:hover {
-    box-shadow: $card-shadow-hover;
-  }
+  box-shadow: $card-shadow-md;
+
+  &:hover { box-shadow: $card-shadow-lg; }
 }
 
-// Outlined variant (with border)
-.card--outlined {
-  border: 1px solid $color-border;
+// Flat (no shadow, use hairline border)
+.card--flat {
   box-shadow: none;
-  
-  &:hover {
-    border-color: $color-primary;
-  }
+  border: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
 }
 
-// Filled variant (background color)
+// Filled (tinted background)
 .card--filled {
-  background-color: $color-gray-50;
-  border: 1px solid $color-border-light;
-  box-shadow: none;
+  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  box-shadow:       none;
+}
+
+// Inset grouped (iOS default grouped look — most common)
+.card--inset {
+  margin-left:  $spacing-4;
+  margin-right: $spacing-4;
 }
 
 // ============================================
 // Card Sizes
 // ============================================
 
-.card--sm {
-  padding: $card-padding-sm;
-}
-
-.card--md {
-  // Default size
-}
-
-.card--lg {
-  padding: $card-padding-lg;
-}
+.card--sm { padding: $card-padding-sm; }
+.card--md { /* default */ }
+.card--lg { padding: $card-padding-lg; }
 
 // ============================================
-// Card Colors
+// Status Color Variants (tinted)
 // ============================================
 
 .card--primary {
-  background-color: rgba($color-primary, 0.05);
-  border-color: $color-primary;
-}
-
-.card--secondary {
-  background-color: rgba($color-secondary, 0.05);
-  border-color: $color-secondary;
+  background-color: rgba(0,122,255,0.08);
+  border-left: 3px solid var(--ios-blue, $color-primary);
+  border-radius: 0 $border-radius-lg $border-radius-lg 0;
 }
 
 .card--success {
-  background-color: rgba($color-success, 0.05);
-  border-color: $color-success;
+  background-color: rgba(52,199,89,0.08);
+  border-left: 3px solid var(--ios-green, $color-success);
+  border-radius: 0 $border-radius-lg $border-radius-lg 0;
 }
 
 .card--warning {
-  background-color: rgba($color-warning, 0.05);
-  border-color: $color-warning;
+  background-color: rgba(255,149,0,0.08);
+  border-left: 3px solid var(--ios-orange, $color-warning);
+  border-radius: 0 $border-radius-lg $border-radius-lg 0;
 }
 
 .card--danger {
-  background-color: rgba($color-danger, 0.05);
-  border-color: $color-danger;
+  background-color: rgba(255,59,48,0.08);
+  border-left: 3px solid var(--ios-red, $color-danger);
+  border-radius: 0 $border-radius-lg $border-radius-lg 0;
+}
+
+// ============================================
+// Interactive / Clickable Card
+// ============================================
+
+.card--clickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    opacity: 0.75;
+    transform: scale(0.99);
+    transition: opacity 0.1s ease, transform 0.1s ease;
+  }
 }
 
 // ============================================
@@ -190,35 +187,45 @@
 // ============================================
 
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: $spacing-4;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap:                   $spacing-4;
+
+  @media (max-width: #{$breakpoint-md}) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: $spacing-3;
   }
-  
-  @media (max-width: 480px) {
+
+  @media (max-width: #{$breakpoint-sm}) {
     grid-template-columns: 1fr;
     gap: $spacing-3;
   }
 }
 
 // ============================================
-// Interactive Card
+// iOS Section Card (grouped section header+rows)
+// Mimics UITableView.insetGrouped section
 // ============================================
 
-.card--clickable {
-  cursor: pointer;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $card-shadow-elevated;
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
+.card-section {
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  background-color: var(--ios-secondary-grouped-bg, $color-white);
+  box-shadow: $card-shadow-xs;
+}
+
+.card-section__header {
+  font-size:   $ios-footnote-size;  // 13pt
+  font-weight: $font-weight-normal;
+  color:       var(--ios-secondary-label, $color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding:     $spacing-2 $spacing-4 $spacing-1 $spacing-4;
+  margin-top:  $spacing-6;
+}
+
+.card-section__footer {
+  font-size:   $ios-footnote-size;
+  color:       var(--ios-secondary-label, $color-text-secondary);
+  padding:     $spacing-1 $spacing-4 $spacing-3 $spacing-4;
 }

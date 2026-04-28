@@ -1,232 +1,164 @@
-// iOS UI Kit - Alert/Toast Component
-// Defines alert and toast notification styles
+// iOS UI Kit - Alert Component
+// iOS banner-style alert / inline status alerts
 
 // ============================================
-// Alert Base Styles
+// Alert Base — inline banner
 // ============================================
 
 .alert {
-  // Layout
-  display: flex;
-  align-items: flex-start;
-  gap: $spacing-3;
-  
-  // Spacing & Sizing
-  padding: $spacing-4;
-  border-radius: 8px;
-  border-left: 4px solid $color-primary;
-  
-  // Colors
-  background-color: rgba($color-primary, 0.05);
-  color: $color-text-primary;
-  
-  // Effects
-  box-shadow: $shadow-1;
-  animation: slideIn 0.3s ease;
-  
-  // Close functionality
-  position: relative;
-  
-  // Dismissible
-  &.alert--dismissible {
-    padding-right: $spacing-12;
-  }
-}
+  display:      flex;
+  align-items:  flex-start;
+  gap:          $spacing-3;
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  padding:      $spacing-3 $spacing-4;
+  border-radius: $border-radius-lg;   // 12pt
+  font-size:    $ios-subhead-size;    // 15pt
+  font-weight:  $font-weight-normal;
+  line-height:  $line-height-relaxed;
+  color:        var(--ios-label, $color-text-primary);
+
+  // Default: info
+  background-color: var(--ios-blue-tint, rgba(0,122,255,0.12));
+
+  // No hard borders — iOS uses soft tinted backgrounds
+  border: none;
 }
 
 // ============================================
-// Alert Types
-// ============================================
-
-.alert--success {
-  background-color: rgba($color-success, 0.05);
-  border-left-color: $color-success;
-  color: $color-success;
-  
-  .alert__icon {
-    color: $color-success;
-  }
-}
-
-.alert--warning {
-  background-color: rgba($color-warning, 0.05);
-  border-left-color: $color-warning;
-  color: $color-warning;
-  
-  .alert__icon {
-    color: $color-warning;
-  }
-}
-
-.alert--error,
-.alert--danger {
-  background-color: rgba($color-danger, 0.05);
-  border-left-color: $color-danger;
-  color: $color-danger;
-  
-  .alert__icon {
-    color: $color-danger;
-  }
-}
-
-.alert--info {
-  background-color: rgba($color-info, 0.05);
-  border-left-color: $color-info;
-  color: $color-info;
-  
-  .alert__icon {
-    color: $color-info;
-  }
-}
-
-// ============================================
-// Alert Parts
+// Alert Icon
 // ============================================
 
 .alert__icon {
-  display: inline-flex;
+  flex-shrink: 0;
+  display:     flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  color: $color-primary;
+  width:    22px;
+  height:   22px;
+  margin-top: 1px;
   font-size: 18px;
+  color:     var(--ios-blue, $color-primary);
+
+  svg { width: 20px; height: 20px; }
 }
+
+// ============================================
+// Alert Content
+// ============================================
 
 .alert__content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-1;
+  min-width: 0;
 }
 
 .alert__title {
-  margin: 0;
-  font-size: $font-size-base;
+  font-size:   $ios-subhead-size;
   font-weight: $font-weight-semibold;
-  line-height: $line-height-normal;
+  color:       var(--ios-label, $color-text-primary);
+  margin:      0 0 2px 0;
 }
 
 .alert__message {
-  margin: 0;
-  font-size: $font-size-sm;
+  font-size:   $ios-footnote-size;   // 13pt
+  color:       var(--ios-secondary-label, rgba(60,60,67,0.6));
+  margin:      0;
   line-height: $line-height-relaxed;
-  opacity: 0.9;
 }
+
+// ============================================
+// Alert Close Button
+// ============================================
 
 .alert__close {
-  position: absolute;
-  right: $spacing-3;
-  top: 50%;
-  transform: translateY(-50%);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:   24px;
+  height:  24px;
+  flex-shrink: 0;
   background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  padding: $spacing-1;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-  
-  &:hover {
-    opacity: 1;
-  }
+  border:     none;
+  color:      var(--ios-secondary-label, rgba(60,60,67,0.6));
+  cursor:     pointer;
+  font-size:  18px;
+  border-radius: 50%;
+  transition: opacity 0.15s ease;
+  margin-top: -1px;
+
+  &:hover  { opacity: 0.6; }
+  &:active { opacity: 0.3; }
 }
 
 // ============================================
-// Toast Positioning
+// Alert Status Variants
 // ============================================
 
-.toast-container {
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
-  
-  // Top positions
-  &--top {
-    top: $spacing-4;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  &--top-left {
-    top: $spacing-4;
-    left: $spacing-4;
-  }
-  
-  &--top-right {
-    top: $spacing-4;
-    right: $spacing-4;
-  }
-  
-  // Bottom positions
-  &--bottom {
-    bottom: $spacing-4;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  &--bottom-left {
-    bottom: $spacing-4;
-    left: $spacing-4;
-  }
-  
-  &--bottom-right {
-    bottom: $spacing-4;
-    right: $spacing-4;
-  }
+.alert--info {
+  background-color: rgba(0,122,255,0.10);
+  .alert__icon { color: var(--ios-blue, $color-primary); }
+  .alert__title { color: var(--ios-blue, $color-primary); }
 }
 
-.toast-container .alert {
-  pointer-events: auto;
-  margin-bottom: $spacing-2;
-  width: 100%;
-  max-width: 400px;
+.alert--success {
+  background-color: rgba(52,199,89,0.12);
+  .alert__icon  { color: var(--ios-green, $color-success); }
+  .alert__title { color: var(--ios-green, $color-success); }
 }
+
+.alert--warning {
+  background-color: rgba(255,149,0,0.12);
+  .alert__icon  { color: var(--ios-orange, $color-warning); }
+  .alert__title { color: var(--ios-orange, $color-warning); }
+}
+
+.alert--danger,
+.alert--error {
+  background-color: rgba(255,59,48,0.12);
+  .alert__icon  { color: var(--ios-red, $color-danger); }
+  .alert__title { color: var(--ios-red, $color-danger); }
+}
+
+// Filled solid variant
+.alert--filled-info    { background-color: var(--ios-blue,   $color-primary); color: $color-white; .alert__icon, .alert__title, .alert__message, .alert__close { color: $color-white; } }
+.alert--filled-success { background-color: var(--ios-green,  $color-success); color: $color-white; .alert__icon, .alert__title, .alert__message, .alert__close { color: $color-white; } }
+.alert--filled-warning { background-color: var(--ios-orange, $color-warning); color: $color-white; .alert__icon, .alert__title, .alert__message, .alert__close { color: $color-white; } }
+.alert--filled-danger  { background-color: var(--ios-red,    $color-danger);  color: $color-white; .alert__icon, .alert__title, .alert__message, .alert__close { color: $color-white; } }
 
 // ============================================
 // Alert Sizes
 // ============================================
 
 .alert--sm {
-  padding: $spacing-2 $spacing-3;
-  border-radius: 6px;
-  font-size: $font-size-sm;
+  font-size: $ios-footnote-size;
+  padding:   $spacing-2 $spacing-3;
+  border-radius: $border-radius-md;
 }
 
 .alert--lg {
-  padding: $spacing-5 $spacing-6;
-  border-radius: 10px;
-  font-size: $font-size-lg;
+  font-size: $ios-body-size;
+  padding:   $spacing-4 $spacing-5;
+  border-radius: $border-radius-xl;
 }
 
 // ============================================
-// Alert Animation (Auto-dismiss)
+// iOS Toast / Banner (top banner, fixed position)
 // ============================================
 
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
+.alert--banner {
+  position:   fixed;
+  top:        $spacing-3;
+  left:       $spacing-4;
+  right:      $spacing-4;
+  z-index:    $z-index-notification;
+  box-shadow: $notification-shadow;
+  animation:  ios-banner-in 0.4s cubic-bezier(0.32,0.72,0,1);
+  background-color: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 0.5px solid var(--ios-separator, rgba(60,60,67,0.16));
 }
 
-.alert--dismissing {
-  animation: slideOut 0.3s ease;
+@keyframes ios-banner-in {
+  from { transform: translateY(-120%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }

@@ -1,288 +1,137 @@
 // iOS UI Kit - Avatar Component
-// Defines avatar styles with sizes, variants, and grouping
+// iOS contact avatar style
 
 // ============================================
-// Avatar Base Styles
+// Avatar Base
 // ============================================
 
 .avatar {
-  // Layout
-  display: inline-flex;
-  align-items: center;
+  display:         inline-flex;
+  align-items:     center;
   justify-content: center;
-  position: relative;
+  position:        relative;
+  flex-shrink:     0;
 
-  // Sizing (default medium)
-  width: 40px;
+  width:  40px;
   height: 40px;
 
-  // Styling
-  border-radius: 50%;
-  background-color: $color-gray-200;
-  color: $color-text-primary;
+  border-radius:    50%;
+  background-color: var(--ios-gray5, $color-gray-200); // systemGray5
+  color:            var(--ios-label, $color-text-primary);
+  overflow:         hidden;
+  user-select:      none;
 
-  // Typography for initials
-  font-family: $font-family-base;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  line-height: 1;
-  text-align: center;
+  // iOS avatars have no border by default, just the background
+  border: none;
 
-  // Effects
-  box-shadow: $card-shadow-sm;
-  overflow: hidden;
-  border: 1px solid $color-border;
-
-  // User interaction
-  user-select: none;
-  flex-shrink: 0;
+  font-family:  $font-family-base;
+  font-size:    $ios-subhead-size; // 15pt
+  font-weight:  $font-weight-semibold;
+  line-height:  1;
+  text-align:   center;
 }
-
-// ============================================
-// Avatar Image
-// ============================================
 
 .avatar__image {
-  width: 100%;
-  height: 100%;
+  width:      100%;
+  height:     100%;
   object-fit: cover;
-  display: block;
+  display:    block;
 }
-
-// ============================================
-// Avatar Initials
-// ============================================
 
 .avatar__initials {
-  display: inline-flex;
-  align-items: center;
+  display:         inline-flex;
+  align-items:     center;
   justify-content: center;
-  width: 100%;
+  width:  100%;
   height: 100%;
-  text-transform: uppercase;
+  font-size:   inherit;
+  font-weight: inherit;
+  color:       $color-white;
 }
 
 // ============================================
-// Avatar Icon
+// Avatar Sizes (iOS standard contact photo sizes)
 // ============================================
 
-.avatar__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
-  font-size: 1.4em;
-}
+.avatar--xs  { width: 24px; height: 24px; font-size: 9px; }
+.avatar--sm  { width: 32px; height: 32px; font-size: $ios-caption1-size; }
+.avatar--md  { /* 40px default */ }
+.avatar--lg  { width: 56px; height: 56px; font-size: $ios-title3-size; }
+.avatar--xl  { width: 80px; height: 80px; font-size: $ios-title1-size; }
+.avatar--2xl { width: 120px; height: 120px; font-size: $ios-large-title-size; }
 
 // ============================================
-// Avatar Sizes
+// Avatar Colors (system colors for initials bg)
 // ============================================
 
-.avatar--xs {
-  width: 24px;
-  height: 24px;
-  font-size: $font-size-xs;
-}
-
-.avatar--sm {
-  width: 32px;
-  height: 32px;
-  font-size: $font-size-xs;
-}
-
-.avatar--md {
-  width: 40px;
-  height: 40px;
-  font-size: $font-size-sm;
-}
-
-.avatar--lg {
-  width: 48px;
-  height: 48px;
-  font-size: $font-size-sm;
-}
-
-.avatar--xl {
-  width: 56px;
-  height: 56px;
-  font-size: $font-size-base;
-}
-
-.avatar--2xl {
-  width: 64px;
-  height: 64px;
-  font-size: $font-size-lg;
-}
+.avatar--blue    { background-color: var(--ios-blue,   $color-primary); }
+.avatar--green   { background-color: var(--ios-green,  $color-success); }
+.avatar--red     { background-color: var(--ios-red,    $color-danger); }
+.avatar--orange  { background-color: var(--ios-orange, $color-warning); }
+.avatar--purple  { background-color: var(--ios-purple, #AF52DE); }
+.avatar--pink    { background-color: var(--ios-pink,   #FF2D55); }
+.avatar--teal    { background-color: var(--ios-teal,   $color-info); }
+.avatar--indigo  { background-color: var(--ios-indigo, #5856D6); }
 
 // ============================================
-// Avatar Colors
+// Avatar Shapes
 // ============================================
 
-// Primary
-.avatar--primary {
-  background-color: rgba($color-primary, 0.2);
-  color: $color-primary;
-  border-color: $color-primary;
-}
+// iOS Contacts uses circular avatars (default)
+.avatar--circle { border-radius: 50%; }
 
-// Secondary
-.avatar--secondary {
-  background-color: rgba($color-secondary, 0.2);
-  color: $color-secondary;
-  border-color: $color-secondary;
-}
+// iOS app icon uses squircle (rounded rect ~22% radius)
+.avatar--squircle { border-radius: 22%; }
 
-// Success
-.avatar--success {
-  background-color: rgba($color-success, 0.2);
-  color: $color-success;
-  border-color: $color-success;
-}
+// ============================================
+// Avatar with Status Badge
+// ============================================
 
-// Warning
-.avatar--warning {
-  background-color: rgba($color-warning, 0.2);
-  color: $color-warning;
-  border-color: $color-warning;
-}
+.avatar--has-badge {
+  .avatar__badge {
+    position:         absolute;
+    bottom: 0;
+    right:  0;
+    width:  12px;
+    height: 12px;
+    border-radius:    50%;
+    border:           2px solid var(--ios-secondary-grouped-bg, $color-white);
+    background-color: var(--ios-green, $color-success);
 
-// Danger
-.avatar--danger {
-  background-color: rgba($color-danger, 0.2);
-  color: $color-danger;
-  border-color: $color-danger;
-}
-
-// Info
-.avatar--info {
-  background-color: rgba($color-info, 0.2);
-  color: $color-info;
-  border-color: $color-info;
+    &--busy    { background-color: var(--ios-red,    $color-danger); }
+    &--away    { background-color: var(--ios-orange, $color-warning); }
+    &--offline { background-color: var(--ios-gray5, $color-gray-200); }
+  }
 }
 
 // ============================================
-// Avatar Status Badge
-// ============================================
-
-.avatar__status {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: $color-success;
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px $color-border;
-}
-
-.avatar__status--offline {
-  background-color: $color-gray-400;
-}
-
-.avatar__status--away {
-  background-color: $color-warning;
-}
-
-.avatar__status--busy {
-  background-color: $color-danger;
-}
-
-// Larger status badge for bigger avatars
-.avatar--lg .avatar__status,
-.avatar--xl .avatar__status,
-.avatar--2xl .avatar__status {
-  width: 14px;
-  height: 14px;
-  bottom: -4px;
-  right: -4px;
-}
-
-// ============================================
-// Avatar Group (Stacked)
+// Avatar Group (stack)
 // ============================================
 
 .avatar-group {
-  display: inline-flex;
+  display:     inline-flex;
   align-items: center;
 
-  // Stack avatars with overlap
   .avatar {
     margin-left: -8px;
-    box-shadow: 0 0 0 2px white, $card-shadow-sm;
+    border: 2px solid var(--ios-secondary-grouped-bg, $color-white);
+    box-shadow: none;
 
-    &:first-child {
-      margin-left: 0;
-      z-index: 3;
-    }
-
-    &:nth-child(2) {
-      z-index: 2;
-    }
-
-    &:nth-child(3) {
-      z-index: 1;
-    }
-
-    &:nth-child(n+4) {
-      z-index: 0;
-    }
+    &:first-child { margin-left: 0; }
   }
 }
 
-// Avatar group with different overlap for size variants
-.avatar-group--sm .avatar {
-  margin-left: -6px;
-}
-
-.avatar-group--md .avatar {
-  margin-left: -8px;
-}
-
-.avatar-group--lg .avatar {
-  margin-left: -12px;
-}
+.avatar-group--sm .avatar { margin-left: -6px; }
+.avatar-group--lg .avatar { margin-left: -12px; }
 
 // ============================================
-// Avatar Halo / Ring
+// Avatar Overflow (+N indicator)
 // ============================================
 
-.avatar--halo {
-  box-shadow: 0 0 0 2px rgba($color-primary, 0.3), $card-shadow-sm;
+.avatar--overflow {
+  background-color: var(--ios-gray5, $color-gray-200);
+  color:            var(--ios-secondary-label, rgba(60,60,67,0.6));
+  font-size:        $ios-caption1-size;
+  font-weight:      $font-weight-semibold;
+  border: 2px solid var(--ios-secondary-grouped-bg, $color-white);
 }
-
-.avatar--halo-primary {
-  box-shadow: 0 0 0 2px rgba($color-primary, 0.3), $card-shadow-sm;
-}
-
-.avatar--halo-success {
-  box-shadow: 0 0 0 2px rgba($color-success, 0.3), $card-shadow-sm;
-}
-
-.avatar--halo-warning {
-  box-shadow: 0 0 0 2px rgba($color-warning, 0.3), $card-shadow-sm;
-}
-
-.avatar--halo-danger {
-  box-shadow: 0 0 0 2px rgba($color-danger, 0.3), $card-shadow-sm;
-}
-
-// ============================================
-// Avatar Interactive
-// ============================================
-
-.avatar--clickable {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-

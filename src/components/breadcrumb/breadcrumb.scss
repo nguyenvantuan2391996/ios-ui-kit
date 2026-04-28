@@ -1,5 +1,5 @@
 // iOS UI Kit – Breadcrumb Component
-// Navigation trail showing the user's current location in a hierarchy
+// iOS navigation back trail (path crumbs)
 
 // ============================================
 // Base Breadcrumb
@@ -13,7 +13,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: $font-size-sm;
+  font-size: $ios-subhead-size; // 15pt
 }
 
 // ============================================
@@ -31,23 +31,17 @@
 // ============================================
 
 .breadcrumb__link {
-  color: $color-primary;
+  color: var(--ios-blue, $color-primary);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: opacity 0.15s ease;
   cursor: pointer;
 
   &:hover {
-    color: darken($color-primary, 10%);
-    text-decoration: underline;
+    opacity: 0.7;
   }
 
   &:active {
-    color: darken($color-primary, 15%);
-  }
-
-  &:disabled {
-    color: $color-text-disabled;
-    cursor: not-allowed;
+    opacity: 0.4;
   }
 }
 
@@ -56,12 +50,14 @@
 // ============================================
 
 .breadcrumb__separator {
-  display: inline-flex;
-  align-items: center;
-  color: $color-text-disabled;
-  margin: 0 $spacing-1;
+  color: var(--ios-tertiary-label, rgba(60, 60, 67, 0.3));
+  font-size: $ios-footnote-size;
+  line-height: 1;
   user-select: none;
-  font-size: $font-size-sm;
+
+  &::after {
+    content: '›';
+  }
 }
 
 // ============================================
@@ -266,4 +262,3 @@
   opacity: 0.6;
   pointer-events: none;
 }
-
