@@ -1,0 +1,20 @@
+/**
+ * ios-ui-kit — Tailwind CSS entry point
+ *
+ * This file is processed by PostCSS (via `npm run build:tw`).
+ * It emits ONLY Tailwind utility classes (prefixed with "tw-").
+ * The iOS UI Kit reset/base/components are NOT included here —
+ * they live in the SCSS pipeline (dist/ios-ui-kit.css).
+ *
+ * In production you load BOTH files:
+ *   <link rel="stylesheet" href="ios-ui-kit.css">
+ *   <link rel="stylesheet" href="tailwind.css">
+ *
+ * Or use the pre-built bundle:
+ *   <link rel="stylesheet" href="ios-ui-kit-full.css">
+ *
+ * @tailwind base     ← intentionally omitted (preflight is disabled in config)
+ */
+@tailwind components;
+@tailwind utilities;
+

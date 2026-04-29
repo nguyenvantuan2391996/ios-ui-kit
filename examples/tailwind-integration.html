@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iOS UI Kit × Tailwind CSS — Integration Demo</title>
+
+  <!--
+    ┌─────────────────────────────────────────────────────────────────────────┐
+    │  LOAD ORDER                                                             │
+    │  1. ios-ui-kit.css  — all base / components / utilities (SCSS output)  │
+    │  2. tailwind.css    — tw-* utility layer (PostCSS output)              │
+    │                                                                         │
+    │  Together they form the full "ios-ui-kit-full.css" bundle              │
+    └─────────────────────────────────────────────────────────────────────────┘
+  -->
+  <link rel="stylesheet" href="../dist/ios-ui-kit.css" />
+  <link rel="stylesheet" href="../dist/tailwind.css" />
+
+  <style>
+    /* Page-level chrome only — not part of the kit */
+    body          { background: var(--ios-grouped-bg, #F2F2F7); }
+    .demo-section { max-width: 760px; margin: 0 auto; }
+    .demo-label   {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--ios-gray);
+      margin-bottom: 8px;
+    }
+    .demo-code {
+      font-family: 'SF Mono', ui-monospace, monospace;
+      font-size: 12px;
+      background: var(--ios-gray6);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 12px 0 24px;
+      white-space: pre-wrap;
+      color: var(--ios-label);
+      border: 0.5px solid var(--ios-separator);
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     PAGE HEADER
+     Uses existing .navbar + Tailwind utilities for internal layout
+  ═══════════════════════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+  <!-- tw- prefix: Tailwind flex utilities control the inner layout -->
+  <div class="tw-flex tw-items-center tw-justify-between tw-w-full">
+    <span class="navbar__title">iOS Kit × Tailwind</span>
+    <div class="tw-flex tw-gap-2">
+      <button class="btn btn--ghost btn--sm">Docs</button>
+      <button class="btn btn--sm">Get Started</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     MAIN CONTENT
+  ═══════════════════════════════════════════════════════════════════════════ -->
+<main class="tw-px-4 tw-py-8 demo-section">
+
+  <!-- ───────────────────────────────────────────────────────────────────── -->
+  <!-- SECTION TITLE                                                         -->
+  <!-- ───────────────────────────────────────────────────────────────────── -->
+  <div class="tw-mb-8">
+    <h1 class="tw-text-large-title tw-font-bold tw-text-label tw-mb-2">
+      Integration Examples
+    </h1>
+    <p class="tw-text-body tw-text-label-secondary tw-max-w-lg">
+      Tailwind utilities (prefixed <code style="font-family:monospace">tw-</code>)
+      work alongside the existing iOS UI Kit classes with zero conflicts.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EXAMPLE 1 — BUTTON ROW
+       Before: <button class="btn btn--primary"> … </button>
+       After:  add Tailwind spacing / responsive helpers to the wrapper
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Example 1 — Button Group</p>
+
+    <!-- BEFORE ─────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-red)">▸ Before (kit only)</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn">Primary</button>
+      <button class="btn btn--secondary">Secondary</button>
+      <button class="btn btn--ghost">Ghost</button>
+      <button class="btn btn--danger">Danger</button>
+    </div>
+    <pre class="demo-code">&lt;div style="display:flex;gap:8px"&gt;
+  &lt;button class="btn"&gt;Primary&lt;/button&gt;
+  &lt;button class="btn btn--secondary"&gt;Secondary&lt;/button&gt;
+&lt;/div&gt;</pre>
+
+    <!-- AFTER ──────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-green)">▸ After (kit + Tailwind)</p>
+    <!--
+      tw-flex / tw-flex-wrap / tw-gap-2 replace the inline style.
+      tw-w-full + tw-sm:w-auto enable responsive full-width on mobile.
+    -->
+    <div class="tw-flex tw-flex-wrap tw-gap-2 tw-mb-4">
+      <button class="btn tw-flex-1 tw-sm:flex-none">Primary</button>
+      <button class="btn btn--secondary tw-flex-1 tw-sm:flex-none">Secondary</button>
+      <button class="btn btn--ghost tw-flex-1 tw-sm:flex-none">Ghost</button>
+      <button class="btn btn--danger tw-flex-1 tw-sm:flex-none">Danger</button>
+    </div>
+    <pre class="demo-code">&lt;div class="tw-flex tw-flex-wrap tw-gap-2"&gt;
+  &lt;button class="btn tw-flex-1 tw-sm:flex-none"&gt;Primary&lt;/button&gt;
+  &lt;button class="btn btn--secondary tw-flex-1 tw-sm:flex-none"&gt;Secondary&lt;/button&gt;
+  &lt;button class="btn btn--ghost tw-flex-1 tw-sm:flex-none"&gt;Ghost&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Core visual style stays in .btn / .btn--* (iOS kit).          --&gt;
+&lt;!-- Tailwind handles: flex layout, gap, responsive width.         --&gt;</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EXAMPLE 2 — CARD GRID
+       Before: bare card, no responsive grid
+       After:  tw-grid gives a responsive 1→2→3 column layout
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Example 2 — Card Grid</p>
+
+    <!-- BEFORE ─────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-red)">▸ Before (kit only — no grid)</p>
+    <div style="margin-bottom:16px">
+      <div class="card" style="margin-bottom:12px">
+        <div class="card__header">
+          <h3 style="font-size:17px;font-weight:600;margin:0">Hydration</h3>
+        </div>
+        <p style="margin:0;color:var(--ios-secondary-label);font-size:15px">8 glasses today</p>
+      </div>
+    </div>
+    <pre class="demo-code">&lt;div class="card" style="margin-bottom:12px"&gt;
+  &lt;div class="card__header"&gt;…&lt;/div&gt;
+  …
+&lt;/div&gt;</pre>
+
+    <!-- AFTER ──────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-green)">▸ After (kit + Tailwind grid)</p>
+    <!--
+      tw-grid + tw-grid-cols-* = responsive column layout
+      .card controls every visual detail (radius, shadow, bg, padding)
+      Tailwind only provides the outer grid scaffolding
+    -->
+    <div class="tw-grid tw-grid-cols-1 tw-md:grid-cols-3 tw-gap-3 tw-mb-4">
+      <div class="card">
+        <div class="card__header">
+          <div class="tw-flex tw-items-center tw-justify-between">
+            <h3 class="tw-text-headline tw-font-semibold tw-m-0">Hydration</h3>
+            <span class="badge badge--primary">💧</span>
+          </div>
+        </div>
+        <p class="tw-text-subhead tw-text-label-secondary tw-m-0">8 glasses today</p>
+      </div>
+
+      <div class="card">
+        <div class="card__header">
+          <div class="tw-flex tw-items-center tw-justify-between">
+            <h3 class="tw-text-headline tw-font-semibold tw-m-0">Steps</h3>
+            <span class="badge badge--success">🏃</span>
+          </div>
+        </div>
+        <p class="tw-text-subhead tw-text-label-secondary tw-m-0">10,240 steps</p>
+      </div>
+
+      <div class="card">
+        <div class="card__header">
+          <div class="tw-flex tw-items-center tw-justify-between">
+            <h3 class="tw-text-headline tw-font-semibold tw-m-0">Sleep</h3>
+            <span class="badge badge--warning">🌙</span>
+          </div>
+        </div>
+        <p class="tw-text-subhead tw-text-label-secondary tw-m-0">7h 42m</p>
+      </div>
+    </div>
+    <pre class="demo-code">&lt;!-- Tailwind: responsive 1→3 column grid, uniform gap      --&gt;
+&lt;div class="tw-grid tw-grid-cols-1 tw-md:grid-cols-3 tw-gap-3"&gt;
+
+  &lt;!-- iOS Kit: card surface, shadow, border-radius, colors   --&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="card__header"&gt;
+      &lt;!-- Tailwind: flex row to align title + badge            --&gt;
+      &lt;div class="tw-flex tw-items-center tw-justify-between"&gt;
+        &lt;h3 class="tw-text-headline tw-font-semibold"&gt;Hydration&lt;/h3&gt;
+        &lt;span class="badge badge--primary"&gt;💧&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p class="tw-text-subhead tw-text-label-secondary"&gt;8 glasses&lt;/p&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EXAMPLE 3 — FORM LAYOUT
+       Before: vertical stack with manual margin
+       After:  Tailwind flex/grid layout, clean alignment, responsive
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Example 3 — Form Layout</p>
+
+    <!-- BEFORE ─────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-red)">▸ Before (kit only)</p>
+    <div class="card" style="margin-bottom:16px">
+      <form>
+        <div class="form-group" style="margin-bottom:12px">
+          <label class="form-label">First Name</label>
+          <input type="text" class="input" placeholder="John" />
+        </div>
+        <div class="form-group" style="margin-bottom:12px">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="input" placeholder="Appleseed" />
+        </div>
+        <button class="btn" style="width:100%">Save</button>
+      </form>
+    </div>
+    <pre class="demo-code">&lt;div class="form-group" style="margin-bottom:12px"&gt;
+  &lt;label class="form-label"&gt;First Name&lt;/label&gt;
+  &lt;input class="input" /&gt;
+&lt;/div&gt;</pre>
+
+    <!-- AFTER ──────────────────────────────────────── -->
+    <p class="demo-label" style="color:var(--ios-green)">▸ After (kit + Tailwind layout)</p>
+    <!--
+      tw-grid / tw-gap-* handle spacing (no more style="margin-bottom:...")
+      tw-md:grid-cols-2 creates a 2-up field layout on tablet
+      tw-w-full replaces style="width:100%"
+      .input / .btn / .form-label retain 100% of their iOS styling
+    -->
+    <div class="card tw-mb-4">
+      <form>
+        <div class="tw-grid tw-grid-cols-1 tw-md:grid-cols-2 tw-gap-3 tw-mb-4">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="input" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="input" placeholder="Appleseed" />
+          </div>
+          <div class="form-group tw-md:col-span-2">
+            <label class="form-label">Email</label>
+            <input type="email" class="input" placeholder="john@example.com" />
+          </div>
+        </div>
+
+        <div class="tw-flex tw-gap-2 tw-justify-end">
+          <button type="button" class="btn btn--ghost">Cancel</button>
+          <button type="submit" class="btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+    <pre class="demo-code">&lt;!-- Tailwind: 1→2 column grid, uniform gap, no inline styles --&gt;
+&lt;div class="tw-grid tw-grid-cols-1 tw-md:grid-cols-2 tw-gap-3 tw-mb-4"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label class="form-label"&gt;First Name&lt;/label&gt;
+    &lt;input class="input" /&gt;          &lt;!-- iOS Kit: full input styling  --&gt;
+  &lt;/div&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label class="form-label"&gt;Last Name&lt;/label&gt;
+    &lt;input class="input" /&gt;
+  &lt;/div&gt;
+  &lt;!-- Full-width field spanning both columns                   --&gt;
+  &lt;div class="form-group tw-md:col-span-2"&gt;
+    &lt;label class="form-label"&gt;Email&lt;/label&gt;
+    &lt;input class="input" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tailwind: flex row, right-aligned action buttons         --&gt;
+&lt;div class="tw-flex tw-gap-2 tw-justify-end"&gt;
+  &lt;button class="btn btn--ghost"&gt;Cancel&lt;/button&gt;
+  &lt;button class="btn"&gt;Save Changes&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EXAMPLE 4 — NOTIFICATION BANNER
+       Demonstrates Tailwind-only layout inside a kit component
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Example 4 — Notification with rich layout</p>
+
+    <div class="alert alert--info tw-flex tw-items-start tw-gap-3 tw-mb-4">
+      <!-- icon slot -->
+      <span class="tw-text-xl tw-shrink-0" aria-hidden="true">ℹ️</span>
+      <!-- text block -->
+      <div class="tw-flex-1 tw-min-w-0">
+        <p class="tw-text-headline tw-font-semibold tw-m-0 tw-mb-1">Software Update Available</p>
+        <p class="tw-text-footnote tw-text-label-secondary tw-m-0">iOS 18.4 — Your device will restart automatically after install.</p>
+      </div>
+      <!-- dismiss -->
+      <button class="btn btn--ghost btn--sm tw-shrink-0 tw-self-center">Later</button>
+    </div>
+    <pre class="demo-code">&lt;!-- iOS Kit: .alert visual (bg, border, color, radius)         --&gt;
+&lt;div class="alert alert--info  tw-flex tw-items-start tw-gap-3"&gt;
+  &lt;span class="tw-text-xl tw-shrink-0"&gt;ℹ️&lt;/span&gt;
+  &lt;div class="tw-flex-1 tw-min-w-0"&gt;
+    &lt;p class="tw-text-headline tw-font-semibold tw-mb-1"&gt;Title&lt;/p&gt;
+    &lt;p class="tw-text-footnote tw-text-label-secondary"&gt;Body…&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button class="btn btn--ghost btn--sm tw-shrink-0"&gt;Later&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       EXAMPLE 5 — FROSTED-GLASS HEADER (backdrop-blur)
+       iOS visual effect using Tailwind's tw-backdrop-blur utilities
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Example 5 — Frosted Glass / Vibrancy Card</p>
+
+    <div style="position:relative;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#007AFF 0%,#5AC8FA 100%);padding:40px 24px;">
+      <!-- Frosted layer: Tailwind backdrop-blur + bg opacity -->
+      <div class="card
+                  tw-bg-white/60
+                  tw-backdrop-blur
+                  tw-border tw-border-white/40
+                  tw-shadow-xl
+                  tw-relative">
+        <div class="tw-flex tw-items-center tw-gap-3 tw-mb-3">
+          <div class="avatar avatar--md" style="background:var(--ios-blue)">
+            <span style="color:#fff;font-weight:700;font-size:18px">A</span>
+          </div>
+          <div>
+            <p class="tw-text-headline tw-font-semibold tw-m-0 tw-text-label">Apple ID</p>
+            <p class="tw-text-footnote tw-text-label-secondary tw-m-0">john@icloud.com</p>
+          </div>
+        </div>
+        <div class="tw-flex tw-gap-2">
+          <button class="btn btn--sm tw-flex-1">Manage</button>
+          <button class="btn btn--ghost btn--sm tw-flex-1">Sign Out</button>
+        </div>
+      </div>
+    </div>
+    <pre class="demo-code">&lt;!-- Frosted glass card — iOS "vibrancy" effect                 --&gt;
+&lt;div class="card
+            tw-bg-white/60
+            tw-backdrop-blur
+            tw-border tw-border-white/40
+            tw-shadow-xl"&gt;
+  …
+&lt;/div&gt;
+
+&lt;!-- iOS Kit: .card       → radius, base shadow, color          --&gt;
+&lt;!-- Tailwind: tw-backdrop-blur → frosted glass blur            --&gt;
+&lt;!--           tw-bg-white/60  → 60% white fill                 --&gt;
+&lt;!--           tw-shadow-xl    → stronger elevation             --&gt;</pre>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CHEAT SHEET
+    ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="tw-mb-10">
+    <p class="demo-label">Quick Reference — What goes where</p>
+
+    <div class="tw-grid tw-grid-cols-1 tw-md:grid-cols-2 tw-gap-3">
+      <div class="card">
+        <div class="card__header">
+          <h3 class="tw-text-title3 tw-font-semibold tw-m-0" style="color:var(--ios-blue)">
+            iOS UI Kit classes
+          </h3>
+        </div>
+        <ul class="tw-text-body tw-text-label tw-m-0 tw-pl-5 tw-space-y-1">
+          <li>Component visuals → <code>.btn</code>, <code>.card</code>, <code>.input</code></li>
+          <li>Color &amp; typography tokens</li>
+          <li>States: hover, focus, disabled</li>
+          <li>Dark-mode via CSS custom properties</li>
+          <li>iOS-specific look &amp; feel</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card__header">
+          <h3 class="tw-text-title3 tw-font-semibold tw-m-0" style="color:var(--ios-green)">
+            Tailwind utilities (<code>tw-*</code>)
+          </h3>
+        </div>
+        <ul class="tw-text-body tw-text-label tw-m-0 tw-pl-5 tw-space-y-1">
+          <li>Layout → <code>tw-flex</code>, <code>tw-grid</code>, <code>tw-gap-*</code></li>
+          <li>Spacing → <code>tw-mt-*</code>, <code>tw-px-*</code>, <code>tw-py-*</code></li>
+          <li>Responsive → <code>tw-md:grid-cols-2</code></li>
+          <li>Alignment → <code>tw-items-center</code>, <code>tw-justify-between</code></li>
+          <li>Effects → <code>tw-backdrop-blur</code>, <code>tw-opacity-*</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════════════════════════════════════════ -->
+<footer class="tw-text-center tw-py-8 tw-text-footnote tw-text-label-secondary">
+  ios-ui-kit × Tailwind CSS — additive integration, zero visual regression
+</footer>
+
+</body>
+</html>
+

@@ -9,6 +9,7 @@
     "dist/",
     "src/",
     "types/",
+    "tailwind.config.js",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
@@ -16,8 +17,13 @@
   "scripts": {
     "build": "sass src/index.scss dist/ios-ui-kit.css",
     "build:min": "sass --style=compressed src/index.scss dist/ios-ui-kit.min.css",
-    "build:all": "npm run build && npm run build:min",
+    "build:tw": "postcss src/tailwind.css -o dist/tailwind.css",
+    "build:tw:min": "NODE_ENV=production postcss src/tailwind.css -o dist/tailwind.min.css",
+    "build:full": "npm run build && npm run build:tw && cat dist/ios-ui-kit.css dist/tailwind.css > dist/ios-ui-kit-full.css",
+    "build:full:min": "npm run build:min && npm run build:tw:min && cat dist/ios-ui-kit.min.css dist/tailwind.min.css > dist/ios-ui-kit-full.min.css",
+    "build:all": "npm run build && npm run build:min && npm run build:tw && npm run build:tw:min && npm run build:full && npm run build:full:min",
     "watch": "sass --watch src:dist",
+    "watch:tw": "postcss src/tailwind.css -o dist/tailwind.css --watch",
     "lint": "echo 'No linting configured yet'",
     "test": "echo 'No tests configured yet'",
     "serve": "npx serve examples",
@@ -53,12 +59,14 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "sass": "^1.69.0"
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.12",
+    "postcss-cli": "^11.0.1",
+    "sass": "^1.69.0",
+    "tailwindcss": "^3.4.19"
   },
-  "peerDependencies": {},
   "directories": {
     "doc": "docs",
     "example": "examples"
   }
 }
-
