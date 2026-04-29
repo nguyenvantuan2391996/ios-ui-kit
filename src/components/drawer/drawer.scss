@@ -118,7 +118,7 @@
   justify-content: space-between;
   align-items:     center;
   padding:         $spacing-3 $spacing-4;
-  border-bottom:   0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-bottom:   1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable rendering
   flex-shrink:     0;
 }
 
@@ -135,7 +135,7 @@
   justify-content: center;
   width:   30px;
   height:  30px;
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16)); // bumped from 0.12
   border:       none;
   border-radius: 50%;
   color:        var(--ios-secondary-label, rgba(60,60,67,0.6));
@@ -165,7 +165,7 @@
 .drawer__footer {
   flex-shrink:   0;
   padding:       $spacing-4;
-  border-top:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-top:    1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable rendering
   padding-bottom: calc(#{$spacing-4} + env(safe-area-inset-bottom, 0));
 }
 

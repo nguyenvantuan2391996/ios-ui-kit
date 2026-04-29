@@ -90,13 +90,15 @@
 // ============================================
 // Center / Dialog variant
 // ============================================
-
+// Center / Dialog variant
 .modal--center .modal__content {
   border-radius: $border-radius-xl;  // 16pt iOS alert radius
   max-width:     270px;              // iOS UIAlertController width
   width:         auto;
   min-width:     270px;
   animation:     ios-dialog-in 0.25s cubic-bezier(0.32,0.72,0,1);
+  // Safety-net: dialog blends into white if backdrop is low-opacity
+  border:        $border-hairline;
 }
 
 @keyframes ios-dialog-in {
@@ -130,7 +132,7 @@
   align-items:     center;
   justify-content: space-between;
   padding:         $spacing-4 $spacing-4 $spacing-3 $spacing-4;
-  border-bottom:   0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-bottom:   1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable
   gap:             $spacing-3;
 }
 
@@ -178,7 +180,7 @@
   display:         flex;
   align-items:     center;
   justify-content: stretch;
-  border-top:      0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-top:      1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable
   overflow:        hidden;
   border-radius:   0 0 $border-radius-xl $border-radius-xl;
 
@@ -189,7 +191,8 @@
     min-height:    44px;
     font-size:     $ios-body-size;
     font-weight:   $font-weight-normal;
-    border-right:  0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+    border-right:  1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable
+    box-shadow:    none;
 
     &:last-child { border-right: none; }
 

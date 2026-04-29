@@ -19,7 +19,8 @@
   border:        none;
 
   color:            var(--ios-label, $color-text-primary);
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  // Bumped from tertiary-fill (0.12) → secondary-fill (0.16) + hairline for visibility on white
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
   caret-color:      var(--ios-blue, $color-primary);
   cursor:           pointer;
 
@@ -28,6 +29,8 @@
   background-repeat:   no-repeat;
   background-position: right $spacing-3 center;
   background-size:     12px 14px;
+
+  border: $border-hairline;
 
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
@@ -47,7 +50,7 @@
 // Outlined variant
 .select--outlined {
   background-color: var(--ios-system-bg, $color-white);
-  border:           1px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border:           1px solid var(--ios-separator, rgba(60,60,67,0.36));
 
   &:focus {
     border-color:     var(--ios-blue, $color-primary);

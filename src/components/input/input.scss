@@ -18,11 +18,12 @@
   padding:       $input-padding-y $input-padding-x;
   min-height:    $touch-target-min;  // 44pt
   border-radius: $border-radius-md;  // 10pt
-  border:        none;
+  border:        $border-hairline;   // hairline separation on white pages
   outline:       none;
 
   color:            var(--ios-label, $color-text-primary);
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  // Bumped from 0.12 → 0.16: tertiary fill is near-invisible on #FFFFFF
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
   caret-color:      var(--ios-blue, $color-primary);
 
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
@@ -57,11 +58,11 @@ textarea.input {
 
 // Filled (default iOS style — gray fill, no border)
 .input--filled {
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
-  border-color: transparent;
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+  border:           $border-hairline;
 
   &:focus {
-    background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+    background-color: var(--ios-system-fill, rgba(120,120,128,0.20));
     box-shadow: 0 0 0 3.5px rgba(0,122,255,0.3);
   }
 }
@@ -69,7 +70,7 @@ textarea.input {
 // Outlined (white bg with border — secondary iOS style)
 .input--outlined {
   background-color: var(--ios-system-bg, $color-white);
-  border:           1px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border:           1px solid var(--ios-separator, rgba(60,60,67,0.36));
 
   &:focus {
     border-color: var(--ios-blue, $color-primary);
@@ -89,7 +90,7 @@ textarea.input {
 .input--underline {
   background-color: transparent;
   border:           none;
-  border-bottom:    0.5px solid var(--ios-separator, $color-border);
+  border-bottom:    1px solid var(--ios-separator, $color-border); // 1px: reliable pixel rendering
   border-radius:    0;
   padding-left:     0;
   padding-right:    0;
@@ -252,7 +253,9 @@ textarea.input {
   display:          flex;
   align-items:      center;
   gap:              $spacing-2;
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  // Bumped from 0.12 → 0.16 + hairline border for visibility on white
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+  border:           $border-hairline;
   border-radius:    $border-radius-md; // 10pt
   padding:          $spacing-2 $spacing-3;
   min-height:       36px;  // iOS search bar is 36pt

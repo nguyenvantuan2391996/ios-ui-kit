@@ -11,6 +11,16 @@ $shadow-none: none;
 // Hairline — for cards on same-color backgrounds
 $shadow-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.12);
 
+// ============================================
+// Border Tokens — reliable 1px separation on white
+// ============================================
+
+// Subtle edge: cards, groups, inputs on #FFFFFF page
+$border-hairline:        1px solid rgba(0, 0, 0, 0.08);
+
+// Stronger edge: interactive controls, containers, banners
+$border-hairline-strong: 1px solid rgba(0, 0, 0, 0.12);
+
 // Extra Small — subtle depth (table cells, small cards)
 $card-shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.08);
 

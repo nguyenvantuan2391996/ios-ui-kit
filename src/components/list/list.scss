@@ -15,13 +15,15 @@
   border-radius:    $border-radius-lg;   // 12pt
   background-color: var(--ios-secondary-grouped-bg, $color-white);
   overflow:         hidden;
-  box-shadow:       $card-shadow-xs;
+  // Upgraded from xs → sm shadow + hairline for white-page visibility
+  box-shadow:       $card-shadow-sm;
+  border:           $border-hairline;
 }
 
-// Direct children get iOS hairline separators
+// Direct children get iOS hairline separators — 1px for reliable rendering
 .list > .list-item:not(:last-child),
 .list > li:not(:last-child) {
-  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-bottom: 1px solid var(--ios-separator, rgba(60,60,67,0.12));
 }
 
 // ============================================
@@ -41,7 +43,7 @@
   user-select:      none;
 
   // iOS uses inset separator by default (starts at leading icon / text left edge)
-  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-bottom: 1px solid var(--ios-separator, rgba(60,60,67,0.12)); // 1px reliable
 
   transition: background-color 0.12s ease;
 
@@ -239,7 +241,7 @@ a.list-item {
 // ============================================
 
 .list-divider {
-  height:           0.5px;
+  height:           1px; // 1px: reliable pixel rendering
   background-color: var(--ios-opaque-separator, #C6C6C8);
   margin:           0;
 }

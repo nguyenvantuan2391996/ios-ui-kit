@@ -20,8 +20,8 @@
   backdrop-filter:  blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-  // Hairline bottom separator
-  border-bottom: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  // Hairline bottom separator — 1px for reliable pixel rendering
+  border-bottom: 1px solid var(--ios-separator, rgba(60,60,67,0.18));
 
   // No box-shadow — iOS uses hairline + blur
   box-shadow: none;
@@ -176,13 +176,16 @@
 .navbar--light {
   background-color: rgba(242,242,247,0.92);
   color: var(--ios-label, $color-text-primary);
+  border-bottom: 1px solid var(--ios-separator, rgba(60,60,67,0.18));
 }
 
 // White / opaque (for white backgrounds)
+// Must have explicit border — bg is rgba(255,255,255,0.95) = invisible on white
 .navbar--white {
   background-color: rgba(255,255,255,0.95);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,0.10); // the only visual edge on #FFFFFF pages
 }
 
 // Transparent (e.g., over image headers)
@@ -262,7 +265,9 @@
   display:          flex;
   align-items:      center;
   gap:              $spacing-2;
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  // Bumped from 0.12 → 0.16 + hairline for white-page visibility
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
+  border:           $border-hairline;
   border-radius:    $border-radius-md;
   padding:          6px $spacing-3;
   max-width:        320px;

@@ -30,11 +30,13 @@
   background-color: var(--ios-blue, $color-primary);
 
   cursor:     pointer;
-  transition: opacity 0.15s ease, transform 0.1s ease;
+  transition: opacity 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   position: relative;
   overflow: hidden;
+  // Subtle elevation so buttons stand out from page surface
+  box-shadow: $button-shadow;
 
   &:not(:disabled) {
     &:hover  { opacity: 0.85; }
@@ -126,32 +128,40 @@
 // ============================================
 
 .btn--gray {
-  background-color: var(--ios-gray6, $color-gray-100);
+  // #F2F2F7 on #FFFFFF is near-invisible → use systemGray5 (#E5E5EA) + border
+  background-color: var(--ios-gray5, $color-gray-200);
   color:            var(--ios-label, $color-text-primary);
+  border:           $border-hairline-strong;
+  box-shadow:       none; // border is the cue, no double depth
 }
 
 // ============================================
 // iOS Tinted Button (colored bg at 16% opacity)
+// Bumped from 0.16 → 0.20 for visibility on pure white (#FFFFFF)
 // ============================================
 
 .btn--tinted {
-  background-color: var(--ios-blue-tint, rgba(0,122,255,0.16));
+  background-color: rgba(0,122,255,0.20);
   color:            var(--ios-blue, $color-primary);
+  box-shadow:       none;
 }
 
 .btn--tinted-success {
-  background-color: var(--ios-green-tint, rgba(52,199,89,0.16));
+  background-color: rgba(52,199,89,0.20);
   color:            var(--ios-green, $color-success);
+  box-shadow:       none;
 }
 
 .btn--tinted-warning {
-  background-color: var(--ios-orange-tint, rgba(255,149,0,0.16));
+  background-color: rgba(255,149,0,0.20);
   color:            var(--ios-orange, $color-warning);
+  box-shadow:       none;
 }
 
 .btn--tinted-danger {
-  background-color: var(--ios-red-tint, rgba(255,59,48,0.16));
+  background-color: rgba(255,59,48,0.20);
   color:            var(--ios-red, $color-danger);
+  box-shadow:       none;
 }
 
 // ============================================

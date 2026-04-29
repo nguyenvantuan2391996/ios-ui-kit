@@ -144,6 +144,11 @@
   display:        flex;
   flex-direction: column;
   gap:            0;
+  // Container was invisible on white — add rounded shell + shadow + border
+  border-radius:  $border-radius-lg;
+  overflow:       hidden;
+  box-shadow:     $card-shadow-sm;
+  border:         $border-hairline;
 
   .toggle-item {
     display:          flex;
@@ -151,11 +156,12 @@
     justify-content:  space-between;
     padding:          $spacing-3 $spacing-4;
     background-color: var(--ios-secondary-grouped-bg, $color-white);
-    border-bottom:    0.5px solid var(--ios-separator, $color-border);
+    border-bottom:    1px solid var(--ios-separator, rgba(60,60,67,0.12)); // 1px reliable
     min-height:       $touch-target-min;
 
-    &:first-child { border-radius: $border-radius-lg $border-radius-lg 0 0; }
-    &:last-child  { border-bottom: none; border-radius: 0 0 $border-radius-lg $border-radius-lg; }
+    // Border-radius now comes from parent overflow:hidden — remove individual radii
+    &:first-child { border-radius: 0; }
+    &:last-child  { border-bottom: none; border-radius: 0; }
   }
 }
 

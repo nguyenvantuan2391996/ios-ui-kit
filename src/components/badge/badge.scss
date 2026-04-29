@@ -26,8 +26,10 @@
   background-color: var(--ios-red, $color-danger);
   color:            $color-white;
 
-  // iOS badge has a white border for separation from background
-  box-shadow: 0 0 0 2px var(--ios-secondary-grouped-bg, $color-white);
+  // White ring becomes invisible on white page → add a subtle drop shadow
+  box-shadow:
+    0 0 0 1.5px $color-white,
+    0 1px 4px rgba(0,0,0,0.14);
 }
 
 // ============================================
@@ -48,23 +50,24 @@
 }
 
 // Tinted (soft colored bg)
+// Bumped from 0.16 → 0.22 for visibility on pure white (#FFFFFF)
 .badge--tinted-primary {
-  background-color: var(--ios-blue-tint, rgba(0,122,255,0.16));
+  background-color: rgba(0,122,255,0.22);
   color:            var(--ios-blue, $color-primary);
   box-shadow:       none;
 }
 .badge--tinted-success {
-  background-color: var(--ios-green-tint, rgba(52,199,89,0.16));
+  background-color: rgba(52,199,89,0.22);
   color:            var(--ios-green, $color-success);
   box-shadow:       none;
 }
 .badge--tinted-warning {
-  background-color: var(--ios-orange-tint, rgba(255,149,0,0.16));
+  background-color: rgba(255,149,0,0.22);
   color:            var(--ios-orange, $color-warning);
   box-shadow:       none;
 }
 .badge--tinted-danger {
-  background-color: var(--ios-red-tint, rgba(255,59,48,0.16));
+  background-color: rgba(255,59,48,0.22);
   color:            var(--ios-red, $color-danger);
   box-shadow:       none;
 }
@@ -113,15 +116,18 @@
 // ============================================
 
 .badge--soft {
-  background-color: var(--ios-tertiary-fill, rgba(118,118,128,0.12));
+  // Bumped from 0.12 → 0.16 + hairline border for white-page visibility
+  background-color: var(--ios-secondary-fill, rgba(120,120,128,0.16));
   color:            var(--ios-secondary-label, rgba(60,60,67,0.6));
+  border:           $border-hairline;
   box-shadow:       none;
 }
 
-.badge--soft-primary { background-color: var(--ios-blue-tint,   rgba(0,122,255,0.16));  color: var(--ios-blue,   $color-primary); box-shadow: none; }
-.badge--soft-success { background-color: var(--ios-green-tint,  rgba(52,199,89,0.16));  color: var(--ios-green,  $color-success); box-shadow: none; }
-.badge--soft-warning { background-color: var(--ios-orange-tint, rgba(255,149,0,0.16)); color: var(--ios-orange, $color-warning); box-shadow: none; }
-.badge--soft-danger  { background-color: var(--ios-red-tint,    rgba(255,59,48,0.16)); color: var(--ios-red,    $color-danger);  box-shadow: none; }
+// Bumped from 0.16 → 0.22
+.badge--soft-primary { background-color: rgba(0,122,255,0.22);  color: var(--ios-blue,   $color-primary); box-shadow: none; }
+.badge--soft-success { background-color: rgba(52,199,89,0.22);  color: var(--ios-green,  $color-success); box-shadow: none; }
+.badge--soft-warning { background-color: rgba(255,149,0,0.22); color: var(--ios-orange, $color-warning); box-shadow: none; }
+.badge--soft-danger  { background-color: rgba(255,59,48,0.22); color: var(--ios-red,    $color-danger);  box-shadow: none; }
 
 // ============================================
 // Badge Position (absolute over elements)

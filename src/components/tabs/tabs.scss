@@ -14,11 +14,11 @@
   height:           $tab-bar-height;  // 49pt
   width:            100%;
 
-  background-color: rgba(249,249,249,0.92);
+  background-color: rgba(249,249,249,0.94); // slightly more opaque for white-page contrast
   backdrop-filter:  blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 
-  border-top: 0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-top: 1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable rendering
   box-shadow: none;
 
   // Fixed to bottom
@@ -100,7 +100,7 @@
 
   width:            100%;
   background-color: var(--ios-system-bg, $color-white);
-  border-bottom:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+  border-bottom:    1px solid var(--ios-separator, rgba(60,60,67,0.18)); // 1px reliable rendering
   overflow-x:       auto;
   scrollbar-width:  none;
 

@@ -103,14 +103,16 @@
   border-radius:    $border-radius-lg;
   overflow:         hidden;
   background-color: var(--ios-secondary-grouped-bg, $color-white);
-  box-shadow:       $card-shadow-xs;
+  // Upgraded from xs shadow → sm + hairline border for white-page visibility
+  box-shadow:       $card-shadow-sm;
+  border:           $border-hairline;
 
   .radio-item {
     display:          flex;
     align-items:      center;
     justify-content:  space-between;
     padding:          $spacing-3 $spacing-4;
-    border-bottom:    0.5px solid var(--ios-separator, rgba(60,60,67,0.29));
+    border-bottom:    1px solid var(--ios-separator, rgba(60,60,67,0.12)); // 1px for reliable rendering
     min-height:       $touch-target-min;
     cursor:           pointer;
     transition:       background-color 0.12s;

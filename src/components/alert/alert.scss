@@ -17,11 +17,14 @@
   line-height:  $line-height-relaxed;
   color:        var(--ios-label, $color-text-primary);
 
-  // Default: info
-  background-color: var(--ios-blue-tint, rgba(0,122,255,0.12));
+  // Default: info — bumped from 0.12 → 0.14 for white-page visibility
+  background-color: rgba(0,122,255,0.14);
 
-  // No hard borders — iOS uses soft tinted backgrounds
-  border: none;
+  // Left accent provides immediate color recognition on low-opacity tints
+  border-left: 3px solid var(--ios-blue, $color-primary);
+  border-top:    none;
+  border-right:  none;
+  border-bottom: none;
 }
 
 // ============================================
@@ -105,29 +108,34 @@
 
 // ============================================
 // Alert Status Variants
+// Tints bumped to 0.14; left-border accent for clear identity on white pages
 // ============================================
 
 .alert--info {
-  background-color: rgba(0,122,255,0.10);
+  background-color: rgba(0,122,255,0.14);
+  border-left: 3px solid var(--ios-blue, $color-primary);
   .alert__icon { color: var(--ios-blue, $color-primary); }
   .alert__title { color: var(--ios-blue, $color-primary); }
 }
 
 .alert--success {
-  background-color: rgba(52,199,89,0.12);
+  background-color: rgba(52,199,89,0.14);
+  border-left: 3px solid var(--ios-green, $color-success);
   .alert__icon  { color: var(--ios-green, $color-success); }
   .alert__title { color: var(--ios-green, $color-success); }
 }
 
 .alert--warning {
-  background-color: rgba(255,149,0,0.12);
+  background-color: rgba(255,149,0,0.14);
+  border-left: 3px solid var(--ios-orange, $color-warning);
   .alert__icon  { color: var(--ios-orange, $color-warning); }
   .alert__title { color: var(--ios-orange, $color-warning); }
 }
 
 .alert--danger,
 .alert--error {
-  background-color: rgba(255,59,48,0.12);
+  background-color: rgba(255,59,48,0.14);
+  border-left: 3px solid var(--ios-red, $color-danger);
   .alert__icon  { color: var(--ios-red, $color-danger); }
   .alert__title { color: var(--ios-red, $color-danger); }
 }
@@ -169,7 +177,12 @@
   background-color: rgba(255,255,255,0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 0.5px solid var(--ios-separator, rgba(60,60,67,0.16));
+  // Strengthened from 0.16 → 0.12 strong border for reliable separation on white
+  border: $border-hairline-strong;
+  border-left: 3px solid var(--ios-blue, $color-primary); // retain accent; override top/right/bottom below
+  border-top:    $border-hairline-strong;
+  border-right:  $border-hairline-strong;
+  border-bottom: $border-hairline-strong;
 }
 
 @keyframes ios-banner-in {
